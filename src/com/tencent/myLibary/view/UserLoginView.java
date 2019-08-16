@@ -86,8 +86,6 @@ public class UserLoginView extends JFrame{
 		this.add(panel_common);//将总容器全部存入进容器JFrame
 		
 		
-		
-		
 		this.setTitle("用户登录窗体");//设置窗体的标题
 		this.setSize(380,210);//设置窗体的大小
 		this.setResizable(false);//不能收缩
