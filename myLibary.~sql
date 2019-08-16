@@ -3,10 +3,10 @@ create table myLibary_book
   book_id number(6) primary key,
   book_name varchar2(40) not null,
   lend_count number(3) not null,
-  status number(1) not null check(status in (0,1))---0è¡¨ç¤ºå€Ÿå‡ºï¼Œ1è¡¨ç¤ºåœ¨é¦†
+  status number(1) not null check(status in (0,1))---0±íÊ¾½è³ö£¬1±íÊ¾ÔÚ¹İ
 );
 
-create sequence seq_myLibary_book_id;---è¿™ä¸ªåºåˆ—ä¸ºbookçš„idèµ‹å€¼ï¼Œé»˜è®¤ä»1å¼€å§‹
+create sequence seq_myLibary_book_id;---Õâ¸öĞòÁĞÎªbookµÄid¸³Öµ£¬Ä¬ÈÏ´Ó1¿ªÊ¼
 
 
 
