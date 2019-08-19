@@ -1,6 +1,8 @@
 package com.tencent.myLibary.view;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -8,8 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import com.tencent.myLibary.dao.impl.UserDaoImpl;
+import com.tencent.myLibary.entity.User;
 
 /**
  * 
@@ -40,9 +46,75 @@ public class UserLoginView extends JFrame{
 	private JButton btn_register;//注册按钮
 	
 	
+	
+	
+	/**
+	 * 给所有按钮注册侦听器的方法
+	 */
+	private void registetActionListener()
+	{
+		btn_login.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("你点击了登录按钮");
+				/*
+				 * 点击登录按钮的目的：登录，来到主窗体
+				 */
+				//1.获取用户名和密码，还有用户类型
+				String username=txt_username.getText();
+				String password=txt_password.getText();
+				//String type=(String)cb_type.getSelectedItem();
+				//System.out.println("username:"+username);
+				//System.out.println("password:"+password);
+				int type=cb_type.getSelectedIndex();
+				int user_type=(type==0)?1:2;//1 是管理员   2是普通用户
+				
+				//2.对数据进行非空判断
+				if(username==null||"".equals(username.trim())||password==null||"".equals(password.trim()))
+				{
+					JOptionPane.showMessageDialog(null, "用户名或者密码为空，请重新输入");
+					return;
+				}
+				
+				//3.判断用户是否存在,下面的代码是把两行代码合成一行，这样执行效率高，拿的工资高
+//				User user=userDao.queryUserByNameAndPassword(username, password,user_type);
+				UserDaoImpl dao=new UserDaoImpl();
+				User user=dao.queryUserByNameAndPassword(username, password, user_type);
+				
+				if(user==null)
+				{
+					JOptionPane.showMessageDialog(null, "用户名或者密码错误，请重新输入");
+					return;
+				}
+				
+				//4.判断用户类型：如果是普通用户则弹出用户主窗体，如果是管理员，则弹出管理员主窗体
+				if(user.getUserType()==1)
+				{
+					System.out.println("弹出管理员主窗体");
+					//new AdminMainView();
+					
+				}else
+				{
+					System.out.println("弹出用户主窗体");
+//					new UserMainView();
+//					UserLoginView.this.dispose();//释放窗体占用的内存资源
+				}
+				
+				
+				System.out.println("9999999999999999");
+			}
+		});
+		btn_register.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("你点击了注册按钮");
+			}
+		});
+	}
 
-	
-	
 	
 	
 	/**
