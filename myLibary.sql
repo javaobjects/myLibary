@@ -68,10 +68,23 @@ create table myLibary_user
 
 create sequence seq_myLibary_user_id;
 
+select seq_myLibary_user_id.nextval from dual;
+select seq_myLibary_user_id.currval from dual;
 
+insert into myLibary_user
+values(seq_myLibary_user_id.currval,'aaa',123456,1);--1
+insert into myLibary_user
+values(seq_myLibary_user_id.nextval,'bbb',123456,2);--2
+insert into myLibary_user
+values(seq_myLibary_user_id.nextval,'ccc',123456,1);--3
+insert into myLibary_user
+values(seq_myLibary_user_id.nextval,'ddd',123456,2);--4
+insert into myLibary_user
+values(seq_myLibary_user_id.nextval,'eee',123456,1);--5
+insert into myLibary_user 
+values(seq_myLibary_user_id.nextval,'fff',123456,2);--6
 
-
-
+select * from myLibary_user;
 
 
 create table myLibary_record
@@ -94,3 +107,116 @@ alter table myLibary_record
 alter table myLibary_record
   add constraint FK_MYLIBARY_BOOK_ID foreign key (book_id)
   references myLibary_book(book_id);
+
+select seq_myLibary_record_id.nextval from dual;
+select seq_myLibary_record_id.currval from dual;
+
+
+
+insert into myLibary_record
+values(seq_myLibary_record_id.currval,1,1,to_date('2019-04-02','yyyy/mm/dd'),
+to_date('2019-05-01','yyyy/mm/dd'));--1
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,1,2,to_date('2019-04-02','yyyy/mm/dd'),null);--2
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,1,3,to_date('2019-04-02','yyyy/mm/dd'),
+to_date('2019-05-01','yyyy/mm/dd'));--3
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,1,4,to_date('2019-04-02','yyyy/mm/dd'),null);--4
+
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,1,5,to_date('2019-04-02','yyyy/mm/dd'),
+to_date('2019-05-01','yyyy/mm/dd'));--5
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,1,6,to_date('2019-04-02','yyyy/mm/dd'),
+to_date('2019-05-01','yyyy/mm/dd'));--6
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,1,7,to_date('2019-04-02','yyyy/mm/dd'),
+to_date('2019-05-01','yyyy/mm/dd'));--7
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,1,8,to_date('2019-04-02','yyyy/mm/dd'),
+to_date('2019-05-01','yyyy/mm/dd'));--8
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,2,9,to_date('2019-01-01','yyyy/mm/dd'),
+to_date('2019-01-05','yyyy/mm/dd'));--9
+
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,2,10,to_date('2019-01-01','yyyy/mm/dd'),
+to_date('2019-01-05','yyyy/mm/dd'));--10
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,2,11,to_date('2019-01-01','yyyy/mm/dd'),
+to_date('2019-01-05','yyyy/mm/dd'));--11
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,2,12,to_date('2019-01-01','yyyy/mm/dd'),
+to_date('2019-01-05','yyyy/mm/dd'));--12
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,2,13,to_date('2019-01-01','yyyy/mm/dd'),
+to_date('2019-01-05','yyyy/mm/dd'));--13
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,2,14,to_date('2019-01-01','yyyy/mm/dd'),
+to_date('2019-01-05','yyyy/mm/dd'));--14
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,2,15,to_date('2019-01-01','yyyy/mm/dd'),
+to_date('2019-01-05','yyyy/mm/dd'));--15
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,2,16,to_date('2019-01-01','yyyy/mm/dd'),
+to_date('2019-01-05','yyyy/mm/dd'));--16
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,3,17,to_date('2019-03-03','yyyy/mm/dd'),
+to_date('2019-03-05','yyyy/mm/dd'));--17
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,3,18,to_date('2019-03-03','yyyy/mm/dd'),
+to_date('2019-03-05','yyyy/mm/dd'));--18
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,3,19,to_date('2019-03-03','yyyy/mm/dd'),
+to_date('2019-03-05','yyyy/mm/dd'));--19
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,3,20,to_date('2019-03-03','yyyy/mm/dd'),
+to_date('2019-03-05','yyyy/mm/dd'));--20
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,3,1,to_date('2019-03-03','yyyy/mm/dd'),
+to_date('2019-03-05','yyyy/mm/dd'));--21
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,3,2,to_date('2019-03-03','yyyy/mm/dd'),
+to_date('2019-03-05','yyyy/mm/dd'));--22
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,3,3,to_date('2019-03-03','yyyy/mm/dd'),
+to_date('2019-03-05','yyyy/mm/dd'));--23
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,4,7,to_date('2019-07-07','yyyy/mm/dd'),
+to_date('2019-07-24','yyyy/mm/dd'));--24
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,5,10,to_date('2019-07-07','yyyy/mm/dd'),
+to_date('2019-07-24','yyyy/mm/dd'));--25
+
+insert into myLibary_record
+values(seq_myLibary_record_id.nextval,6,12,to_date('2019-07-07','yyyy/mm/dd'),
+to_date('2019-07-24','yyyy/mm/dd'));--25
+
+select * from Mylibary_User;
+select * from Mylibary_Book;
+select * from myLibary_record;
