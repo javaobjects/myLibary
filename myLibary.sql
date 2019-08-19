@@ -1,4 +1,4 @@
-create table myLibary_book
+﻿create table myLibary_book
 (
   book_id number(6) primary key,
   book_name varchar2(40) not null,
@@ -58,19 +58,6 @@ values(seq_myLibary_book_id.nextval,'mybaits入门',15,0);--20
 
 select * from myLibary_book;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 create table myLibary_user
 (
   user_id number(6) primary key,
@@ -80,6 +67,11 @@ create table myLibary_user
 );
 
 create sequence seq_myLibary_user_id;
+
+
+
+
+
 
 
 create table myLibary_record
