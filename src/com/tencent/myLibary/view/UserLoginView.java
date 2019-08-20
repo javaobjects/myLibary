@@ -93,11 +93,13 @@ public class UserLoginView extends JFrame{
 				if(user.getUserType()==1)
 				{
 					System.out.println("弹出管理员主窗体");
+					
 					//new AdminMainView();
 					
 				}else
 				{
 					System.out.println("弹出用户主窗体");
+					
 //					new UserMainView();
 //					UserLoginView.this.dispose();//释放窗体占用的内存资源
 				}
