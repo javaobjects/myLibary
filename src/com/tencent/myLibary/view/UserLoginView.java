@@ -168,5 +168,6 @@ public class UserLoginView extends JFrame{
 	
 	public UserLoginView() {
 		init();
+		registetActionListener();
 	}
 }
