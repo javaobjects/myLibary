@@ -9,6 +9,19 @@ public interface RecordDaoIfac {
 
 	/**
 	 * 
+	 * <p>Title: returnBook</p>  
+	 * <p>
+	 *	Description: 
+	 *	还书功能
+	 * </p> 
+	 * @param record_id
+	 * @param book_id
+	 * @return
+	 */
+	public boolean returnBook(int record_id,int book_id);
+	
+	/**
+	 * 
 	 * <p>Title: queryAllRecord</p>  
 	 * <p>
 	 *	Description: 

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,6 +25,16 @@ import com.tencent.myLibary.dao.ifac.RecordDaoIfac;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
+/**
+ * 
+* <p>Title: UserQueryRecordView</p>  
+* <p>
+*	Description: 
+*	用户模块查询借阅记录窗体
+* </p> 
+* @author xianxian 
+* @date 2019年8月20日
+ */
 public class UserQueryRecordView extends JInternalFrame{
 	
 	private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
@@ -189,23 +200,23 @@ public class UserQueryRecordView extends JInternalFrame{
 				
 				
 				//2.对id进行非空校验
-//				if(record_id==0)
-//				{
-//					JOptionPane.showMessageDialog(null, "请先选择要还的书");
-//					return;
-//				}
-//				
-//				//3.调用底层dao完成还书功能并提示信息
-//				boolean result = recordDao.returnBook(record_id,book_id);
-//				if(result)
-//				{
-//					JOptionPane.showMessageDialog(null, "还书成功");
-//					return;
-//				}else
-//				{
-//					JOptionPane.showMessageDialog(null, "还书失败");
-//					return;
-//				}
+				if(record_id==0)
+				{
+					JOptionPane.showMessageDialog(null, "请先选择要还的书");
+					return;
+				}
+				
+				//3.调用底层dao完成还书功能并提示信息
+				boolean result = recordDao.returnBook(record_id,book_id);
+				if(result)
+				{
+					JOptionPane.showMessageDialog(null, "还书成功");
+					return;
+				}else
+				{
+					JOptionPane.showMessageDialog(null, "还书失败");
+					return;
+				}
 
 			}
 		});
