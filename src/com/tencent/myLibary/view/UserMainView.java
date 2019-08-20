@@ -97,6 +97,9 @@ public class UserMainView extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("click btn_quy_book");
+				UserQueryBookView qbv = new UserQueryBookView(getUser());
+				panel_left.add(qbv);
+				qbv.toFront();
 			}
 		});
 		
@@ -133,4 +136,9 @@ public class UserMainView extends JFrame{
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);//点击×之后程序退出
 		this.setVisible(true);//显示
 	}
+
+	public User getUser() {
+		return user;
+	}
+	
 }
