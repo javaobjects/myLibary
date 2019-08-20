@@ -79,7 +79,7 @@ public class BookDaoImpl implements BookDaoIfac {
 				int rows_insert=stmt.executeUpdate();
 				
 				//2.修改书的状态为0
-				stmt = conn.prepareStatement("update myLibary_book set status=0 where book_id=?");
+				stmt = conn.prepareStatement("update myLibary_book set status=0,lend_count = lend_count + 1 where book_id=?");
 				stmt.setInt(1,book_id);
 				int rows_update=stmt.executeUpdate();
 				
