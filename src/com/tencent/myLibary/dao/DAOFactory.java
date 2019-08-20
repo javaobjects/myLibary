@@ -1,8 +1,10 @@
 package com.tencent.myLibary.dao;
 
 import com.tencent.myLibary.dao.ifac.BookDaoIfac;
+import com.tencent.myLibary.dao.ifac.RecordDaoIfac;
 import com.tencent.myLibary.dao.ifac.UserDaoIfac;
 import com.tencent.myLibary.dao.impl.BookDaoImpl;
+import com.tencent.myLibary.dao.impl.RecordDaoImpl;
 import com.tencent.myLibary.dao.impl.UserDaoImpl;
 
 /**
@@ -32,5 +34,9 @@ public class DAOFactory {
 
 	public static BookDaoIfac getBookDaoInstance() {
 		return new BookDaoImpl();
+	}
+	
+	public static RecordDaoIfac getRecordDaoInstance() {
+		return new RecordDaoImpl();
 	}
 }

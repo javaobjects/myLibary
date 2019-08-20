@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,12 +20,13 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 import com.tencent.myLibary.dao.DAOFactory;
+import com.tencent.myLibary.dao.ifac.RecordDaoIfac;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
 public class UserQueryRecordView extends JInternalFrame{
 	
-//	private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
+	private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
 	
 	private User user;
 	
@@ -161,19 +161,19 @@ public class UserQueryRecordView extends JInternalFrame{
 				
 				int type = cb_query_type.getSelectedIndex();// 值从0开始
 				List<Record> records=null;
-//				switch (type) {
-//				case 0:
-//					records = recordDao.queryAllRecord(user);
-//					break;
-//				case 1:
-//					records = recordDao.queryAllNotReturnRecord(user);
-//					break;
-//				case 2:
-//					records = recordDao.queryAllReturnRecord(user);
-//					break;
-//				default:
-//					break;
-//				}
+				switch (type) {
+				case 0:
+					records = recordDao.queryAllRecord(user);
+					break;
+				case 1:
+					records = recordDao.queryAllNotReturnRecord(user);
+					break;
+				case 2:
+					records = recordDao.queryAllReturnRecord(user);
+					break;
+				default:
+					break;
+				}
 				System.out.println("records:"+records.toString());
 				
 				RecordModel model = new RecordModel(records);
