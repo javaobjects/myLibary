@@ -14,7 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.tencent.myLibary.dao.impl.UserDaoImpl;
+import com.tencent.myLibary.dao.DAOFactory;
+import com.tencent.myLibary.dao.ifac.UserDaoIfac;
 import com.tencent.myLibary.entity.User;
 
 /**
@@ -45,8 +46,10 @@ public class UserLoginView extends JFrame{
 	private JButton btn_login;//登录按钮
 	private JButton btn_register;//注册按钮
 	
-	
-	
+	/**
+	 * 窗口属性依赖UserDaoIfac接口
+	 */
+	private UserDaoIfac userDao = DAOFactory.getUserDaoInstance();//声明依赖并初始化，避免空指针异常
 	
 	/**
 	 * 给所有按钮注册侦听器的方法
@@ -79,9 +82,9 @@ public class UserLoginView extends JFrame{
 				}
 				
 				//3.判断用户是否存在,下面的代码是把两行代码合成一行，这样执行效率高，拿的工资高
-//				User user=userDao.queryUserByNameAndPassword(username, password,user_type);
-				UserDaoImpl dao=new UserDaoImpl();
-				User user=dao.queryUserByNameAndPassword(username, password, user_type);
+				User user=userDao.queryUserByNameAndPassword(username, password,user_type);
+//				UserDaoIfac dao=new UserDaoImpl();
+//				User user=dao.queryUserByNameAndPassword(username, password, user_type);
 				
 				if(user==null)
 				{

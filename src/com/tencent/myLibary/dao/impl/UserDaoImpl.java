@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.tencent.myLibary.dao.ifac.UserDaoIfac;
 import com.tencent.myLibary.entity.User;
 import com.tencent.myLibary.util.DBUtils;
 
@@ -17,22 +18,21 @@ import com.tencent.myLibary.util.DBUtils;
 * @author xianxian 
 * @date 2019年8月19日
  */
-public class UserDaoImpl {
+public class UserDaoImpl implements UserDaoIfac {
 	/**根据用户名和密码查询用户的sql */
 	private static final String QUERY_USER_BY_NAME_AND_PASSWORD = "select * from myLibary_user "
 			+ "where user_name=? and user_password=? and user_type=?";
 
-	/**
-	 * 
+	/* (non-Javadoc)  
 	 * <p>Title: addUser</p>  
 	 * <p>
 	 *	Description: 
-	 *	添加用户的方法：
-	 *	用户注册功能会调用该方法
 	 * </p> 
 	 * @param user
-	 * @return
+	 * @return  
+	 * @see com.tencent.myLibary.dao.impl.UserDaoIfac#addUser(com.tencent.myLibary.entity.User)  
 	 */
+	@Override
 	public int addUser(User user)
 	{
 		int rows=0;
@@ -41,19 +41,18 @@ public class UserDaoImpl {
 	}
 	
 
-	/**
-	 * 
+	/* (non-Javadoc)  
 	 * <p>Title: queryUserByNameAndPassword</p>  
 	 * <p>
 	 *	Description: 
-	 *	根据用户名和密码查询用户的方法
-	 *	用户登录时会调用该方法
 	 * </p> 
 	 * @param username
 	 * @param password
 	 * @param userType
-	 * @return
+	 * @return  
+	 * @see com.tencent.myLibary.dao.impl.UserDaoIfac#queryUserByNameAndPassword(java.lang.String, java.lang.String, java.lang.Integer)  
 	 */
+	@Override
 	public User queryUserByNameAndPassword(String username,String password,Integer userType)
 	{
 		User user=null;
