@@ -108,7 +108,9 @@ public class UserMainView extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("click btn_quy_record");
-				
+				UserQueryRecordView qrv = new UserQueryRecordView(getUser());
+				panel_left.add(qrv);
+				qrv.toFront();
 			}
 		});
 		
