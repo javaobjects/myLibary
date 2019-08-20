@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.tencent.myLibary.entity.User;
+
 /**
  * 用户登录之后的主窗体
  * @author hp
@@ -37,6 +39,10 @@ public class UserMainView extends JFrame{
 	/** 退出窗口按钮 */
 	private JButton btn_exit;
 	
+	/**定义一个属性保存用户信息：编号 姓名 密码 用户类型**/
+	private User user;
+	
+	
 	/**
 	 * 初始化各个控件并拼装
 	 */
@@ -49,7 +55,7 @@ public class UserMainView extends JFrame{
 				panel_right = new JPanel(new GridLayout(7, 1, 0, 30));
 
 				label_welcome = new JLabel(
-						"欢    迎    XXX 使   用   图   书   借   阅   管   理   系   统");
+						"欢    迎    "+ this.user.getUserName()+"  使   用   图   书   借   阅   管   理   系   统");
 
 				Icon icon = new ImageIcon("config\\images\\baxianhua.jpg");
 				label_img = new JLabel(icon);
@@ -82,7 +88,8 @@ public class UserMainView extends JFrame{
 	/**
 	 * 利用构造方法设置窗体属性
 	 */
-	public UserMainView()  {
+	public UserMainView(User user)  {
+		this.user = user;//给user属性赋值
 		init();
 		this.setTitle("用户主窗体");
 		this.setSize(800, 600);

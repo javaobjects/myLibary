@@ -103,7 +103,7 @@ public class UserLoginView extends JFrame{
 				{
 					System.out.println("弹出用户主窗体");
 					
-					new UserMainView();
+					new UserMainView(user);
 					UserLoginView.this.dispose();//释放窗体占用的内存资源
 				}
 				
