@@ -2,6 +2,8 @@ package com.tencent.myLibary.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -86,11 +88,44 @@ public class UserMainView extends JFrame{
 	}
 	
 	/**
+	 * 给三个按钮注册侦听器
+	 */
+	private void registerListener()
+	{
+		btn_quy_book.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("click btn_quy_book");
+			}
+		});
+		
+		btn_quy_record.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("click btn_quy_record");
+				
+			}
+		});
+		
+		btn_exit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("click btn_exit");
+				
+			}
+		});
+	}
+	
+	/**
 	 * 利用构造方法设置窗体属性
 	 */
 	public UserMainView(User user)  {
 		this.user = user;//给user属性赋值
 		init();
+		registerListener();
 		this.setTitle("用户主窗体");
 		this.setSize(800, 600);
 		this.setResizable(false);//不能收缩
