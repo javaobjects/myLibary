@@ -58,7 +58,7 @@ JDBC工具：DBUtils
 ```
 ### 数据库设计
 
-#### libary_tab_Book表
+#### myLibary_book表
 
 |  列名	  |  数据类型	|  可否为空	 |  说明  |
 | ------  | ---------- | --------- | ------ |
@@ -67,7 +67,7 @@ JDBC工具：DBUtils
 |book_count	|int	|not null	|借出次数|
 |book_status	|int	|not null	|书籍状态（0，已借出，1，可借）|
 
-#### libary_tab_Users表
+#### myLibary_users表
 |  列名	 |  数据类型  |  可否为空  |  说明  |
 | ------ | -------- | --------- | ------ |
 |user_id |	int|	not null|	用户编号，自增长|

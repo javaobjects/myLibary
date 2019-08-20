@@ -155,6 +155,11 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	public List<Record> queryAllReturnRecord(User user) {
 		return null;
 	}
+
+	@Override
+	public boolean returnBook(int record_id, int book_id) {
+		return false;
+	}
 	
 	
 }
