@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tencent.myLibary.dao.ifac.BookDaoIfac;
 import com.tencent.myLibary.entity.Book;
 import com.tencent.myLibary.util.DBUtils;
 
@@ -19,7 +20,7 @@ import com.tencent.myLibary.util.DBUtils;
 * @author xianxian 
 * @date 2019年8月19日
  */
-public class BookDaoImpl {
+public class BookDaoImpl implements BookDaoIfac {
 	/** 查询所有图书的sql语句 */
 	private static final String QUERY_ALL_BOOKS="select book_id,book_name,lend_count,status from myLibary_book";
 	/** 查看热门图书信息 */
@@ -201,5 +202,10 @@ public class BookDaoImpl {
 		Book book=null;
 		
 		return book;
+	}
+
+	@Override
+	public Boolean lendBook(Integer book_id, Integer user_id) {
+		return null;
 	}
 }

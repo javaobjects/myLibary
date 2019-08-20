@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -13,7 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
+import com.tencent.myLibary.dao.DAOFactory;
+import com.tencent.myLibary.dao.ifac.BookDaoIfac;
+import com.tencent.myLibary.entity.Book;
 import com.tencent.myLibary.entity.User;
 
 /**
@@ -27,6 +33,9 @@ import com.tencent.myLibary.entity.User;
 * @date 2019年8月20日
  */
 public class UserQueryBookView extends JInternalFrame {
+	
+	//窗体中功能的实现依赖底层的dao，所以属性依赖
+	private BookDaoIfac bookDao = DAOFactory.getBookDaoInstance();
 	
 	private User user;
 
@@ -102,6 +111,34 @@ public class UserQueryBookView extends JInternalFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("111");
+				// 1.获取查询类型
+				int result = cb_query_type.getSelectedIndex();
+				//2.根据查询类型，去数据库查询，返回图书集合
+				List<Book> books=null;
+				switch (result) {
+				case 0:
+					books=bookDao.queryAllBooks();
+					break;
+				case 1:
+					books=bookDao.queryHotBooks();
+					break;
+				case 2:
+					books=bookDao.queryCanLendBooks();
+					break;
+				case 3:
+					books=bookDao.queryCanNotLendBooks();
+					break;
+
+				default:
+					break;
+				}
+				
+				System.out.println(books.toString());
+				//想要把数据显示在面板上的表格控件中，那么一行代码就搞定了。
+				BookTableModel dataModel=new BookTableModel(books);
+				table.setModel(dataModel);
+				//重新查询数据后将以前选定的图书id设为0
+//				book_id=0;
 			}
 		});
 		btn_lend.addActionListener(new ActionListener() {
@@ -118,10 +155,90 @@ public class UserQueryBookView extends JInternalFrame {
 				System.out.println("333");
 			}
 		});
-		
 	}
 	
-	
-	
+	//定义显示图书数据的表格模型，也是一个内部类
+	private class BookTableModel implements TableModel
+	{
+		private List<Book> books;
+		
+		public BookTableModel(List<Book> books)
+		{
+			this.books=books;
+		}
+
+		@Override//1
+		public int getRowCount() {
+			return books.size();
+		}
+
+		@Override//2
+		public int getColumnCount() {
+			return 4;//可以写死
+		}
+
+		@Override//3
+		public String getColumnName(int columnIndex) {
+			if(columnIndex==0)
+			{
+				return "图书编号";
+			}else if(columnIndex==1)
+			{
+				return "图书名称";
+			}else if(columnIndex==2)
+			{
+				return "借阅次数";
+			}else 
+			{
+				return "是否可借";
+			}
+			
+		}
+
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			return String.class;
+		}
+
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			return false;
+		}
+
+		@Override//4
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			//首先获取该行对应的图书信息
+			Book book=books.get(rowIndex);
+			if(columnIndex==0)
+			{
+				return book.getBookId();
+			}else if(columnIndex==1)
+			{
+				return book.getBookName();
+			}else if(columnIndex==2)
+			{
+				return book.getLendCount();
+			}else
+			{
+				return book.getStatus()==0?"不可借":"可借";
+			}
+		}
+
+		@Override
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+			
+		}
+
+		@Override
+		public void addTableModelListener(TableModelListener l) {
+			
+		}
+
+		@Override
+		public void removeTableModelListener(TableModelListener l) {
+			
+		}
+		
+	}
 	
 }
