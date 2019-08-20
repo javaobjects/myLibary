@@ -80,6 +80,12 @@ public class UserLoginView extends JFrame{
 					JOptionPane.showMessageDialog(null, "用户名或者密码为空，请重新输入");
 					return;
 				}
+				//2.2对账号进行正则校验：帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：^[a-zA-Z][a-zA-Z0-9_]{4,15}$
+				/*if(!username.matches("^[a-zA-Z][a-zA-Z0-9_]{4,15}$"))
+				{
+					JOptionPane.showMessageDialog(null, "用户名只能是字母开头，允许5-16字节，允许字母数字下划线");
+					return;
+				}*/
 				
 				//3.判断用户是否存在,下面的代码是把两行代码合成一行，这样执行效率高，拿的工资高
 				User user=userDao.queryUserByNameAndPassword(username, password,user_type);
@@ -116,6 +122,8 @@ public class UserLoginView extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("你点击了注册按钮");
+				new UserRegisterView();
+				UserLoginView.this.dispose();
 			}
 		});
 	}
