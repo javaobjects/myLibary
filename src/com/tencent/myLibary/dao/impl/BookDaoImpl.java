@@ -58,8 +58,8 @@ public class BookDaoImpl implements BookDaoIfac {
 			
 			stmt=conn.prepareStatement("select status from myLibary_book where book_id=?");
 			stmt.setInt(1,book_id);
-			rs=stmt.executeQuery();
-			int status=0;
+			rs = stmt.executeQuery();
+			int status = 0;
 			if(rs.next())
 			{
 				status=rs.getInt("status");
@@ -73,7 +73,7 @@ public class BookDaoImpl implements BookDaoIfac {
 			//如果可借继续
 				//1.插入一条借书记录
 				stmt = conn.prepareStatement("insert into myLibary_record (record_id,book_id,user_id,lend_time) "
-						+ "values(seq_record_id.nextval,?,?,sysdate)");
+						+ "values(seq_myLibary_record_id.nextval,?,?,sysdate)");
 				stmt.setInt(1,book_id);
 				stmt.setInt(2,user_id);
 				int rows_insert=stmt.executeUpdate();

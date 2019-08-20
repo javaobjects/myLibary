@@ -206,6 +206,7 @@ public class UserQueryBookView extends JInternalFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("333");
+				UserQueryBookView.this.dispose();
 			}
 		});
 	}
