@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -11,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -57,7 +60,8 @@ public class UserQueryBookView extends JInternalFrame {
 	private JButton btn_lend;
 	/** 退出按钮 */
 	private JButton btn_exit;
-	
+	/** 存放选定图书的id的属性 */
+	private Integer book_id=0;
 	
 	/** 构造方法 */
 	public UserQueryBookView(User user) {
@@ -106,6 +110,32 @@ public class UserQueryBookView extends JInternalFrame {
 	}
 	
 	private void registerListener() {
+		table.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//System.out.println("鼠标点击了行");
+				int selectedRowIndex=table.getSelectedRow();
+				book_id=(Integer)table.getValueAt(selectedRowIndex, 0);
+				System.out.println(book_id);
+			}
+		});
 		btn_query.addActionListener(new ActionListener() {
 
 			@Override
@@ -138,7 +168,7 @@ public class UserQueryBookView extends JInternalFrame {
 				BookTableModel dataModel=new BookTableModel(books);
 				table.setModel(dataModel);
 				//重新查询数据后将以前选定的图书id设为0
-//				book_id=0;
+				book_id=0;
 			}
 		});
 		btn_lend.addActionListener(new ActionListener() {
@@ -146,6 +176,29 @@ public class UserQueryBookView extends JInternalFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("222");
+				/*
+				 * 完成借书功能：思路：
+				 * 1.获取选定的图书
+				 *    要有判断，非空判断，不可借图书的选定判断(因为书的状态一直在变，所以不在这里判断)
+				 * 2.调用底层dao完成借书
+				 * 	  注意：添加一条借书记录   同时修改图书状态为不在馆  两个更新确保在同一个事务当中
+				 * 3.根据返回结果提示用户借书成功或者失败
+				 *   JOptionPane技术
+				 */
+				System.out.println("book_id:"+book_id);
+				if(book_id==0)
+				{
+					JOptionPane.showMessageDialog(null, "请先选定图书");
+					return;
+				}
+				boolean result=bookDao.lendBook(book_id,user.getUserId());
+				if(result)
+				{
+					JOptionPane.showMessageDialog(null, "借书成功");
+				}else
+				{
+					JOptionPane.showMessageDialog(null, "借书失败");
+				}
 			}
 		});
 		btn_exit.addActionListener(new ActionListener() {

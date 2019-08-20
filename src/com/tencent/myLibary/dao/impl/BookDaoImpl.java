@@ -3,6 +3,7 @@ package com.tencent.myLibary.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,67 @@ public class BookDaoImpl implements BookDaoIfac {
 	/**
 	 * 7.修改图书
 	 */
-	
+	public Boolean lendBook(Integer book_id,Integer user_id)
+	{
+		Boolean result=false;
+		//思路：先设置事务手动提交，查询书的状态，如果可借继续，如果不可借返回；如果可借那么插入一条借书记录，同时修改书的状态为0
+		Connection conn=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			conn=DBUtils.getConnection();
+			conn.setAutoCommit(false);
+			
+			stmt=conn.prepareStatement("select status from myLibary_book where book_id=?");
+			stmt.setInt(1,book_id);
+			rs=stmt.executeQuery();
+			int status=0;
+			if(rs.next())
+			{
+				status=rs.getInt("status");
+			}
+			//如果不可借返回
+			if(status==0)
+			{
+				return result;
+			}else
+			{
+			//如果可借继续
+				//1.插入一条借书记录
+				stmt = conn.prepareStatement("insert into myLibary_record (record_id,book_id,user_id,lend_time) "
+						+ "values(seq_record_id.nextval,?,?,sysdate)");
+				stmt.setInt(1,book_id);
+				stmt.setInt(2,user_id);
+				int rows_insert=stmt.executeUpdate();
+				
+				//2.修改书的状态为0
+				stmt = conn.prepareStatement("update myLibary_book set status=0 where book_id=?");
+				stmt.setInt(1,book_id);
+				int rows_update=stmt.executeUpdate();
+				
+				if(rows_insert>0 && rows_update>0)
+				{
+					conn.commit();//事务提交
+					result=true;//借书成功
+				}else
+				{
+					conn.rollback();//事务回滚
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally
+		{
+			DBUtils.release(conn, stmt, rs);
+		}
+		return result;
+	}
 	/**
 	 * 3.查看所有图书信息
 	 */
@@ -204,8 +265,8 @@ public class BookDaoImpl implements BookDaoIfac {
 		return book;
 	}
 
-	@Override
-	public Boolean lendBook(Integer book_id, Integer user_id) {
-		return null;
-	}
+//	@Override
+//	public Boolean lendBook(Integer book_id, Integer user_id) {
+//		return null;
+//	}
 }
