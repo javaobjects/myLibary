@@ -65,9 +65,9 @@ JDBC工具：DBUtils
 |book_id	|int	|not null	|书籍编号，自增长|
 |book_name	|varchar	|not null	|书籍名称|
 |book_count	|int	|not null	|借出次数|
-|book_status	|int	|not null	|书籍状态（0，已借出，1，可借）|
+|status	|int	|not null	|书籍状态（0，已借出，1，可借）|
 
-#### myLibary_users表
+#### myLibary_user表
 |  列名	 |  数据类型  |  可否为空  |  说明  |
 | ------ | -------- | --------- | ------ |
 |user_id |	int|	not null|	用户编号，自增长|
@@ -75,7 +75,7 @@ JDBC工具：DBUtils
 |user_password|	varchar	|not null|	用户密码|
 |user_type	|int|	not null|	用户类型，1，普通用户，2，管理员|
 
-### libary_tab_Record表
+### myLibary_record表
 
 |  列名	|  数据类型  |  可否为空  |	 说明  |
 | -----  | --------- | --------- | ------ |
@@ -83,7 +83,7 @@ JDBC工具：DBUtils
 | user_id	| int | not null	| 借书人的编号，外键|
 | book_id	| int  | not null	| 书籍编号，外键|
 | lend_time	| date | not null	| 借出时间|
-|return_time | date || 归还时间 |
+| return_time | date || 归还时间 |
 
 
 ### 项目coding bug总结：
@@ -96,7 +96,7 @@ JDBC工具：DBUtils
 
 ![](https://upload-images.jianshu.io/upload_images/5227364-53d4f26ba55d14c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-3. insert into tab_record(record_id,book_id,user_id,lend_time) values(seq_record_id.nextval,?,?,sysdate)语句少最后一个“）”号
+3. insert into myLibary_record(record_id,book_id,user_id,lend_time) values(seq_myLibary_record_id.nextval,?,?,sysdate)语句少最后一个“）”号
 
 ![](https://upload-images.jianshu.io/upload_images/5227364-5d2e464b4e9e97d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -109,9 +109,9 @@ JDBC工具：DBUtils
 
 ![](https://upload-images.jianshu.io/upload_images/5227364-1bfde1ded786ca91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-6. sql语句后面多写分号 例："insert into tab_user(user_id,user_name,user_password,user_type)"
-			+ " values((select max(user_id) from tab_user)+1,?,?,?);" 正确写法应该是:"insert into tab_user(user_id,user_name,user_password,user_type)"
-			+ " values((select max(user_id) from tab_user)+1,?,?,?)"
+6. sql语句后面多写分号 例："insert into myLibary_user(user_id,user_name,user_password,user_type)"
+			+ " values((select max(user_id) from myLibary_user)+1,?,?,?);" 正确写法应该是:"insert into myLibary_user(user_id,user_name,user_password,user_type)"
+			+ " values((select max(user_id) from myLibary_user)+1,?,?,?)"
 			
 ![](https://upload-images.jianshu.io/upload_images/5227364-b97e60aa43f069d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
