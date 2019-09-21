@@ -9,18 +9,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-
 /**
  * 
-* <p>Title: DBUtils</p>  
+* <p>Title: DBUtils_mysql</p>  
 * <p>
-*	Description:
-*	连接数据库的工具类 参数化配置 
+*	Description: 
+*   连接mysql数据库的工具类，参数化配置
 * </p> 
 * @author xianxian 
-* @date 2019年8月19日
+* @date 2019年9月21日
  */
-public class DBUtils {
+public class DBUtils_mysql {
+
 	private static String driverName;
 	private static String url;
 	private static String username;
@@ -28,12 +28,9 @@ public class DBUtils {
 	
 	static
 	{
-		//如何读取属性文件：jdbc.properties
-		//使用的技术：使用类加载器获取输入流进而加载属性文件，
-		//拿到其中的数据
-		InputStream in=DBUtils.class.getClassLoader().
-				getResourceAsStream("jdbc.properties");
-		Properties prop=new Properties();
+		InputStream in = DBUtils.class.getClassLoader().
+				getResourceAsStream("mysql_jdbc.properties");
+		Properties prop = new Properties();
 		
 		try {
 			prop.load(in);
@@ -41,19 +38,19 @@ public class DBUtils {
 			e.printStackTrace();
 		}
 		
-		driverName=prop.getProperty("jdbc_driver");
-		url=prop.getProperty("jdbc_url");
-		username=prop.getProperty("jdbc_username");
-		password=prop.getProperty("jdbc_password");
-		
+		driverName = prop.getProperty("jdbc_driver");
+		url = prop.getProperty("jdbc_url");
+		username = prop.getProperty("jdbc_username");
+		password = prop.getProperty("jdbc_password");
 	}
+	
 	
 	/**
 	 * 
 	 * <p>Title: getConnection</p>  
 	 * <p>
 	 *	Description: 
-	 *	获取连接对象的方法
+	 *  获取连接对象的方法
 	 * </p> 
 	 * @return
 	 */
@@ -70,7 +67,12 @@ public class DBUtils {
 	}
 	
 	/**
-	 * 释放资源的方法
+	 * 
+	 * <p>Title: release</p>  
+	 * <p>
+	 *	Description: 
+	 *  释放资源的方法
+	 * </p> 
 	 * @param conn
 	 * @param stmt
 	 * @param rs
@@ -89,5 +91,11 @@ public class DBUtils {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public static void main(String[] args) {
+		Connection conn = DBUtils.getConnection();
+		System.out.println(conn);
 	}
 }
