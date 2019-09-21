@@ -6,6 +6,6 @@ public class TestDBUtils_mysql {
 
 	public static void main(String[] args) {
 		Connection conn = DBUtils_mysql.getConnection();
-		System.out.println(conn);
+		System.out.println("mysql:" + conn);
 	}
 }
