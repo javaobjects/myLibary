@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.tencent.myLibary.dao.DAOFactory;
+import com.tencent.myLibary.dao.factory.DAOFactory;
 import com.tencent.myLibary.dao.ifac.UserDaoIfac;
 import com.tencent.myLibary.entity.User;
 

@@ -1,6 +1,7 @@
-package com.tencent.myLibary.view;
+package com.tencent.myLibary.test;
 
 import com.tencent.myLibary.entity.User;
+import com.tencent.myLibary.view.UserMainView;
 
 public class TestUserMainView {
 	

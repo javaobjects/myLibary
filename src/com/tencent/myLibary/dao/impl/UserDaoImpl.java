@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 import com.tencent.myLibary.dao.ifac.UserDaoIfac;
 import com.tencent.myLibary.entity.User;
-import com.tencent.myLibary.util.DBUtils;
+import com.tencent.myLibary.util.DBUtils_oracle;
 
 /**
  * <p>Title: UserDaoImpl</p>
@@ -60,7 +60,7 @@ public class UserDaoImpl implements UserDaoIfac {
 		ResultSet rs=null;
 		
 		try {
-			conn=DBUtils.getConnection();
+			conn=DBUtils_oracle.getConnection();
 			stmt=conn.prepareStatement(QUERY_USER_BY_NAME_AND_PASSWORD);
 			//给占位符赋值
 			stmt.setString(1,username);
@@ -81,7 +81,7 @@ public class UserDaoImpl implements UserDaoIfac {
 			e.printStackTrace();
 		}finally
 		{
-			DBUtils.release(conn, stmt, rs);
+			DBUtils_oracle.release(conn, stmt, rs);
 		}
 		return user;
 	}

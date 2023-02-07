@@ -1,4 +1,4 @@
-package com.tencent.myLibary.dao;
+package com.tencent.myLibary.dao.factory;
 
 import com.tencent.myLibary.dao.ifac.BookDaoIfac;
 import com.tencent.myLibary.dao.ifac.RecordDaoIfac;

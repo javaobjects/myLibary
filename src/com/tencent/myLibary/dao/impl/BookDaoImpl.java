@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.tencent.myLibary.dao.ifac.BookDaoIfac;
 import com.tencent.myLibary.entity.Book;
-import com.tencent.myLibary.util.DBUtils;
+import com.tencent.myLibary.util.DBUtils_oracle;
 
 /**
  * <p>Title: BookDaoImpl</p>
@@ -42,6 +42,7 @@ public class BookDaoImpl implements BookDaoIfac {
 	/**
 	 * 7.修改图书
 	 */
+	@SuppressWarnings("resource")
 	public Boolean lendBook(Integer book_id,Integer user_id)
 	{
 		Boolean result=false;
@@ -51,7 +52,7 @@ public class BookDaoImpl implements BookDaoIfac {
 		ResultSet rs=null;
 		
 		try {
-			conn=DBUtils.getConnection();
+			conn=DBUtils_oracle.getConnection();
 			conn.setAutoCommit(false);
 			
 			stmt=conn.prepareStatement("select status from myLibary_book where book_id=?");
@@ -99,7 +100,7 @@ public class BookDaoImpl implements BookDaoIfac {
 			}
 		}finally
 		{
-			DBUtils.release(conn, stmt, rs);
+			DBUtils_oracle.release(conn, stmt, rs);
 		}
 		return result;
 	}
@@ -113,7 +114,7 @@ public class BookDaoImpl implements BookDaoIfac {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			conn=DBUtils.getConnection();
+			conn=DBUtils_oracle.getConnection();
 			stmt=conn.prepareStatement(QUERY_ALL_BOOKS);
 			
 			rs=stmt.executeQuery();
@@ -133,7 +134,7 @@ public class BookDaoImpl implements BookDaoIfac {
 			e.printStackTrace();
 		}finally
 		{
-			DBUtils.release(conn, stmt, rs);
+			DBUtils_oracle.release(conn, stmt, rs);
 		}
 		return list;
 	}
@@ -148,7 +149,7 @@ public class BookDaoImpl implements BookDaoIfac {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			conn=DBUtils.getConnection();
+			conn=DBUtils_oracle.getConnection();
 			stmt=conn.prepareStatement(QUERY_HOT_BOOKS);
 			
 			rs=stmt.executeQuery();
@@ -168,7 +169,7 @@ public class BookDaoImpl implements BookDaoIfac {
 			e.printStackTrace();
 		}finally
 		{
-			DBUtils.release(conn, stmt, rs);
+			DBUtils_oracle.release(conn, stmt, rs);
 		}
 		return list;
 	}
@@ -182,7 +183,7 @@ public class BookDaoImpl implements BookDaoIfac {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			conn=DBUtils.getConnection();
+			conn=DBUtils_oracle.getConnection();
 			stmt=conn.prepareStatement(QUERY_CAN_LEND_BOOKS);
 			
 			rs=stmt.executeQuery();
@@ -202,7 +203,7 @@ public class BookDaoImpl implements BookDaoIfac {
 			e.printStackTrace();
 		}finally
 		{
-			DBUtils.release(conn, stmt, rs);
+			DBUtils_oracle.release(conn, stmt, rs);
 		}
 		return list;
 	}
@@ -217,7 +218,7 @@ public class BookDaoImpl implements BookDaoIfac {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			conn=DBUtils.getConnection();
+			conn=DBUtils_oracle.getConnection();
 			stmt=conn.prepareStatement(QUERY_NOT_LEND_BOOKS);
 			
 			rs=stmt.executeQuery();
@@ -237,7 +238,7 @@ public class BookDaoImpl implements BookDaoIfac {
 			e.printStackTrace();
 		}finally
 		{
-			DBUtils.release(conn, stmt, rs);
+			DBUtils_oracle.release(conn, stmt, rs);
 		}
 		return list;
 	}

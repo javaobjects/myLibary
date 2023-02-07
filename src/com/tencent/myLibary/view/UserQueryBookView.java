@@ -20,7 +20,7 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-import com.tencent.myLibary.dao.DAOFactory;
+import com.tencent.myLibary.dao.factory.DAOFactory;
 import com.tencent.myLibary.dao.ifac.BookDaoIfac;
 import com.tencent.myLibary.entity.Book;
 import com.tencent.myLibary.entity.User;

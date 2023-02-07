@@ -11,7 +11,7 @@ import com.tencent.myLibary.dao.ifac.RecordDaoIfac;
 import com.tencent.myLibary.entity.Book;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
-import com.tencent.myLibary.util.DBUtils;
+import com.tencent.myLibary.util.DBUtils_oracle;
 
 public class RecordDaoImpl implements RecordDaoIfac {
 
@@ -40,7 +40,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 		ResultSet rs=null;
 		
 		try {
-			conn=DBUtils.getConnection();
+			conn=DBUtils_oracle.getConnection();
 			conn.setAutoCommit(false);
 			
 			stmt=conn.prepareStatement("select status from myLibary_book where book_id=?");
@@ -86,7 +86,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 			}
 		}finally
 		{
-			DBUtils.release(conn, stmt, rs);
+			DBUtils_oracle.release(conn, stmt, rs);
 		}
 		return result;
 	}
@@ -109,7 +109,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			conn=DBUtils.getConnection();
+			conn=DBUtils_oracle.getConnection();
 			stmt=conn.prepareStatement(QUERY_ALL_RECORD_BY_SELF);
 			stmt.setInt(1,user.getUserId());
 			rs=stmt.executeQuery();
@@ -136,7 +136,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 			e.printStackTrace();
 		}finally
 		{
-			DBUtils.release(conn, stmt, rs);
+			DBUtils_oracle.release(conn, stmt, rs);
 		}
 		return records;
 	}

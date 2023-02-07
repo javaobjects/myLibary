@@ -39,14 +39,26 @@
 ![系统结构图](config/images/systemStructure.png)
 
 ### 总体架构：
-```
+
 MVC设计模式：
-1.View视图层：各个Frame，有登陆窗体，注册窗体，查询图书信息窗体，查询借书信息窗体
-2.Controller层：Listener
-3.Model层：Service
-4.数据访问层：Dao
-```
-![总体架构](config/images/architecture.png)
+1. **M(Model) 模型:** 应⽤程序的核⼼功能，管理这个模块中⽤的数据和值（bean,dao） 数据访问层：Dao
+2. **V(View )视图:** 视图提供模型的展示，管理模型如何显示给⽤户，它是应⽤程序的外观；（jsp/html）
+3. **C(Controller)控制器:** 对⽤户的输⼊做出反应，管理⽤户和视图的交互，是连接模型和视图的枢纽。（servlet/service）
+> 在此项目中用的工厂模式 其实 ifac 包就相当于service
+4. entity文件夹 实体类属于公共层 不属于mvc任何层,也可存放于domain文件夹
+
+| 包              | 作用                          |
+| :-------------- | ----------------------------- |
+| config.images   | 存放图片                      |
+| config.dbconfig | 存放数据库配置文件            |
+| lib             | 存放程序驱动                  |
+| entity          | 实体类                        |
+| util            | 公共类                        |
+| view            | 视力类                        |
+| factory         | 工厂类，专门生产各类dao的实例 |
+| ifac            | 接口类                        |
+| impl            | 接口实现类                    |
+| test            | 测试类                        |
 
 ### 技术选型：
 ```
@@ -60,16 +72,18 @@ JDBC工具：DBUtils
 
 #### myLibary_book表
 
-|  列名	  |  数据类型	|  可否为空	 |  说明  |
-| ------  | ---------- | --------- | ------ |
-|book_id	|int	|not null	|书籍编号，自增长|
-|book_name	|varchar	|not null	|书籍名称|
-|book_count	|int	|not null	|借出次数|
-|status	|int	|not null	|书籍状态（0，已借出，1，可借）|
+| 列名       | 数据类型 | 可否为空 | 说明                           |
+| :--------- | -------- | -------- | ------------------------------ |
+| book_id    | int      | not null | 书籍编号，自增长               |
+| book_name  | varchar  | not null | 书籍名称                       |
+| book_count | int      | not null | 借出次数                       |
+| status     | int      | not null | 书籍状态（0，已借出，1，可借） |
+
+
 
 #### myLibary_user表
 |  列名	 |  数据类型  |  可否为空  |  说明  |
-| ------ | -------- | --------- | ------ |
+| :----- | -------- | --------- | ------ |
 |user_id |	int|	not null|	用户编号，自增长|
 |user_name|	varchar|	not null|	用户名，唯一|
 |user_password|	varchar	|not null|	用户密码|
@@ -78,7 +92,7 @@ JDBC工具：DBUtils
 ### myLibary_record表
 
 |  列名	|  数据类型  |  可否为空  |	 说明  |
-| -----  | --------- | --------- | ------ |
+| :----  | --------- | --------- | ------ |
 | record_id	| int | not null	| 记录编号，自增长|
 | user_id	| int | not null	| 借书人的编号，外键|
 | book_id	| int  | not null	| 书籍编号，外键|
@@ -339,5 +353,15 @@ select * from myLibary_record;
 			+ " values((select max(user_id) from myLibary_user)+1,?,?,?);" 正确写法应该是:"insert into myLibary_user(user_id,user_name,user_password,user_type)"
 			+ " values((select max(user_id) from myLibary_user)+1,?,?,?)"
 			
+
 ![](https://upload-images.jianshu.io/upload_images/5227364-b97e60aa43f069d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+#### 参考博客
+
+1. [JavaWeb中的MVC模式（有案例）](https://blog.csdn.net/weixin_45819587/article/details/120564732)
+
+
+
+
 

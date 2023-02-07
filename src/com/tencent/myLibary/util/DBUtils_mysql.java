@@ -28,7 +28,7 @@ public class DBUtils_mysql {
 	
 	static
 	{
-		InputStream in = DBUtils.class.getClassLoader().
+		InputStream in = DBUtils_oracle.class.getClassLoader().
 				getResourceAsStream("mysql_jdbc.properties");
 		Properties prop = new Properties();
 		

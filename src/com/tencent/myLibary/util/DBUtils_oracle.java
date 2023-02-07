@@ -19,7 +19,7 @@ import java.util.Properties;
  * @author xianxian 
  * @date 2019年8月19日
  */
-public class DBUtils {
+public class DBUtils_oracle {
 	private static String driverName;
 	private static String url;
 	private static String username;
@@ -27,11 +27,11 @@ public class DBUtils {
 	
 	static
 	{
-		//如何读取属性文件：jdbc.properties
+		//如何读取属性文件：oracle_jdbc.properties
 		//使用的技术：使用类加载器获取输入流进而加载属性文件，
 		//拿到其中的数据
-		InputStream in=DBUtils.class.getClassLoader().
-				getResourceAsStream("jdbc.properties");
+		InputStream in=DBUtils_oracle.class.getClassLoader().
+				getResourceAsStream("oracle_jdbc.properties");
 		Properties prop=new Properties();
 		
 		try {
