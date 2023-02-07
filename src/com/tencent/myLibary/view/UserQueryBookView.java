@@ -139,9 +139,11 @@ public class UserQueryBookView extends JInternalFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("111");
+//				System.out.println("111");
+//				System.out.println("112");
 				// 1.获取查询类型
 				int result = cb_query_type.getSelectedIndex();
+				System.out.println(result);
 				//2.根据查询类型，去数据库查询，返回图书集合
 				List<Book> books=null;
 				switch (result) {

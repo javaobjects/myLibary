@@ -91,8 +91,8 @@ public class UserMainView extends JFrame{
 	 */
 	private void registerListener()
 	{
+		//查询图书功能按钮
 		btn_quy_book.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("click btn_quy_book");
@@ -101,9 +101,8 @@ public class UserMainView extends JFrame{
 				qbv.toFront();
 			}
 		});
-		
+		//查询借阅记录功能按钮
 		btn_quy_record.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("click btn_quy_record");
@@ -112,9 +111,8 @@ public class UserMainView extends JFrame{
 				qrv.toFront();
 			}
 		});
-		
+		//退出窗口按钮
 		btn_exit.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("click btn_exit");

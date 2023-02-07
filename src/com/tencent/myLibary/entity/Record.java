@@ -3,7 +3,6 @@ package com.tencent.myLibary.entity;
 import java.util.Date;
 
 /**
- * 
  * <p>Title: Record</p>  
  * <p>
  *	Description: 
@@ -70,7 +69,5 @@ public class Record {
 				+ book + ", lendTime=" + lendTime + ", returnTime="
 				+ returnTime + "]";
 	}	
-	
-	
 	
 }

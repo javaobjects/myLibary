@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.Properties;
 
 /**
- * 
  * <p>Title: DBUtils_mysql</p>  
  * <p>
  *	Description: 
@@ -28,7 +27,7 @@ public class DBUtils_mysql {
 	
 	static
 	{
-		InputStream in = DBUtils_oracle.class.getClassLoader().
+		InputStream in = DBUtils_mysql.class.getClassLoader().
 				getResourceAsStream("mysql_jdbc.properties");
 		Properties prop = new Properties();
 		

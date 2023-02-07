@@ -1,8 +1,6 @@
 package com.tencent.myLibary.entity;
 
-
 /**
- * 
  * <p>Title: User</p>  
  * <p>
  *	Description: 
