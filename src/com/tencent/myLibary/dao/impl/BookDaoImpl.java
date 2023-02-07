@@ -23,9 +23,12 @@ public class BookDaoImpl implements BookDaoIfac {
 	/** 查询所有图书的sql语句 */
 	private static final String QUERY_ALL_BOOKS="select book_id,book_name,lend_count,status from myLibary_book";
 	/** 查看热门图书信息 */
-	private static final String QUERY_HOT_BOOKS="select b.* "
-			+ "from (select book_id,book_name,lend_count,status from myLibary_book order by lend_count desc) b"
-			+ " where rownum<=5";
+//	private static final String QUERY_HOT_BOOKS="select b.* "
+//			+ "from (select book_id,book_name,lend_count,status from myLibary_book order by lend_count desc) b"
+//			+ " where rownum<=5";//oracle
+	private static final String QUERY_HOT_BOOKS="select hot_book_table.* from "
+			+ "(select b.* from (select book_id,book_name,lend_count,status from myLibary_book order by lend_count desc) b) "
+			+ "hot_book_table limit 0,5;";//mysql
 	/** 查询可借图书 */
 	private static final String QUERY_CAN_LEND_BOOKS = "select book_id,book_name,lend_count,status from myLibary_book"
 			+ " where status=1";
@@ -165,6 +168,7 @@ public class BookDaoImpl implements BookDaoIfac {
 			}
 			
 		} catch (Exception e) {
+			System.out.println(QUERY_HOT_BOOKS);
 			e.printStackTrace();
 		}finally
 		{

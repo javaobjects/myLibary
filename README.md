@@ -361,8 +361,8 @@ select * from myLibary_record;
 #### 参考博客
 
 1. [JavaWeb中的MVC模式（有案例）](https://blog.csdn.net/weixin_45819587/article/details/120564732)
-
-
+1. [Java语言使用JDBC连接Mysql数据库的详细步骤，以及详细解释（一）](https://blog.csdn.net/weixin_44912627/article/details/109464979)
+1. [各个数据库中，查询前n条记录的方法](https://blog.csdn.net/Schaffer_W/article/details/117062045)
 
 
 

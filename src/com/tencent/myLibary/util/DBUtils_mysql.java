@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.Properties;
 
 /**
- * <p>Title: DBUtils_mysql</p>  
+ * <p>Title: DBUtils_mysql</p>
  * <p>
  *	Description: 
  *   连接mysql数据库的工具类，参数化配置
