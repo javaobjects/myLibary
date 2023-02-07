@@ -1,15 +1,14 @@
 package com.tencent.myLibary.entity;
 
 /**
- * 
-* <p>Title: Book</p>  
-* <p>
-*	Description: 
-*	实体类还可以命名为domain
-*	书的实体类
-* </p> 
-* @author xianxian 
-* @date 2019年8月19日
+ * <p>Title: Book</p>
+ * <p>
+ *	Description: 
+ *	实体类还可以命名为domain
+ *	书的实体类
+ * </p>
+ * @author xianxian
+ * @date 2019年8月19日
  */
 public class Book {
 

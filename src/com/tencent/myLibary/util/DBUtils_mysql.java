@@ -11,13 +11,13 @@ import java.util.Properties;
 
 /**
  * 
-* <p>Title: DBUtils_mysql</p>  
-* <p>
-*	Description: 
-*   连接mysql数据库的工具类，参数化配置
-* </p> 
-* @author xianxian 
-* @date 2019年9月21日
+ * <p>Title: DBUtils_mysql</p>  
+ * <p>
+ *	Description: 
+ *   连接mysql数据库的工具类，参数化配置
+ * </p> 
+ * @author xianxian 
+ * @date 2019年9月21日
  */
 public class DBUtils_mysql {
 
@@ -46,7 +46,6 @@ public class DBUtils_mysql {
 	
 	
 	/**
-	 * 
 	 * <p>Title: getConnection</p>  
 	 * <p>
 	 *	Description: 
@@ -67,7 +66,6 @@ public class DBUtils_mysql {
 	}
 	
 	/**
-	 * 
 	 * <p>Title: release</p>  
 	 * <p>
 	 *	Description: 

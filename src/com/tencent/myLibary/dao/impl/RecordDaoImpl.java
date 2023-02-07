@@ -21,7 +21,6 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	
 	
 	/**
-	 * 
 	 * <p>Title: returnBook</p>  
 	 * <p>
 	 *	Description: 
@@ -32,6 +31,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	 * @param user_id
 	 * @return
 	 */
+	@SuppressWarnings("resource")
 	public boolean returnBook(int record_id,int book_id,int user_id) {
 		Boolean result=false;
 		//思路：先设置事务手动提交，查询书的状态，如果可还继续，如果不可还返回；如果可还那么修改借书记录的归还时间，同时修改书的状态为1
@@ -91,7 +91,8 @@ public class RecordDaoImpl implements RecordDaoIfac {
 		return result;
 	}
 	
-	/* (non-Javadoc)  
+	/**
+	 * (non-Javadoc)  
 	 * <p>Title: queryAllRecord</p>  
 	 * <p>
 	 *	Description: 

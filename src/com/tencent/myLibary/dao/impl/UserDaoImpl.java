@@ -9,21 +9,20 @@ import com.tencent.myLibary.entity.User;
 import com.tencent.myLibary.util.DBUtils;
 
 /**
- * 
-* <p>Title: UserDaoImpl</p>  
-* <p>
-*	Description: 
-*	用户表的数据访问对象类
-* </p> 
-* @author xianxian 
-* @date 2019年8月19日
+ * <p>Title: UserDaoImpl</p>
+ * <p>
+ *    Description:用户表的数据访问对象类
+ * </p>
+ * @author xianxian
+ * @date 2019年8月19日
  */
 public class UserDaoImpl implements UserDaoIfac {
 	/**根据用户名和密码查询用户的sql */
 	private static final String QUERY_USER_BY_NAME_AND_PASSWORD = "select * from myLibary_user "
 			+ "where user_name=? and user_password=? and user_type=?";
 
-	/* (non-Javadoc)  
+	/**
+	 * (non-Javadoc)  
 	 * <p>Title: addUser</p>  
 	 * <p>
 	 *	Description: 

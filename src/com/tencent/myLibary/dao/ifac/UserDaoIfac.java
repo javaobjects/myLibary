@@ -5,7 +5,6 @@ import com.tencent.myLibary.entity.User;
 public interface UserDaoIfac {
 
 	/**
-	 * 
 	 * <p>Title: addUser</p>  
 	 * <p>
 	 *	Description: 
@@ -18,7 +17,6 @@ public interface UserDaoIfac {
 	int addUser(User user);
 
 	/**
-	 * 
 	 * <p>Title: queryUserByNameAndPassword</p>  
 	 * <p>
 	 *	Description: 

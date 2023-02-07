@@ -10,7 +10,6 @@ import javax.swing.JTextField;
 
 /**
  * 用户注册窗体
- *
  */
 public class UserRegisterView extends JFrame {
 

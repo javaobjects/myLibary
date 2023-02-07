@@ -12,14 +12,12 @@ import com.tencent.myLibary.entity.Book;
 import com.tencent.myLibary.util.DBUtils;
 
 /**
- * 
-* <p>Title: BookDaoImpl</p>  
-* <p>
-*	Description: 
-*	图书表的数据访问对象类
-* </p> 
-* @author xianxian 
-* @date 2019年8月19日
+ * <p>Title: BookDaoImpl</p>
+ * <p>
+ *    Description:图书表的数据访问对象类
+ * </p>
+ * @author xianxian
+ * @date 2019年8月19日
  */
 public class BookDaoImpl implements BookDaoIfac {
 	/** 查询所有图书的sql语句 */

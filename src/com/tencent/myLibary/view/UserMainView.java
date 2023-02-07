@@ -18,7 +18,6 @@ import com.tencent.myLibary.entity.User;
 /**
  * 用户登录之后的主窗体
  * @author hp
- *
  */
 public class UserMainView extends JFrame{
 	

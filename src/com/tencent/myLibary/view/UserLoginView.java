@@ -19,14 +19,13 @@ import com.tencent.myLibary.dao.ifac.UserDaoIfac;
 import com.tencent.myLibary.entity.User;
 
 /**
- * 
-* <p>Title: UserLoginView</p>  
-* <p>
-*	Description: 
-*	用户登录窗体
-* </p> 
-* @author xianxian 
-* @date 2019年8月16日
+ * <p>Title: UserLoginView</p>  
+ * <p>
+ *	Description: 
+ *	用户登录窗体
+ * </p> 
+ * @author xianxian 
+ * @date 2019年8月16日
  */
 public class UserLoginView extends JFrame{
 	//大到窗体中的窗口，小到各个组件如标签等，都定义成窗体的属性

@@ -1,4 +1,4 @@
-﻿create table myLibary_book
+create table myLibary_book
 (
   book_id number(6) primary key,
   book_name varchar2(40) not null,

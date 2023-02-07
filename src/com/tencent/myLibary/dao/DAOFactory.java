@@ -8,19 +8,16 @@ import com.tencent.myLibary.dao.impl.RecordDaoImpl;
 import com.tencent.myLibary.dao.impl.UserDaoImpl;
 
 /**
- * 
-* <p>Title: DAOFactory</p>  
-* <p>
-*	Description: 
-*	dao的工厂，专门生产各类dao的实例
-* </p> 
-* @author xianxian 
-* @date 2019年8月20日
+ * <p>Title: DAOFactory</p>
+ * <p>
+ *    Description:
+ *    dao的工厂，专门生产各类dao的实例
+ * </p>
+ * @author xianxian
+ * @date 2019年8月20日
  */
 public class DAOFactory {
-
 	/**
-	 * 
 	 * <p>Title: getUserDaoInstance</p>  
 	 * <p>
 	 *	Description: 

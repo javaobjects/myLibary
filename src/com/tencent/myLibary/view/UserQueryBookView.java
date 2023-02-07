@@ -26,14 +26,13 @@ import com.tencent.myLibary.entity.Book;
 import com.tencent.myLibary.entity.User;
 
 /**
- * 
-* <p>Title: UserQueryBookView</p>  
-* <p>
-*	Description: 
-*	图书查询窗体是一个嵌入式窗体，所以父亲是JInternalFrame
-* </p> 
-* @author xianxian 
-* @date 2019年8月20日
+ * <p>Title: UserQueryBookView</p>  
+ * <p>
+ *	Description: 
+ *	图书查询窗体是一个嵌入式窗体，所以父亲是JInternalFrame
+ * </p> 
+ * @author xianxian 
+ * @date 2019年8月20日
  */
 public class UserQueryBookView extends JInternalFrame {
 	

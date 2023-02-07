@@ -11,14 +11,13 @@ import java.util.Properties;
 
 
 /**
- * 
-* <p>Title: DBUtils</p>  
-* <p>
-*	Description:
-*	连接数据库的工具类 参数化配置 
-* </p> 
-* @author xianxian 
-* @date 2019年8月19日
+ * <p>Title: DBUtils</p>  
+ * <p>
+ *	Description:
+ *	连接数据库的工具类 参数化配置 
+ * </p> 
+ * @author xianxian 
+ * @date 2019年8月19日
  */
 public class DBUtils {
 	private static String driverName;
@@ -49,7 +48,6 @@ public class DBUtils {
 	}
 	
 	/**
-	 * 
 	 * <p>Title: getConnection</p>  
 	 * <p>
 	 *	Description: 

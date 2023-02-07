@@ -26,14 +26,13 @@ import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
 /**
- * 
-* <p>Title: UserQueryRecordView</p>  
-* <p>
-*	Description: 
-*	用户模块查询借阅记录窗体
-* </p> 
-* @author xianxian 
-* @date 2019年8月20日
+ * <p>Title: UserQueryRecordView</p>  
+ * <p>
+ *	Description: 
+ *	用户模块查询借阅记录窗体
+ * </p> 
+ * @author xianxian 
+ * @date 2019年8月20日
  */
 public class UserQueryRecordView extends JInternalFrame{
 	

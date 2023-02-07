@@ -4,14 +4,14 @@ import java.util.Date;
 
 /**
  * 
-* <p>Title: Record</p>  
-* <p>
-*	Description: 
-*	实体类还可以命名为domain
-*	借书记录实体类
-* </p> 
-* @author xianxian 
-* @date 2019年8月19日
+ * <p>Title: Record</p>  
+ * <p>
+ *	Description: 
+ *	实体类还可以命名为domain
+ *	借书记录实体类
+ * </p> 
+ * @author xianxian 
+ * @date 2019年8月19日
  */
 public class Record {
 	

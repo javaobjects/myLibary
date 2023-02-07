@@ -1,10 +1,7 @@
 package com.tencent.myLibary.dao.ifac;
 
 import java.util.List;
-
 import com.tencent.myLibary.entity.Book;
-
-
 
 public interface BookDaoIfac {
 	/**
