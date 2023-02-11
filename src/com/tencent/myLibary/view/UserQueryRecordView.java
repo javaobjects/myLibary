@@ -26,7 +26,7 @@ import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
 /**
- * <p>Title: UserQueryRecordView</p>  
+ * <p>Title: UserQueryRecordView</p>
  * <p>
  *	Description: 
  *	用户模块查询借阅记录窗体
@@ -65,6 +65,23 @@ public class UserQueryRecordView extends JInternalFrame{
 	/** book_id 待还书的书的编号*/
 	private int book_id;
 	
+	/** 构造方法 */
+	public UserQueryRecordView(User user) {
+		this.user = user;
+		init();
+		registerListener();
+		this.setTitle("用户查询借阅记录窗体");
+		this.setSize(670, 540);
+		// 设置窗体可以关闭
+		this.setClosable(true);
+		// 设置默认的关闭操作，释放内存空间
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		// 窗体能否最小化
+		this.setIconifiable(true);
+		this.setVisible(true);
+
+	}
+	
 	private void init() {
 		lb_query_type = new JLabel("查询类型：");
 		cb_query_type = new JComboBox<String>(new String[] { "所有借书记录",
@@ -83,6 +100,7 @@ public class UserQueryRecordView extends JInternalFrame{
 		panel_right.add(cb_query_type);
 		panel_right.add(btn_query);
 		panel_right.add(btn_return);
+		
 		panel_right.add(new JLabel());
 		panel_right.add(new JLabel());
 		panel_right.add(btn_exit);
@@ -92,23 +110,6 @@ public class UserQueryRecordView extends JInternalFrame{
 		panel_common.add(panel_right, BorderLayout.EAST);
 
 		this.add(panel_common);
-	}
-	
-	/** 构造方法 */
-	public UserQueryRecordView(User user) {
-		this.user = user;
-		init();
-		registerListener();
-		this.setTitle("用户查询借阅记录窗体");
-		this.setSize(600, 500);
-		// 设置窗体可以关闭
-		this.setClosable(true);
-		// 设置默认的关闭操作，释放内存空间
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		// 窗体能否最小化
-		this.setIconifiable(true);
-		this.setVisible(true);
-
 	}
 
 	private void registerListener() {
@@ -171,14 +172,15 @@ public class UserQueryRecordView extends JInternalFrame{
 				
 				int type = cb_query_type.getSelectedIndex();// 值从0开始
 				List<Record> records=null;
+				System.out.println(type);
 				switch (type) {
-				case 0:
+				case 0://所有记书记录
 					records = recordDao.queryAllRecord(user);
 					break;
-				case 1:
+				case 1://未还借书记录
 					records = recordDao.queryAllNotReturnRecord(user);
 					break;
-				case 2:
+				case 2://已还借书记录
 					records = recordDao.queryAllReturnRecord(user);
 					break;
 				default:
@@ -219,6 +221,7 @@ public class UserQueryRecordView extends JInternalFrame{
 
 			}
 		});
+		
 		btn_exit.addActionListener(new ActionListener() {
 
 			@Override
@@ -228,6 +231,15 @@ public class UserQueryRecordView extends JInternalFrame{
 			}
 		});
 	}
+	
+	/**
+	 * <p>Title: RecordModel</p>
+	 * <p>
+	 *    Description:设置列为列的数量设置列的名字为列赋值
+	 * </p>
+	 * @author xianxian
+	 * @date 2023年2月11日下午3:10:13
+	 */
 	private class RecordModel implements TableModel
 	{
 		//模型获取数据
@@ -243,11 +255,41 @@ public class UserQueryRecordView extends JInternalFrame{
 			return records.size();
 		}
 
+		/**
+		 * (non-Javadoc)
+		 * <p>Title: getColumnCount</p>
+		 * <p>
+		 *    Description:设置列的数量
+		 * </p>
+		 * <p>Copyright: Copyright (c) 2017</p>
+		 * <p>Company: www.baidudu.com</p>
+		 * @return
+		 * @see javax.swing.table.TableModel#getColumnCount()
+		 * @author xianxian
+		 * @date 2023年2月11日下午3:18:12
+		 * @version 1.0
+		 */
 		@Override
 		public int getColumnCount() {
-			return 5;//5列：record_id book_id book_name lend_time 是否归还
+//			return 5;//5列：record_id book_id book_name lend_time 是否归还
+			return 6;//6列：记录编号 图书编号 图书名称 借书时间 是否已归还 用户id （record_id book_id book_name lend_time 是否归还 用户id）
 		}
 
+		/**
+		 * (non-Javadoc)
+		 * <p>Title: getColumnName</p>
+		 * <p>
+		 *    Description:设置列名
+		 * </p>
+		 * <p>Copyright: Copyright (c) 2017</p>
+		 * <p>Company: www.baidudu.com</p>
+		 * @param columnIndex
+		 * @return
+		 * @see javax.swing.table.TableModel#getColumnName(int)
+		 * @author xianxian
+		 * @date 2023年2月11日下午3:17:52
+		 * @version 1.0
+		 */
 		@Override
 		public String getColumnName(int columnIndex) {
 			//return null;
@@ -263,9 +305,11 @@ public class UserQueryRecordView extends JInternalFrame{
 			}else if(columnIndex==3)
 			{
 				return "借书时间";
-			}else
+			}else if(columnIndex == 4)
 			{
 				return "是否已经归还";
+			}else {
+				return "用户名称";
 			}
 		}
 
@@ -279,6 +323,23 @@ public class UserQueryRecordView extends JInternalFrame{
 			return false;
 		}
 
+		/**
+		 * (non-Javadoc)
+		 * <p>Title: getValueAt</p>
+		 * <p>
+		 *    Description:
+		 *    为列赋值
+		 * </p>
+		 * <p>Copyright: Copyright (c) 2017</p>
+		 * <p>Company: www.baidudu.com</p>
+		 * @param rowIndex
+		 * @param columnIndex
+		 * @return
+		 * @see javax.swing.table.TableModel#getValueAt(int, int)
+		 * @author xianxian
+		 * @date 2023年2月11日下午3:17:19
+		 * @version 1.0
+		 */
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			//1.首先获取当前行的数据：record
@@ -295,9 +356,11 @@ public class UserQueryRecordView extends JInternalFrame{
 			}else if(columnIndex==3)
 			{
 				return record.getLendTime();
-			}else
+			}else if(columnIndex==4)
 			{
 				return record.getReturnTime()==null?"未还":"已还";
+			}else {
+				return record.getUser().getUserName();
 			}
 		}
 
