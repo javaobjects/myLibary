@@ -39,32 +39,40 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	//查询 自己的 未还借书记录 sql语句
 	private static final String QUERY_NO_RETURN_BY_SELF = "SELECT\r\n"
 			+ "	r.record_id,\r\n"
-			+ "	r.user_id,\r\n"
+			+ "	u.user_id,\r\n"
+			+ "	u.USER_NAME,\r\n"
 			+ "	r.book_id,\r\n"
 			+ "	r.lend_time,\r\n"
 			+ "	r.return_time,\r\n"
 			+ "	b.book_name \r\n"
 			+ "FROM\r\n"
 			+ "	myLibary_record r,\r\n"
-			+ "	myLibary_book b \r\n"
+			+ "	myLibary_book b ,\r\n"
+			+ "	mylibary_user u\r\n"
 			+ "WHERE\r\n"
 			+ "	r.book_id = b.book_id \r\n"
-			+ "	AND b.`STATUS` = 0 AND user_id = ?";
+			+ "	AND r.USER_ID = u.USER_ID\r\n"
+			+ "	AND b.`STATUS` = 0\r\n"
+			+ "	AND u.USER_ID = ?";
 	
 	//查询 自己的 已还借书记录 sql语句
 	private static final String QUERY_RETURN_END_BY_SELF = "SELECT\r\n"
 			+ "	r.record_id,\r\n"
-			+ "	r.user_id,\r\n"
+			+ "	u.user_id,\r\n"
+			+ "	u.USER_NAME,\r\n"
 			+ "	r.book_id,\r\n"
 			+ "	r.lend_time,\r\n"
 			+ "	r.return_time,\r\n"
 			+ "	b.book_name \r\n"
 			+ "FROM\r\n"
 			+ "	myLibary_record r,\r\n"
-			+ "	myLibary_book b \r\n"
+			+ "	myLibary_book b ,\r\n"
+			+ "	mylibary_user u\r\n"
 			+ "WHERE\r\n"
 			+ "	r.book_id = b.book_id \r\n"
-			+ "	AND b.`STATUS` = 1 AND user_id = ?";
+			+ "	AND r.USER_ID = u.USER_ID\r\n"
+			+ "	AND b.`STATUS` = 1\r\n"
+			+ "	AND u.USER_ID = ?";
 	
 	/**
 	 * <p>Title: returnBook</p>  
@@ -226,6 +234,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 				record.setBook(book);
 				User users=new User();
 				users.setUserId(rs.getInt("user_id"));
+				users.setUserName(rs.getString("user_name"));
 				record.setUser(users);
 				record.setLendTime(rs.getDate("lend_time"));
 				record.setReturnTime(rs.getDate("return_time"));
@@ -281,6 +290,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 				record.setBook(book);
 				User users=new User();
 				users.setUserId(rs.getInt("user_id"));
+				users.setUserName(rs.getString("user_name"));
 				record.setUser(users);
 				record.setLendTime(rs.getDate("lend_time"));
 				record.setReturnTime(rs.getDate("return_time"));
