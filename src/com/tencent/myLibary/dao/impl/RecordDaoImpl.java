@@ -94,7 +94,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 			conn=DBUtils_mysql.getConnection();
 			conn.setAutoCommit(false);
 			
-			stmt=conn.prepareStatement("select status from myLibary_book where book_id=?");
+			stmt=conn.prepareStatement("SELECT `STATUS` FROM mylibary_book WHERE BOOK_ID=?");
 			stmt.setInt(1,book_id);
 			rs=stmt.executeQuery();
 			int status=0;
@@ -110,12 +110,12 @@ public class RecordDaoImpl implements RecordDaoIfac {
 			{
 			//如果可还继续
 				//1.修改借书记录的归还时间
-				stmt=conn.prepareStatement("update myLibary_record set return_time = sysdate where record_id=?");
+				stmt=conn.prepareStatement("UPDATE mylibary_record SET RETURN_TIME = NOW() WHERE RECORD_ID=?");
 				stmt.setInt(1,record_id);
 				int rows1=stmt.executeUpdate();
 				
 				//2.修改书的状态为1
-				stmt=conn.prepareStatement("update myLibary_book set status = 1 where book_id=?");
+				stmt=conn.prepareStatement("UPDATE mylibary_book SET `STATUS` = 1 WHERE BOOK_ID = ?");
 				stmt.setInt(1,book_id);
 				int rows2=stmt.executeUpdate();
 				
@@ -326,59 +326,59 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	public boolean returnBook(int record_id, int book_id) {//还书功能
 		Boolean result=false;
 		//思路：先设置事务手动提交，查询书的状态，如果可还继续，如果不可还返回；如果可还那么修改借书记录的归还时间，同时修改书的状态为1
-		Connection conn=null;
-		PreparedStatement stmt=null;
-		ResultSet rs=null;
-		
-		try {
-			conn=DBUtils_mysql.getConnection();
-			conn.setAutoCommit(false);
-			
-			stmt=conn.prepareStatement("select status from myLibary_book where book_id=?");
-			stmt.setInt(1,book_id);
-			rs=stmt.executeQuery();
-			int status=0;
-			if(rs.next())
-			{
-				status=rs.getInt("status");
-			}
-			//如果不可还返回
-			if(status==1)
-			{
-				return result;
-			}else
-			{
-			//如果可还继续
-				//1.修改借书记录的归还时间
-				stmt=conn.prepareStatement("update myLibary_record set return_time = sysdate where record_id=?");
-				stmt.setInt(1,record_id);
-				int rows1=stmt.executeUpdate();
-				
-				//2.修改书的状态为1
-				stmt=conn.prepareStatement("update myLibary_book set status = 1 where book_id=?");
-				stmt.setInt(1,book_id);
-				int rows2=stmt.executeUpdate();
-				
-				if(rows1>0 && rows2>0)
-				{
-					conn.commit();//事务提交
-					result=true;//借书成功
-				}else
-				{
-					conn.rollback();//事务回滚
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		}finally
-		{
-			DBUtils_mysql.release(conn, stmt, rs);
-		}
+//		Connection conn=null;
+//		PreparedStatement stmt=null;
+//		ResultSet rs=null;
+//		
+//		try {
+//			conn=DBUtils_mysql.getConnection();
+//			conn.setAutoCommit(false);
+//			
+//			stmt=conn.prepareStatement("select status from myLibary_book where book_id=?");
+//			stmt.setInt(1,book_id);
+//			rs=stmt.executeQuery();
+//			int status=0;
+//			if(rs.next())
+//			{
+//				status=rs.getInt("status");
+//			}
+//			//如果不可还返回
+//			if(status==1)
+//			{
+//				return result;
+//			}else
+//			{
+//			//如果可还继续
+//				//1.修改借书记录的归还时间
+//				stmt=conn.prepareStatement("update myLibary_record set return_time = sysdate where record_id=?");
+//				stmt.setInt(1,record_id);
+//				int rows1=stmt.executeUpdate();
+//				
+//				//2.修改书的状态为1
+//				stmt=conn.prepareStatement("update myLibary_book set status = 1 where book_id=?");
+//				stmt.setInt(1,book_id);
+//				int rows2=stmt.executeUpdate();
+//				
+//				if(rows1>0 && rows2>0)
+//				{
+//					conn.commit();//事务提交
+//					result=true;//借书成功
+//				}else
+//				{
+//					conn.rollback();//事务回滚
+//				}
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			try {
+//				conn.rollback();
+//			} catch (SQLException e1) {
+//				e1.printStackTrace();
+//			}
+//		}finally
+//		{
+//			DBUtils_mysql.release(conn, stmt, rs);
+//		}
 		return result;
 	}
 	

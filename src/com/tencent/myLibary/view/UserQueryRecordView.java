@@ -64,6 +64,8 @@ public class UserQueryRecordView extends JInternalFrame{
 	private int record_id;
 	/** book_id 待还书的书的编号*/
 	private int book_id;
+	/** user_id 用户id */
+	private int user_id;
 	
 	/** 构造方法 */
 	public UserQueryRecordView(User user) {
@@ -137,7 +139,7 @@ public class UserQueryRecordView extends JInternalFrame{
 				int rowIndex=table.getSelectedRow();
 				record_id=(int) table.getValueAt(rowIndex, 0);
 				book_id=(int) table.getValueAt(rowIndex,1);
-				
+				user_id = (int) table.getValueAt(rowIndex, 6);
 				System.out.println("record_id:"+record_id+",book_id:"+book_id);
 			}
 		});
@@ -169,7 +171,7 @@ public class UserQueryRecordView extends JInternalFrame{
 				//把刚才选的借阅记录编号清空
 				record_id=0;
 				book_id=0;
-				
+				user_id = 0;
 				int type = cb_query_type.getSelectedIndex();// 值从0开始
 				List<Record> records=null;
 				System.out.println(type);
@@ -208,7 +210,8 @@ public class UserQueryRecordView extends JInternalFrame{
 				}
 				
 				//3.调用底层dao完成还书功能并提示信息
-				boolean result = recordDao.returnBook(record_id,book_id);
+//				boolean result = recordDao.returnBook(record_id,book_id);
+				boolean result = recordDao.returnBook(record_id,book_id,user_id);
 				if(result)
 				{
 					JOptionPane.showMessageDialog(null, "还书成功");
@@ -272,7 +275,7 @@ public class UserQueryRecordView extends JInternalFrame{
 		@Override
 		public int getColumnCount() {
 //			return 5;//5列：record_id book_id book_name lend_time 是否归还
-			return 6;//6列：记录编号 图书编号 图书名称 借书时间 是否已归还 用户id （record_id book_id book_name lend_time 是否归还 用户id）
+			return 7;//6列：记录编号 图书编号 图书名称 借书时间 是否已归还 用户id （record_id book_id book_name lend_time 是否归还 用户名称 用户id）
 		}
 
 		/**
@@ -308,8 +311,10 @@ public class UserQueryRecordView extends JInternalFrame{
 			}else if(columnIndex == 4)
 			{
 				return "是否已经归还";
-			}else {
+			}else if(columnIndex == 5){
 				return "用户名称";
+			}else {
+				return "用户id";
 			}
 		}
 
@@ -359,8 +364,10 @@ public class UserQueryRecordView extends JInternalFrame{
 			}else if(columnIndex==4)
 			{
 				return record.getReturnTime()==null?"未还":"已还";
-			}else {
+			}else if(columnIndex==5){
 				return record.getUser().getUserName();
+			}else {
+				return record.getUser().getUserId();
 			}
 		}
 
