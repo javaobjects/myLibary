@@ -379,7 +379,6 @@ select * from myLibary_record;
 6. sql语句后面多写分号 例："insert into myLibary_user(user_id,user_name,user_password,user_type)"
 			+ " values((select max(user_id) from myLibary_user)+1,?,?,?);" 正确写法应该是:"insert into myLibary_user(user_id,user_name,user_password,user_type)"
 			+ " values((select max(user_id) from myLibary_user)+1,?,?,?)"
-			
 
 ![](https://upload-images.jianshu.io/upload_images/5227364-b97e60aa43f069d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -397,6 +396,7 @@ select * from myLibary_record;
 1. [mysql与oracle区别](https://blog.csdn.net/qq_37480021/article/details/80703081)
 1. [Oracle转MySQL日记（三） ---关于Oracle序列(Sequence)的转化](https://blog.csdn.net/zjfhhc/article/details/105935131)
 1. [Navicat设置自动递增的基本步骤](https://www.jianshu.com/p/6ede8ff21e4c)
+1. [Java Swing 隐藏JTable的某一列](https://blog.csdn.net/weixin_42089228/article/details/107901907)
 
 
 

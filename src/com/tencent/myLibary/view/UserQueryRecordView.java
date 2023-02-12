@@ -144,6 +144,7 @@ public class UserQueryRecordView extends JInternalFrame{
 			}
 		});
 		
+		//查询按钮监听事件
 		btn_query.addActionListener(new ActionListener() {
 
 			@Override
@@ -210,7 +211,6 @@ public class UserQueryRecordView extends JInternalFrame{
 				}
 				
 				//3.调用底层dao完成还书功能并提示信息
-//				boolean result = recordDao.returnBook(record_id,book_id);
 				boolean result = recordDao.returnBook(record_id,book_id,user_id);
 				if(result)
 				{
@@ -233,6 +233,26 @@ public class UserQueryRecordView extends JInternalFrame{
 
 			}
 		});
+	}
+	
+
+	/**
+	 * <p>Title: hideColumn</p>
+	 * <p>
+	 *    Description:
+	 * </p>
+	 * <p>Copyright: Copyright (c) 2017</p>
+	 * <p>Company: www.baidudu.com</p>
+	 * @param table
+	 * @param column
+	 * @author xianxian
+	 * @date 2023年2月12日下午7:32:49
+	 * @version 1.0
+	 */
+	public void hideColumn(JTable table,int column) {
+		table.getTableHeader().getColumnModel().getColumn(column).setMaxWidth(0);
+		table.getTableHeader().getColumnModel().getColumn(column).setMinWidth(0);
+		table.getTableHeader().getColumnModel().getColumn(column).setPreferredWidth(0);
 	}
 	
 	/**
@@ -274,7 +294,6 @@ public class UserQueryRecordView extends JInternalFrame{
 		 */
 		@Override
 		public int getColumnCount() {
-//			return 5;//5列：record_id book_id book_name lend_time 是否归还
 			return 7;//6列：记录编号 图书编号 图书名称 借书时间 是否已归还 用户id （record_id book_id book_name lend_time 是否归还 用户名称 用户id）
 		}
 
@@ -320,6 +339,10 @@ public class UserQueryRecordView extends JInternalFrame{
 
 		@Override
 		public Class<?> getColumnClass(int columnIndex) {
+			//调用隐藏列方法
+			if(columnIndex == 5 || columnIndex == 6) {
+				hideColumn(table, columnIndex);
+			}
 			return String.class;//每一列的数据类型
 		}
 
@@ -382,6 +405,5 @@ public class UserQueryRecordView extends JInternalFrame{
 		@Override
 		public void removeTableModelListener(TableModelListener l) {
 		}
-		
 	}
 }
