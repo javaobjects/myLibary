@@ -389,6 +389,14 @@ select * from myLibary_record;
 1. [JavaWeb中的MVC模式（有案例）](https://blog.csdn.net/weixin_45819587/article/details/120564732)
 1. [Java语言使用JDBC连接Mysql数据库的详细步骤，以及详细解释（一）](https://blog.csdn.net/weixin_44912627/article/details/109464979)
 1. [各个数据库中，查询前n条记录的方法](https://blog.csdn.net/Schaffer_W/article/details/117062045)
+1. [MySQL序列的使用](https://www.yiibai.com/mysql/mysql-using-sequences.html)
+1. [如何在MySQL中创建和使用序列？](https://www.nhooo.com/note/qa06il.html)
+1. [mysql与oracle的区别_MySQL](https://www.php.cn/mysql-tutorials-68362.html)
+1. [**Oracle与MySQL的几点区别**](https://blog.51cto.com/u_15067234/4183964)
+1. [[MySQL与Oracle之间的区别](https://www.cnblogs.com/KYKY22/p/5755105.html)]
+1. [mysql与oracle区别](https://blog.csdn.net/qq_37480021/article/details/80703081)
+1. [Oracle转MySQL日记（三） ---关于Oracle序列(Sequence)的转化](https://blog.csdn.net/zjfhhc/article/details/105935131)
+1. [Navicat设置自动递增的基本步骤](https://www.jianshu.com/p/6ede8ff21e4c)
 
 
 

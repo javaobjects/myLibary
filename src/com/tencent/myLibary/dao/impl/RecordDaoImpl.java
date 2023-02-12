@@ -16,9 +16,6 @@ import com.tencent.myLibary.util.DBUtils_mysql;
 public class RecordDaoImpl implements RecordDaoIfac {
 
 	//查询 自己的 所有借书记录 sql语句
-//	private static final String QUERY_ALL_RECORD_BY_SELF = "select r.record_id,r.user_id,r.book_id,r.lend_time,r.return_time,"
-//			+ "b.book_name "
-//			+ "from myLibary_record r,myLibary_book b where r.book_id=b.book_id and user_id=?";
 	private static final String QUERY_ALL_RECORD_BY_SELF = "SELECT\r\n"
 			+ "	r.record_id,\r\n"
 			+ "	u.user_id,\r\n"
@@ -200,7 +197,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	 * (non-Javadoc)
 	 * <p>Title: queryAllNotReturnRecord</p>
 	 * <p>
-	 *    Description:
+	 *    Description:查询 用户 未还借书记录
 	 * </p>
 	 * <p>Copyright: Copyright (c) 2017</p>
 	 * <p>Company: www.baidudu.com</p>
@@ -212,7 +209,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	 * @version 1.0
 	 */
 	@Override
-	public List<Record> queryAllNotReturnRecord(User user) {//未还借书记录
+	public List<Record> queryAllNotReturnRecord(User user) {
 		List<Record> records=new ArrayList<>();
 		Connection conn=null;
 		PreparedStatement stmt=null;
@@ -256,7 +253,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	 * (non-Javadoc)
 	 * <p>Title: queryAllReturnRecord</p>
 	 * <p>
-	 *    Description:
+	 *    Description:查询 用户 已还借书记录
 	 * </p>
 	 * <p>Copyright: Copyright (c) 2017</p>
 	 * <p>Company: www.baidudu.com</p>
@@ -268,7 +265,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	 * @version 1.0
 	 */
 	@Override
-	public List<Record> queryAllReturnRecord(User user) {//已还借书记录
+	public List<Record> queryAllReturnRecord(User user) {
 		List<Record> records=new ArrayList<>();
 		Connection conn=null;
 		PreparedStatement stmt=null;

@@ -75,14 +75,17 @@ public class BookDaoImpl implements BookDaoIfac {
 			{
 			//如果可借继续
 				//1.插入一条借书记录
-				stmt = conn.prepareStatement("insert into myLibary_record (record_id,book_id,user_id,lend_time) "
-						+ "values(seq_myLibary_record_id.nextval,?,?,sysdate)");
+//				stmt = conn.prepareStatement("insert into myLibary_record (record_id,book_id,user_id,lend_time) "
+//						+ "values(seq_myLibary_record_id.nextval,?,?,sysdate)");
+				stmt = conn.prepareStatement("INSERT INTO myLibary_record (RECORD_ID,BOOK_ID,USER_ID, LEND_TIME )\r\n"
+						+ "VALUES (null,?,?, NOW())");
 				stmt.setInt(1,book_id);
 				stmt.setInt(2,user_id);
 				int rows_insert=stmt.executeUpdate();
 				
 				//2.修改书的状态为0
-				stmt = conn.prepareStatement("update myLibary_book set status=0,lend_count = lend_count + 1 where book_id=?");
+//				stmt = conn.prepareStatement("update myLibary_book set status=0,lend_count = lend_count + 1 where book_id=?");
+				stmt = conn.prepareStatement("UPDATE mylibary_book SET `STATUS` = 0,LEND_COUNT = LEND_COUNT + 1 WHERE BOOK_ID = ?");
 				stmt.setInt(1,book_id);
 				int rows_update=stmt.executeUpdate();
 				
@@ -143,7 +146,18 @@ public class BookDaoImpl implements BookDaoIfac {
 	}
 	
 	/**
-	 * 4.查看热门图书信息
+	 * (non-Javadoc)
+	 * <p>Title: queryHotBooks</p>
+	 * <p>
+	 *    Description:4.查看热门图书信息
+	 * </p>
+	 * <p>Copyright: Copyright (c) 2017</p>
+	 * <p>Company: www.baidudu.com</p>
+	 * @return
+	 * @see com.tencent.myLibary.dao.ifac.BookDaoIfac#queryHotBooks()
+	 * @author xianxian
+	 * @date 2023年2月11日下午4:01:29
+	 * @version 1.0
 	 */
 	public List<Book> queryHotBooks()
 	{
@@ -177,8 +191,20 @@ public class BookDaoImpl implements BookDaoIfac {
 		}
 		return list;
 	}
+
 	/**
-	 * 5.查看可借图书信息
+	 * (non-Javadoc)
+	 * <p>Title: queryCanLendBooks</p>
+	 * <p>
+	 *    Description:5.查看可借图书信息
+	 * </p>
+	 * <p>Copyright: Copyright (c) 2017</p>
+	 * <p>Company: www.baidudu.com</p>
+	 * @return
+	 * @see com.tencent.myLibary.dao.ifac.BookDaoIfac#queryCanLendBooks()
+	 * @author xianxian
+	 * @date 2023年2月11日下午4:01:46
+	 * @version 1.0
 	 */
 	public List<Book> queryCanLendBooks()
 	{
@@ -213,7 +239,18 @@ public class BookDaoImpl implements BookDaoIfac {
 	}
 	
 	/**
-	 * 6.查看图书馆被借走的图书信息
+	 * (non-Javadoc)
+	 * <p>Title: queryCanNotLendBooks</p>
+	 * <p>
+	 *    Description:6.查看图书馆被借走的图书信息
+	 * </p>
+	 * <p>Copyright: Copyright (c) 2017</p>
+	 * <p>Company: www.baidudu.com</p>
+	 * @return
+	 * @see com.tencent.myLibary.dao.ifac.BookDaoIfac#queryCanNotLendBooks()
+	 * @author xianxian
+	 * @date 2023年2月11日下午4:02:07
+	 * @version 1.0
 	 */
 	public List<Book> queryCanNotLendBooks()
 	{

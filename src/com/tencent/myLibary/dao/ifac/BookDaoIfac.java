@@ -10,7 +10,7 @@ public interface BookDaoIfac {
 	 * @param user_id
 	 * @return
 	 */
-	public Boolean lendBook(Integer book_id,Integer user_id);
+	public abstract Boolean lendBook(Integer book_id,Integer user_id);
 
 	/**
 	 * 3.查看所有图书信息
