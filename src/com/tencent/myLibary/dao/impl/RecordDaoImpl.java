@@ -50,6 +50,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 			+ "	r.book_id = b.book_id \r\n"
 			+ "	AND r.USER_ID = u.USER_ID\r\n"
 			+ "	AND b.`STATUS` = 0\r\n"
+			+ "	AND r.RETURN_TIME IS NULL\r\n"
 			+ "	AND u.USER_ID = ?";
 	
 	//查询 自己的 已还借书记录 sql语句
@@ -69,6 +70,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 			+ "	r.book_id = b.book_id \r\n"
 			+ "	AND r.USER_ID = u.USER_ID\r\n"
 			+ "	AND b.`STATUS` = 1\r\n"
+			+ "	AND r.RETURN_TIME IS NOT NULL\r\n"
 			+ "	AND u.USER_ID = ?";
 	
 	/**

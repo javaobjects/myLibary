@@ -140,7 +140,7 @@ public class UserQueryRecordView extends JInternalFrame{
 				record_id=(int) table.getValueAt(rowIndex, 0);
 				book_id=(int) table.getValueAt(rowIndex,1);
 				user_id = (int) table.getValueAt(rowIndex, 6);
-				System.out.println("record_id:"+record_id+",book_id:"+book_id);
+				System.out.println("record_id:"+record_id+",book_id:"+book_id + ",user_id" + user_id);
 			}
 		});
 		
