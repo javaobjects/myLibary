@@ -1,6 +1,8 @@
 package com.tencent.myLibary.view;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -84,10 +86,9 @@ public class UserRegisterView extends JFrame {
 		
 		this.add(panel_common);
 	}
-
 	public UserRegisterView() {
 		init();
-
+		registerListener(this);
 		this.setTitle("注册窗体");// 设置窗体的标题
 
 		this.setSize(400, 300);// 设置窗体的大小
@@ -100,5 +101,20 @@ public class UserRegisterView extends JFrame {
 
 		this.setVisible(true);// 设置窗体显示出来
 	}
-
+	private void registerListener(JFrame jf) {
+		btn_confirm_submit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("you click submit ");
+			}
+		});
+		//点击退出按钮关闭当前页面回到注册登录页面
+		btn_exit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jf.dispose();
+				new UserLoginView();
+			}
+		});
+	}
 }
