@@ -397,6 +397,9 @@ select * from myLibary_record;
 1. [Oracle转MySQL日记（三） ---关于Oracle序列(Sequence)的转化](https://blog.csdn.net/zjfhhc/article/details/105935131)
 1. [Navicat设置自动递增的基本步骤](https://www.jianshu.com/p/6ede8ff21e4c)
 1. [Java Swing 隐藏JTable的某一列](https://blog.csdn.net/weixin_42089228/article/details/107901907)
+1. [Java Swing 只关闭当前窗体](https://zhuanlan.zhihu.com/p/150829207)
+1. [Java代码中如何判断一个字符串中是否包含特殊字符呢？](https://www.cnblogs.com/javalove2022/p/16689963.html)
+1. [如何给combobox设定一个默认值？](https://blog.csdn.net/weixin_34124651/article/details/85488261)
 
 
 

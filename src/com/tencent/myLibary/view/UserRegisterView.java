@@ -7,8 +7,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import com.tencent.myLibary.dao.factory.DAOFactory;
+import com.tencent.myLibary.entity.User;
+import com.tencent.myLibary.util.StringUtils_self;
 
 /**
  * 用户注册窗体
@@ -86,9 +91,11 @@ public class UserRegisterView extends JFrame {
 		
 		this.add(panel_common);
 	}
-	public UserRegisterView() {
+	//type 为用户注册是 选择的 普通用户2 还是管理员用户1
+	public UserRegisterView(int type) {
 		init();
-		registerListener(this);
+		registerListener(this,type);
+		System.out.println("type: " + type);
 		this.setTitle("注册窗体");// 设置窗体的标题
 
 		this.setSize(400, 300);// 设置窗体的大小
@@ -101,11 +108,74 @@ public class UserRegisterView extends JFrame {
 
 		this.setVisible(true);// 设置窗体显示出来
 	}
-	private void registerListener(JFrame jf) {
+	private void registerListener(JFrame jf,Integer type) {
 		btn_confirm_submit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("you click submit ");
+				//获取值
+				String userName = txt_name.getText(),
+						passWord = txt_password.getText(),
+						confirmPassWord = txt_confirm_password.getText();
+				//1. 用户名 非空判断
+				if(StringUtils_self.isNull(userName)) {
+					JOptionPane.showMessageDialog(null, "用户名不能为空");
+					return;
+				}
+				//2. 用户名特殊符号判断 限定只能用字母或数字组合 或纯字母 
+				if(StringUtils_self.isSpecialChar(userName)) {
+					JOptionPane.showMessageDialog(null, "用户名不能包含特殊字符");
+					return;
+				}
+				//3. 用户名不能包含汉字
+				if(StringUtils_self.isChineseChar(userName)) {
+					JOptionPane.showMessageDialog(null, "用户名不能包含汉字");
+					return;
+				}
+				//4. 密码首位必须为字母
+				if(!StringUtils_self.firstWordIsLetter(userName)) {
+					JOptionPane.showMessageDialog(null, "用户名必须以字母开头");
+					return;
+				}
+				//5. 用户名长度判断
+				if(userName.length() > 8) {
+					JOptionPane.showMessageDialog(null, "用户名长度不能超过8位");
+					return;
+				}
+				//6. 密码不能为空
+				if(StringUtils_self.isNull(passWord)) {
+					JOptionPane.showMessageDialog(null, "密码不能为空");
+					return;
+				}
+				//7. 密码特殊字符判断
+				if(StringUtils_self.isSpecialChar(passWord)) {
+					JOptionPane.showMessageDialog(null, "密码不能包含特殊字符");
+					return;
+				}
+
+				//8. 密码长度判断
+				if(passWord.length() > 8 || passWord.length() < 6) {
+					JOptionPane.showMessageDialog(null, "密码长度为6到8位");
+					return;
+				}
+				//9. 两次密码是否一致判断
+				if(!passWord.equals(confirmPassWord)) {
+					JOptionPane.showMessageDialog(null, "两次密码不一致!");
+					return;
+				}
+				//10、 以上若都通过则查询用户数据表 是否用户名复复 判断
+				User user = DAOFactory.getUserDaoInstance().queryUserByName(userName);
+				if(user != null) {
+					JOptionPane.showMessageDialog(null, "用户名已存在");
+					return;
+				}
+				//11. 以上若都通过则插入数据
+				if(!DAOFactory.getUserDaoInstance().addUser(userName, passWord, type)) {
+					JOptionPane.showMessageDialog(null, "注册失败，请稍后再试！");
+					return;
+				}else {
+					JOptionPane.showMessageDialog(null, "注册成功，请退出登录!");
+					return;
+				}
 			}
 		});
 		//点击退出按钮关闭当前页面回到注册登录页面

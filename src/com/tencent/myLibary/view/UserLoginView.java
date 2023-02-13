@@ -51,6 +51,25 @@ public class UserLoginView extends JFrame{
 	private UserDaoIfac userDao = DAOFactory.getUserDaoInstance();//声明依赖并初始化，避免空指针异常
 	
 	/**
+	 * <p>Title: getSelectType</p>
+	 * <p>
+	 *    Description:
+	 *    获取 用户 选择的 是 普通 用户 还是管理员 
+	 *    1 是管理员 2是普通用户
+	 * </p>
+	 * <p>Copyright: Copyright (c) 2017</p>
+	 * <p>Company: www.baidudu.com</p>
+	 * @param cb_type
+	 * @return
+	 * @author xianxian
+	 * @date 2023年2月13日下午5:24:26
+	 * @version 1.0
+	 */
+	private static Integer getSelectType(JComboBox cb_type) {
+		return cb_type.getSelectedIndex() == 0 ? 1 : 2;//1 是管理员 2是普通用户
+	}
+	
+	/**
 	 * 给所有按钮注册侦听器的方法
 	 */
 	private void registetActionListener()
@@ -65,13 +84,11 @@ public class UserLoginView extends JFrame{
 				 * 点击登录按钮的目的：登录，来到主窗体
 				 */
 				//1.获取用户名和密码，还有用户类型
-				String username=txt_username.getText();
-				String password=txt_password.getText();
-				//String type=(String)cb_type.getSelectedItem();
-				//System.out.println("username:"+username);
-				//System.out.println("password:"+password);
-				int type=cb_type.getSelectedIndex();
-				int user_type=(type==0)?1:2;//1 是管理员   2是普通用户
+				String username = txt_username.getText();
+				String password = txt_password.getText();
+				
+//				int type = cb_type.getSelectedIndex();
+//				int user_type = (type == 0) ? 1 : 2;// 1 是管理员 2是普通用户
 				
 				//2.对数据进行非空判断
 				if(username==null||"".equals(username.trim())||password==null||"".equals(password.trim()))
@@ -79,15 +96,9 @@ public class UserLoginView extends JFrame{
 					JOptionPane.showMessageDialog(null, "用户名或者密码为空，请重新输入");
 					return;
 				}
-				//2.2对账号进行正则校验：帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：^[a-zA-Z][a-zA-Z0-9_]{4,15}$
-				/*if(!username.matches("^[a-zA-Z][a-zA-Z0-9_]{4,15}$"))
-				{
-					JOptionPane.showMessageDialog(null, "用户名只能是字母开头，允许5-16字节，允许字母数字下划线");
-					return;
-				}*/
 				
 				//3.判断用户是否存在,下面的代码是把两行代码合成一行，这样执行效率高，拿的工资高
-				User user=userDao.queryUserByNameAndPassword(username, password,user_type);
+				User user=userDao.queryUserByNameAndPassword(username, password,getSelectType(cb_type));
 //				UserDaoIfac dao=new UserDaoImpl();
 //				User user=dao.queryUserByNameAndPassword(username, password, user_type);
 				
@@ -107,22 +118,18 @@ public class UserLoginView extends JFrame{
 				}else
 				{
 					System.out.println("弹出用户主窗体");
-					
 					new UserMainView(user);
 					UserLoginView.this.dispose();//释放窗体占用的内存资源
 				}
-				
 				
 				System.out.println("9999999999999999");
 			}
 		});
 		btn_register.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("你点击了注册按钮");
-				new UserRegisterView();
-				UserLoginView.this.dispose();
+				new UserRegisterView(getSelectType(cb_type));//打开注册页面
+				UserLoginView.this.dispose();//关闭登录页面
 			}
 		});
 	}
@@ -148,7 +155,7 @@ public class UserLoginView extends JFrame{
 		txt_password = new JTextField();//用户名输入文本框
 		txt_username = new JTextField();//密码文本输入框
 		cb_type = new JComboBox<String>(new String[] {"管理员","普通用户"});//下拉框
-		
+		cb_type.setSelectedIndex(1);//设置默认为普通用户
 		btn_login = new JButton("登录");//登录按钮
 		btn_register = new JButton("注册");//注册按钮
 		//2.把组件拼装起来
