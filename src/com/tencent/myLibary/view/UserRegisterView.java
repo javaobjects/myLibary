@@ -34,6 +34,10 @@ public class UserRegisterView extends JFrame {
 	private JPanel panel_confirm_password;
 	/** 子容器五 */
 	private JPanel panel_btn;
+	/** 管理员 权限容器 */
+	private JLabel lbl_manage_word;
+	/** 管理员 注册码 */
+	private JTextField txt_manage_word;
 	/** 名字标签 */
 	private JLabel lbl_name;
 	/** 名字输入框 */
@@ -51,26 +55,39 @@ public class UserRegisterView extends JFrame {
 	/** 确认提交按钮 */
 	private JButton btn_confirm_submit;
 
-	private void init() {
+	private void init(Integer type) {
 		//初始化
-		panel_common = new JPanel(new GridLayout(5, 1,0,10));
-		panel_top = new JPanel();
+		panel_common = new JPanel(new GridLayout(5, 1, 0, 10));
+//		panel_top = new JPanel();
+		panel_top = new JPanel(new GridLayout(1, 2));
 		panel_name = new JPanel(new GridLayout(1, 2));
 		panel_password = new JPanel(new GridLayout(1, 2));
 		panel_confirm_password = new JPanel(new GridLayout(1, 2));
 		panel_btn = new JPanel(new GridLayout(1, 2));
+
+		lbl_manage_word = new JLabel("管理员注册码：", JLabel.RIGHT);
+		txt_manage_word = new JTextField(20);
+
+		//如果是普通用户 则设置它不可见
+		if(type == 2) {
+			lbl_manage_word.setVisible(false);
+			txt_manage_word.setVisible(false);
+		}
 		
-		lbl_name=new JLabel("    用    户    姓     名：      ", JLabel.RIGHT);
-		txt_name=new JTextField(20);
-		lbl_password=new JLabel("密码：", JLabel.RIGHT);
-		txt_password=new JTextField(20);
-		lbl_confirm_password=new JLabel("确认密码：", JLabel.RIGHT);;
-		txt_confirm_password=new JTextField(20);
-		btn_exit=new JButton("退出");
-		btn_confirm_submit=new JButton("确认提交");
+		lbl_name = new JLabel("用户姓名：", JLabel.RIGHT);
+		txt_name = new JTextField(20);
+		lbl_password = new JLabel("密码：", JLabel.RIGHT);
+		txt_password = new JTextField(20);
+		lbl_confirm_password = new JLabel("确认密码：", JLabel.RIGHT);
+		;
+		txt_confirm_password = new JTextField(20);
+		btn_exit = new JButton("退出");
+		btn_confirm_submit = new JButton("确认提交");
 		
 		//拼装
-		panel_top.add(new JLabel());//占位
+//		panel_top.add(new JLabel());//占位
+		panel_top.add(lbl_manage_word);
+		panel_top.add(txt_manage_word);
 		panel_name.add(lbl_name);
 		panel_name.add(txt_name);
 		
@@ -93,7 +110,7 @@ public class UserRegisterView extends JFrame {
 	}
 	//type 为用户注册是 选择的 普通用户2 还是管理员用户1
 	public UserRegisterView(int type) {
-		init();
+		init(type);
 		registerListener(this,type);
 		System.out.println("type: " + type);
 		this.setTitle("注册窗体");// 设置窗体的标题
@@ -116,6 +133,14 @@ public class UserRegisterView extends JFrame {
 				String userName = txt_name.getText(),
 						passWord = txt_password.getText(),
 						confirmPassWord = txt_confirm_password.getText();
+				
+				//0. 如果是管理注册 先判断管理员注册码
+				if(type == 1) {
+					if(!txt_manage_word.getText().equals("xianxian")) {
+						JOptionPane.showMessageDialog(null, "管理员注册码不正确，请重新输入!");
+						return;
+					}
+				}
 				//1. 用户名 非空判断
 				if(StringUtils_self.isNull(userName)) {
 					JOptionPane.showMessageDialog(null, "用户名不能为空");
