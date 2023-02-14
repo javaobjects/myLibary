@@ -1,4 +1,4 @@
-package com.tencent.myLibary.view;
+package com.tencent.myLibary.view.user;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -115,8 +115,7 @@ public class UserMainView extends JFrame{
 		btn_exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("click btn_exit");
-				
+				UserMainView.this.dispose();
 			}
 		});
 	}

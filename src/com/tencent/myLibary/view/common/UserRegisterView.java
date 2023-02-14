@@ -1,4 +1,4 @@
-package com.tencent.myLibary.view;
+package com.tencent.myLibary.view.common;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

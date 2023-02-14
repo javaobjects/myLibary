@@ -1,4 +1,4 @@
-package com.tencent.myLibary.view;
+package com.tencent.myLibary.view.user;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -30,7 +30,7 @@ import com.tencent.myLibary.entity.User;
  * <p>
  *	Description: 
  *	图书查询窗体是一个嵌入式窗体，所以父亲是JInternalFrame
- * </p> 
+ * </p>
  * @author xianxian 
  * @date 2019年8月20日
  */
@@ -57,14 +57,6 @@ public class UserQueryBookView extends JInternalFrame {
 	private JButton btn_query;
 	/** 借书按钮 */
 	private JButton btn_lend;
-	
-	/** 添加图按钮 */
-	private JButton btn_add;
-	/** 删除按钮 */
-	private JButton btn_del;
-	/** 修改按钮 */
-	private JButton btn_upda;
-	
 	/** 退出按钮 */
 	private JButton btn_exit;
 	/** 存放选定图书的id的属性 */
@@ -93,32 +85,18 @@ public class UserQueryBookView extends JInternalFrame {
 				"可借图书", "不可借图书" });
 		btn_query = new JButton("查    询");
 		btn_lend = new JButton("借    书");
-		
-		btn_add = new JButton("添    加");
-		btn_del = new JButton("删    除");
-		btn_upda = new JButton("修    改");
-		
 		btn_exit = new JButton("退     出");
 
 		table = new JTable();
 		panel_left = new JScrollPane(table);
 
-//		panel_right = new JPanel(new GridLayout(7, 1, 0, 20));
-		panel_right = new JPanel(new GridLayout(10, 1, 0, 10));
+		panel_right = new JPanel(new GridLayout(7, 1, 0, 20));
 		panel_right.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createRaisedBevelBorder(), "查询条件"));
 		panel_right.add(lb_query_type);
 		panel_right.add(cb_query_type);
 		panel_right.add(btn_query);
 		panel_right.add(btn_lend);
-		
-		
-		panel_right.add(btn_add);
-		panel_right.add(btn_del);
-		panel_right.add(btn_upda);
-		
-		
-		
 		
 		panel_right.add(new JLabel());
 		panel_right.add(new JLabel());
@@ -162,8 +140,6 @@ public class UserQueryBookView extends JInternalFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				System.out.println("111");
-//				System.out.println("112");
 				// 1.获取查询类型
 				int result = cb_query_type.getSelectedIndex();
 				System.out.println(result);
@@ -182,12 +158,9 @@ public class UserQueryBookView extends JInternalFrame {
 				case 3:
 					books=bookDao.queryCanNotLendBooks();
 					break;
-
 				default:
 					break;
 				}
-				
-				System.out.println(books.toString());
 				//想要把数据显示在面板上的表格控件中，那么一行代码就搞定了。
 				BookTableModel dataModel=new BookTableModel(books);
 				table.setModel(dataModel);
@@ -226,51 +199,10 @@ public class UserQueryBookView extends JInternalFrame {
 			}
 		});
 		
-		
-		btn_add.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("btn_add");
-				
-				//添加自己思考一下应该如何去完成
-				
-			}
-		});
-		
-		btn_del.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("btn_del");
-				if(book_id==0)
-				{
-					JOptionPane.showMessageDialog(null, "请先选定图书");
-					return;
-				}
-				//删除的sql语句
-				
-			}
-		});
-		
-		btn_upda.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("btn_upda");
-				if(book_id==0)
-				{
-					JOptionPane.showMessageDialog(null, "请先选定图书");
-					return;
-				}
-				//更新的sql语句
-			}
-		});
-		
-		
-		
 		btn_exit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("333");
 				UserQueryBookView.this.dispose();
 			}
 		});

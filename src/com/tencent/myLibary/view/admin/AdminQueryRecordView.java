@@ -1,4 +1,4 @@
-package com.tencent.myLibary.view;
+package com.tencent.myLibary.view.admin;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -25,18 +25,8 @@ import com.tencent.myLibary.dao.ifac.RecordDaoIfac;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
-/**
- * <p>Title: UserQueryRecordView</p>
- * <p>
- *	Description: 
- *	用户模块查询借阅记录窗体
- * </p> 
- * @author xianxian 
- * @date 2019年8月20日
- */
-public class UserQueryRecordView extends JInternalFrame{
-	
-	private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
+public class AdminQueryRecordView extends JInternalFrame {
+private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
 	
 	private User user;
 	
@@ -68,7 +58,7 @@ public class UserQueryRecordView extends JInternalFrame{
 	private int user_id;
 	
 	/** 构造方法 */
-	public UserQueryRecordView(User user) {
+	public AdminQueryRecordView(User user) {
 		this.user = user;
 		init();
 		registerListener();
@@ -177,7 +167,7 @@ public class UserQueryRecordView extends JInternalFrame{
 				List<Record> records=null;
 				System.out.println(type);
 				switch (type) {
-				case 0://所有记书记录
+				case 0://所有借书记录
 					records = recordDao.queryAllRecord(user);
 					break;
 				case 1://未还借书记录
@@ -229,7 +219,7 @@ public class UserQueryRecordView extends JInternalFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				UserQueryRecordView.this.dispose();
+				AdminQueryRecordView.this.dispose();
 
 			}
 		});

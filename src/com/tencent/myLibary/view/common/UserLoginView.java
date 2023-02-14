@@ -1,4 +1,4 @@
-package com.tencent.myLibary.view;
+package com.tencent.myLibary.view.common;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -17,6 +17,9 @@ import javax.swing.JTextField;
 import com.tencent.myLibary.dao.factory.DAOFactory;
 import com.tencent.myLibary.dao.ifac.UserDaoIfac;
 import com.tencent.myLibary.entity.User;
+import com.tencent.myLibary.util.StringUtils_self;
+import com.tencent.myLibary.view.admin.AdminMainView;
+import com.tencent.myLibary.view.user.UserMainView;
 
 /**
  * <p>Title: UserLoginView</p>  
@@ -78,8 +81,6 @@ public class UserLoginView extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println("你点击了登录按钮");
 				/*
 				 * 点击登录按钮的目的：登录，来到主窗体
 				 */
@@ -87,42 +88,27 @@ public class UserLoginView extends JFrame{
 				String username = txt_username.getText();
 				String password = txt_password.getText();
 				
-//				int type = cb_type.getSelectedIndex();
-//				int user_type = (type == 0) ? 1 : 2;// 1 是管理员 2是普通用户
-				
 				//2.对数据进行非空判断
-				if(username==null||"".equals(username.trim())||password==null||"".equals(password.trim()))
-				{
+				if(StringUtils_self.isNull(username) || StringUtils_self.isNull(password)) {
 					JOptionPane.showMessageDialog(null, "用户名或者密码为空，请重新输入");
 					return;
 				}
 				
 				//3.判断用户是否存在,下面的代码是把两行代码合成一行，这样执行效率高，拿的工资高
 				User user=userDao.queryUserByNameAndPassword(username, password,getSelectType(cb_type));
-//				UserDaoIfac dao=new UserDaoImpl();
-//				User user=dao.queryUserByNameAndPassword(username, password, user_type);
-				
 				if(user==null)
 				{
 					JOptionPane.showMessageDialog(null, "用户名或者密码错误，请重新输入");
 					return;
 				}
-				
 				//4.判断用户类型：如果是普通用户则弹出用户主窗体，如果是管理员，则弹出管理员主窗体
-				if(user.getUserType()==1)
-				{
-					System.out.println("弹出管理员主窗体");
-					
-					//new AdminMainView();
-					
-				}else
-				{
-					System.out.println("弹出用户主窗体");
+				if (user.getUserType() == 1) {
+					 new AdminMainView(user);
+					 UserLoginView.this.dispose();// 释放窗体占用的内存资源
+				} else {
 					new UserMainView(user);
-					UserLoginView.this.dispose();//释放窗体占用的内存资源
+					UserLoginView.this.dispose();// 释放窗体占用的内存资源
 				}
-				
-				System.out.println("9999999999999999");
 			}
 		});
 		btn_register.addActionListener(new ActionListener() {
@@ -133,8 +119,6 @@ public class UserLoginView extends JFrame{
 			}
 		});
 	}
-
-	
 	
 	/**
 	 * 初始化窗体的方法

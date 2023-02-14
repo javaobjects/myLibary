@@ -1,6 +1,6 @@
 package com.tencent.myLibary.test;
 
-import com.tencent.myLibary.view.UserLoginView;
+import com.tencent.myLibary.view.common.UserLoginView;
 
 public class TestUserLoginView {
 

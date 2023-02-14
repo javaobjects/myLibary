@@ -1,6 +1,6 @@
 package com.tencent.myLibary.test;
 
-import com.tencent.myLibary.view.UserRegisterView;
+import com.tencent.myLibary.view.common.UserRegisterView;
 
 public class TestUserRegisterView {
 
