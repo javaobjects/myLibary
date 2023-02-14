@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
@@ -81,11 +80,12 @@ public class UserQueryRecordView extends JInternalFrame{
 		// 窗体能否最小化
 		this.setIconifiable(true);
 		this.setVisible(true);
-
 	}
 	
 	private void init() {
-		lb_query_type = new JLabel("查询类型：");
+//		lb_query_type = new JLabel("查询类型：");
+		lb_query_type = new JLabel();
+		lb_query_type.setSize(10, 49);
 		cb_query_type = new JComboBox<String>(new String[] { "所有借书记录",
 				"未还借书记录", "已还借书记录" });
 		btn_query = new JButton("查    询");
@@ -96,8 +96,8 @@ public class UserQueryRecordView extends JInternalFrame{
 		panel_left = new JScrollPane(table);
 
 		panel_right = new JPanel(new GridLayout(7, 1, 0, 20));
-		panel_right.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createRaisedBevelBorder(), "查询条件"));
+//		panel_right.setBorder(BorderFactory.createTitledBorder(
+//				BorderFactory.createRaisedBevelBorder(), "查询条件"));
 		panel_right.add(lb_query_type);
 		panel_right.add(cb_query_type);
 		panel_right.add(btn_query);
