@@ -72,6 +72,7 @@ public class UserDaoImpl implements UserDaoIfac {
 		
 		try {
 			conn=DBUtils_mysql.getConnection();
+			conn.setAutoCommit(false);//更改为手动提交 若无这代码则将报错  Can't call commit when autocommit=true
 			stmt=conn.prepareStatement(ADD_NEW_USER);
 			//给占位符赋值
 			stmt.setString(1,userName);
@@ -79,7 +80,7 @@ public class UserDaoImpl implements UserDaoIfac {
 			stmt.setInt(3, userType);
 			
 			int inset_rs = stmt.executeUpdate();
-			
+			System.out.println("inset_rs," + inset_rs);
 			if(inset_rs > 0)
 			{
 				conn.commit();//事务提交

@@ -174,7 +174,8 @@ public class UserRegisterView extends JFrame {
 					return;
 				}else {
 					JOptionPane.showMessageDialog(null, "注册成功，请退出登录!");
-					return;
+					jf.dispose();
+					new UserLoginView();
 				}
 			}
 		});

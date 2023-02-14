@@ -79,7 +79,7 @@ public class StringUtils_self {
 	 * @version 1.0
 	 */
 	public static boolean firstWordIsLetter(String str) {
-		if(Character.isAlphabetic(str.indexOf(0))) {
+		if(Character.isAlphabetic(str.charAt(0))) {
 			return true;
 		}else {
 			return false;
