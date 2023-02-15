@@ -1,8 +1,8 @@
-package com.tencent.myLibary.dao.ifac;
+package com.tencent.myLibary.dao.ifac.user;
 
 import com.tencent.myLibary.entity.User;
 
-public interface UserDaoIfac {
+public interface UserUserDaoIfac {
 
 	/**
 	 * <p>Title: addUser</p>  

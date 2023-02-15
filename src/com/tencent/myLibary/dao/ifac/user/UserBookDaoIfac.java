@@ -1,9 +1,9 @@
-package com.tencent.myLibary.dao.ifac;
+package com.tencent.myLibary.dao.ifac.user;
 
 import java.util.List;
 import com.tencent.myLibary.entity.Book;
 
-public interface BookDaoIfac {
+public interface UserBookDaoIfac {
 	/**
 	 * 借书的方法
 	 * @param book_id

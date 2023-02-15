@@ -1,4 +1,4 @@
-package com.tencent.myLibary.dao.impl;
+package com.tencent.myLibary.dao.impl.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,13 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tencent.myLibary.dao.ifac.RecordDaoIfac;
+import com.tencent.myLibary.dao.ifac.user.UserRecordDaoIfac;
 import com.tencent.myLibary.entity.Book;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 import com.tencent.myLibary.util.DBUtils_mysql;
 
-public class RecordDaoImpl implements RecordDaoIfac {
+public class UserRecordDaoImpl implements UserRecordDaoIfac {
 
 	//查询 自己的 所有借书记录 sql语句
 	private static final String QUERY_ALL_RECORD_BY_SELF = "SELECT\r\n"
@@ -152,7 +152,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	 * </p>
 	 * @param user
 	 * @return  
-	 * @see com.tencent.myLibary.dao.impl.RecordDaoIfac#queryAllRecord(com.tencent.myLibary.entity.User)  
+	 * @see com.tencent.myLibary.dao.ifac.user.UserRecordDaoIfac#queryAllRecord(com.tencent.myLibary.entity.User)  
 	 */
 	@Override
 	public List<Record> queryAllRecord(User user)
@@ -205,7 +205,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	 * <p>Company: www.baidudu.com</p>
 	 * @param user
 	 * @return
-	 * @see com.tencent.myLibary.dao.ifac.RecordDaoIfac#queryAllNotReturnRecord(com.tencent.myLibary.entity.User)
+	 * @see com.tencent.myLibary.dao.ifac.user.UserRecordDaoIfac#queryAllNotReturnRecord(com.tencent.myLibary.entity.User)
 	 * @author xianxian
 	 * @date 2023年2月10日上午9:56:36
 	 * @version 1.0
@@ -261,7 +261,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	 * <p>Company: www.baidudu.com</p>
 	 * @param user
 	 * @return
-	 * @see com.tencent.myLibary.dao.ifac.RecordDaoIfac#queryAllReturnRecord(com.tencent.myLibary.entity.User)
+	 * @see com.tencent.myLibary.dao.ifac.user.UserRecordDaoIfac#queryAllReturnRecord(com.tencent.myLibary.entity.User)
 	 * @author xianxian
 	 * @date 2023年2月10日上午9:56:43
 	 * @version 1.0
@@ -318,7 +318,7 @@ public class RecordDaoImpl implements RecordDaoIfac {
 	 * @param record_id
 	 * @param book_id
 	 * @return
-	 * @see com.tencent.myLibary.dao.ifac.RecordDaoIfac#returnBook(int, int)
+	 * @see com.tencent.myLibary.dao.ifac.user.UserRecordDaoIfac#returnBook(int, int)
 	 * @author xianxian
 	 * @date 2023年2月10日上午10:07:36
 	 * @version 1.0

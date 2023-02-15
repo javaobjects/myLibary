@@ -19,8 +19,8 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-import com.tencent.myLibary.dao.factory.DAOFactory;
-import com.tencent.myLibary.dao.ifac.RecordDaoIfac;
+import com.tencent.myLibary.dao.factory.user.USERDAOFactory;
+import com.tencent.myLibary.dao.ifac.user.UserRecordDaoIfac;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
@@ -35,7 +35,7 @@ import com.tencent.myLibary.entity.User;
  */
 public class UserQueryRecordView extends JInternalFrame{
 	
-	private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
+	private UserRecordDaoIfac recordDao=USERDAOFactory.getUserRecordDaoInstance();
 	
 	private User user;
 	

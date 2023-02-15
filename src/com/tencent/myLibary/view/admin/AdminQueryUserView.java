@@ -22,11 +22,17 @@ import javax.swing.JTextField;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import com.tencent.myLibary.dao.factory.admin.ADMINDAOFactory;
+import com.tencent.myLibary.dao.ifac.admin.AdminUserDaoIfac;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
 public class AdminQueryUserView extends JInternalFrame {
 
+	//窗体中功能的实现依赖底层的dao，所以属性依赖
+	private AdminUserDaoIfac adminUserDao = ADMINDAOFactory.getAdminUserDaoIfac();
+	
+	
 	private User user;
 	
 	/** 窗体中的最外层的面板 */
@@ -83,8 +89,7 @@ public class AdminQueryUserView extends JInternalFrame {
 		tx_appoint_userName.setText("请输入用户名");
 		tx_appoint_userName.setForeground(new Color(204,204,204));
 		tx_appoint_userName.setVisible(false);
-		cb_query_type = new JComboBox<String>(new String[] { "所有用户",
-				"当前用户", "指定用户"});
+		cb_query_type = new JComboBox<String>(new String[] { "所有用户", "指定用户"});
 		
 		btn_query = new JButton("查    询");
 		btn_exit = new JButton("退     出");
@@ -135,12 +140,6 @@ public class AdminQueryUserView extends JInternalFrame {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//1.获取用户选定的图书id，记录id
-				int rowIndex=table.getSelectedRow();
-				record_id=(int) table.getValueAt(rowIndex, 0);
-				book_id=(int) table.getValueAt(rowIndex,1);
-				user_id = (int) table.getValueAt(rowIndex, 6);
-				System.out.println("record_id:"+record_id+",book_id:"+book_id + ",user_id" + user_id);
 			}
 		});
 		
@@ -169,7 +168,7 @@ public class AdminQueryUserView extends JInternalFrame {
 		cb_query_type.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(cb_query_type.getSelectedIndex() == 2) {
+				if(cb_query_type.getSelectedIndex() == 1) {
 					//tx_appoint_userName 显示
 					tx_appoint_userName.setVisible(true);
 				}else {
@@ -180,10 +179,19 @@ public class AdminQueryUserView extends JInternalFrame {
 		});
 		//查询按钮监听事件
 		btn_query.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				int typeValue = cb_query_type.getSelectedIndex();
+				if(typeValue == 1) {//指定用户
+					//若用户不存在给出提示 若用户存在显示结果集
+					
+				}else {//所有用户
+					// 直接查询用户表 将用户所有信息都展示出来
+					List<User> users =  adminUserDao.queryAllUsers();
+					//想要把数据显示在面板上的表格控件中，那么一行代码就搞定了。
+					AdminUserTableModel dataModel=new AdminUserTableModel(users);
+					table.setModel(dataModel);
+				}
 			}
 		});
 		
@@ -205,19 +213,19 @@ public class AdminQueryUserView extends JInternalFrame {
 	 * @author xianxian
 	 * @date 2023年2月11日下午3:10:13
 	 */
-	private class RecordModel implements TableModel
+	private class AdminUserTableModel implements TableModel
 	{
 		//模型获取数据
-		private List<Record> records;
+		private List<User> users;
 		
-		public RecordModel(List<Record> records)
+		public AdminUserTableModel(List<User> users)
 		{
-			this.records=records;
+			this.users = users;
 		}
 
 		@Override
 		public int getRowCount() {
-			return records.size();
+			return users.size();
 		}
 
 		/**
@@ -236,7 +244,7 @@ public class AdminQueryUserView extends JInternalFrame {
 		 */
 		@Override
 		public int getColumnCount() {
-			return 7;//6列：记录编号 图书编号 图书名称 借书时间 是否已归还 用户id （record_id book_id book_name lend_time 是否归还 用户名称 用户id）
+			return 4;
 		}
 
 		/**
@@ -251,31 +259,23 @@ public class AdminQueryUserView extends JInternalFrame {
 		 * @return
 		 * @see javax.swing.table.TableModel#getColumnName(int)
 		 * @author xianxian
-		 * @date 2023年2月11日下午3:17:52
+		 * @date 2023年2月15日下午4:13:45
 		 * @version 1.0
 		 */
 		@Override
 		public String getColumnName(int columnIndex) {
-			//return null;
 			if(columnIndex==0)
 			{
-				return "记录编号";
+				return "用户id";
 			}else if(columnIndex==1)
 			{
-				return "图书编号";
+				return "用户名称";
 			}else if(columnIndex==2)
 			{
-				return "图书名称";
-			}else if(columnIndex==3)
+				return "用户密码";
+			}else
 			{
-				return "借书时间";
-			}else if(columnIndex == 4)
-			{
-				return "是否已经归还";
-			}else if(columnIndex == 5){
-				return "用户名称";
-			}else {
-				return "用户id";
+				return "是否为管理员";
 			}
 		}
 
@@ -310,26 +310,19 @@ public class AdminQueryUserView extends JInternalFrame {
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			//1.首先获取当前行的数据：record
-			Record record=records.get(rowIndex);//rowIndex从0开始，相当于集合中的元素索引
+			User user = users.get(rowIndex);// rowIndex从0开始，相当于集合中的元素索引
 			if(columnIndex==0)
 			{
-				return record.getRecordId();
+				return user.getUserId();
 			}else if(columnIndex==1)
 			{
-				return record.getBook().getBookId();
+				return user.getUserName();
 			}else if(columnIndex==2)
 			{
-				return record.getBook().getBookName();
-			}else if(columnIndex==3)
+				return user.getUserPassword();
+			}else
 			{
-				return record.getLendTime();
-			}else if(columnIndex==4)
-			{
-				return record.getReturnTime()==null?"未还":"已还";
-			}else if(columnIndex==5){
-				return record.getUser().getUserName();
-			}else {
-				return record.getUser().getUserId();
+				return user.getUserType() == 1 ? "管理员" : "普通用户";
 			}
 		}
 

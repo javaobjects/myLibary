@@ -1,11 +1,11 @@
-package com.tencent.myLibary.dao.ifac;
+package com.tencent.myLibary.dao.ifac.user;
 
 import java.util.List;
 
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
-public interface RecordDaoIfac {
+public interface UserRecordDaoIfac {
 	
 	/**
 	 * <p>Title: returnBook</p>
@@ -35,7 +35,7 @@ public interface RecordDaoIfac {
 	 * @param record_id
 	 * @param book_id
 	 * @return
-	 * @see com.tencent.myLibary.dao.ifac.RecordDaoIfac#returnBook(int, int)
+	 * @see com.tencent.myLibary.dao.ifac.user.UserRecordDaoIfac#returnBook(int, int)
 	 * @author xianxian
 	 * @date 2023年2月10日上午10:07:36
 	 * @version 1.0

@@ -23,14 +23,14 @@ import javax.swing.JTextField;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-import com.tencent.myLibary.dao.factory.DAOFactory;
-import com.tencent.myLibary.dao.ifac.BookDaoIfac;
+import com.tencent.myLibary.dao.factory.user.USERDAOFactory;
+import com.tencent.myLibary.dao.ifac.user.UserBookDaoIfac;
 import com.tencent.myLibary.entity.Book;
 import com.tencent.myLibary.entity.User;
 
 public class AdminQueryBookView extends JInternalFrame {
 	//窗体中功能的实现依赖底层的dao，所以属性依赖
-		private BookDaoIfac bookDao = DAOFactory.getBookDaoInstance();
+//		private UserBookDaoIfac bookDao = USERDAOFactory.getBookDaoInstance();
 		
 		private User user;
 
@@ -219,22 +219,22 @@ public class AdminQueryBookView extends JInternalFrame {
 						
 					}else {
 						//否则隐藏输入框
-						switch (result) {
-						case 0:
-							books=bookDao.queryAllBooks();
-							break;
-						case 1:
-							books=bookDao.queryHotBooks();
-							break;
-						case 2:
-							books=bookDao.queryCanLendBooks();
-							break;
-						case 3:
-							books=bookDao.queryCanNotLendBooks();
-							break;
-						default:
-							break;
-						}
+//						switch (result) {
+//						case 0:
+//							books=bookDao.queryAllBooks();
+//							break;
+//						case 1:
+//							books=bookDao.queryHotBooks();
+//							break;
+//						case 2:
+//							books=bookDao.queryCanLendBooks();
+//							break;
+//						case 3:
+//							books=bookDao.queryCanNotLendBooks();
+//							break;
+//						default:
+//							break;
+//						}
 					}
 					
 
@@ -266,12 +266,12 @@ public class AdminQueryBookView extends JInternalFrame {
 						JOptionPane.showMessageDialog(null, "请先选定图书");
 						return;
 					}
-					boolean result = bookDao.lendBook(book_id, user.getUserId());
-					if (result) {
-						JOptionPane.showMessageDialog(null, "借书成功");
-					} else {
-						JOptionPane.showMessageDialog(null, "借书失败");
-					}
+//					boolean result = bookDao.lendBook(book_id, user.getUserId());
+//					if (result) {
+//						JOptionPane.showMessageDialog(null, "借书成功");
+//					} else {
+//						JOptionPane.showMessageDialog(null, "借书失败");
+//					}
 				}
 			});
 			

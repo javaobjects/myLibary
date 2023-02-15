@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.tencent.myLibary.dao.factory.DAOFactory;
+import com.tencent.myLibary.dao.factory.user.USERDAOFactory;
 import com.tencent.myLibary.entity.User;
 import com.tencent.myLibary.util.StringUtils_self;
 
@@ -188,13 +188,13 @@ public class UserRegisterView extends JFrame {
 					return;
 				}
 				//10、 以上若都通过则查询用户数据表 是否用户名复复 判断
-				User user = DAOFactory.getUserDaoInstance().queryUserByName(userName);
+				User user = USERDAOFactory.getUserUserDaoInstance().queryUserByName(userName);
 				if(user != null) {
 					JOptionPane.showMessageDialog(null, "用户名已存在");
 					return;
 				}
 				//11. 以上若都通过则插入数据
-				if(!DAOFactory.getUserDaoInstance().addUser(userName, passWord, type)) {
+				if(!USERDAOFactory.getUserUserDaoInstance().addUser(userName, passWord, type)) {
 					JOptionPane.showMessageDialog(null, "注册失败，请稍后再试！");
 					return;
 				}else {

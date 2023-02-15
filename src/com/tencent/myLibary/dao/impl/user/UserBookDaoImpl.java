@@ -1,4 +1,4 @@
-package com.tencent.myLibary.dao.impl;
+package com.tencent.myLibary.dao.impl.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tencent.myLibary.dao.ifac.BookDaoIfac;
+import com.tencent.myLibary.dao.ifac.user.UserBookDaoIfac;
 import com.tencent.myLibary.entity.Book;
 import com.tencent.myLibary.util.DBUtils_mysql;
 
@@ -19,7 +19,7 @@ import com.tencent.myLibary.util.DBUtils_mysql;
  * @author xianxian
  * @date 2019年8月19日
  */
-public class BookDaoImpl implements BookDaoIfac {
+public class UserBookDaoImpl implements UserBookDaoIfac {
 	/** 查询所有图书的sql语句 */
 	private static final String QUERY_ALL_BOOKS="SELECT\r\n"
 			+ "	book_id,\r\n"
@@ -169,7 +169,7 @@ public class BookDaoImpl implements BookDaoIfac {
 	 * <p>Copyright: Copyright (c) 2017</p>
 	 * <p>Company: www.baidudu.com</p>
 	 * @return
-	 * @see com.tencent.myLibary.dao.ifac.BookDaoIfac#queryHotBooks()
+	 * @see com.tencent.myLibary.dao.ifac.user.UserBookDaoIfac#queryHotBooks()
 	 * @author xianxian
 	 * @date 2023年2月11日下午4:01:29
 	 * @version 1.0
@@ -216,7 +216,7 @@ public class BookDaoImpl implements BookDaoIfac {
 	 * <p>Copyright: Copyright (c) 2017</p>
 	 * <p>Company: www.baidudu.com</p>
 	 * @return
-	 * @see com.tencent.myLibary.dao.ifac.BookDaoIfac#queryCanLendBooks()
+	 * @see com.tencent.myLibary.dao.ifac.user.UserBookDaoIfac#queryCanLendBooks()
 	 * @author xianxian
 	 * @date 2023年2月11日下午4:01:46
 	 * @version 1.0
@@ -262,7 +262,7 @@ public class BookDaoImpl implements BookDaoIfac {
 	 * <p>Copyright: Copyright (c) 2017</p>
 	 * <p>Company: www.baidudu.com</p>
 	 * @return
-	 * @see com.tencent.myLibary.dao.ifac.BookDaoIfac#queryCanNotLendBooks()
+	 * @see com.tencent.myLibary.dao.ifac.user.UserBookDaoIfac#queryCanNotLendBooks()
 	 * @author xianxian
 	 * @date 2023年2月11日下午4:02:07
 	 * @version 1.0

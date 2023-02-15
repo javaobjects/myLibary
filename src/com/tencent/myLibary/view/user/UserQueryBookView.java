@@ -19,8 +19,8 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-import com.tencent.myLibary.dao.factory.DAOFactory;
-import com.tencent.myLibary.dao.ifac.BookDaoIfac;
+import com.tencent.myLibary.dao.factory.user.USERDAOFactory;
+import com.tencent.myLibary.dao.ifac.user.UserBookDaoIfac;
 import com.tencent.myLibary.entity.Book;
 import com.tencent.myLibary.entity.User;
 
@@ -36,7 +36,7 @@ import com.tencent.myLibary.entity.User;
 public class UserQueryBookView extends JInternalFrame {
 	
 	//窗体中功能的实现依赖底层的dao，所以属性依赖
-	private BookDaoIfac bookDao = DAOFactory.getBookDaoInstance();
+	private UserBookDaoIfac bookDao = USERDAOFactory.getUserBookDaoInstance();
 	
 	private User user;
 

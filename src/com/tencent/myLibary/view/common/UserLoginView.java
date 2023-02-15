@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.tencent.myLibary.dao.factory.DAOFactory;
-import com.tencent.myLibary.dao.ifac.UserDaoIfac;
+import com.tencent.myLibary.dao.factory.user.USERDAOFactory;
+import com.tencent.myLibary.dao.ifac.user.UserUserDaoIfac;
 import com.tencent.myLibary.entity.User;
 import com.tencent.myLibary.util.StringUtils_self;
 import com.tencent.myLibary.view.admin.AdminMainView;
@@ -51,7 +51,7 @@ public class UserLoginView extends JFrame{
 	/**
 	 * 窗口属性依赖UserDaoIfac接口
 	 */
-	private UserDaoIfac userDao = DAOFactory.getUserDaoInstance();//声明依赖并初始化，避免空指针异常
+	private UserUserDaoIfac userDao = USERDAOFactory.getUserUserDaoInstance();//声明依赖并初始化，避免空指针异常
 	
 	/**
 	 * <p>Title: getSelectType</p>

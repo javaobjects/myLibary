@@ -23,13 +23,13 @@ import javax.swing.JTextField;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-import com.tencent.myLibary.dao.factory.DAOFactory;
-import com.tencent.myLibary.dao.ifac.RecordDaoIfac;
+import com.tencent.myLibary.dao.factory.user.USERDAOFactory;
+import com.tencent.myLibary.dao.ifac.user.UserRecordDaoIfac;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
 public class AdminQueryRecordView extends JInternalFrame {
-private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
+//private UserRecordDaoIfac recordDao=USERDAOFactory.getRecordDaoInstance();
 	
 	private User user;
 	
@@ -275,16 +275,16 @@ private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
 				}
 				
 				//3.调用底层dao完成还书功能并提示信息
-				boolean result = recordDao.returnBook(record_id,book_id,user_id);
-				if(result)
-				{
-					JOptionPane.showMessageDialog(null, "还书成功");
-					return;
-				}else
-				{
-					JOptionPane.showMessageDialog(null, "还书失败");
-					return;
-				}
+//				boolean result = recordDao.returnBook(record_id,book_id,user_id);
+//				if(result)
+//				{
+//					JOptionPane.showMessageDialog(null, "还书成功");
+//					return;
+//				}else
+//				{
+//					JOptionPane.showMessageDialog(null, "还书失败");
+//					return;
+//				}
 
 			}
 		});
