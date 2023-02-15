@@ -14,7 +14,7 @@ public interface UserUserDaoIfac {
 	 * @param user
 	 * @return
 	 */
-	int addUser(User user);
+	public abstract int addUser(User user);
 	
 	/**
 	 * <p>Title: addUser</p>
@@ -31,7 +31,7 @@ public interface UserUserDaoIfac {
 	 * @date 2023年2月13日下午5:45:57
 	 * @version 1.0
 	 */
-	Boolean addUser(String userName,String passWord,Integer userType);
+	public abstract Boolean addUser(String userName,String passWord,Integer userType);
 
 	/**
 	 * <p>Title: queryUserByNameAndPassword</p>  
@@ -45,7 +45,7 @@ public interface UserUserDaoIfac {
 	 * @param userType
 	 * @return
 	 */
-	User queryUserByNameAndPassword(String username, String password, Integer userType);
+	public abstract User queryUserByNameAndPassword(String username, String password, Integer userType);
 	
 	/**
 	 * <p>Title: queryUserByName</p>
@@ -61,5 +61,5 @@ public interface UserUserDaoIfac {
 	 * @date 2023年2月13日下午4:00:56
 	 * @version 1.0
 	 */
-	User queryUserByName(String username);
+	public abstract User queryUserByName(String username);
 }

@@ -31,6 +31,7 @@ import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
 public class AdminQueryRecordView extends JInternalFrame {
+	
 	private AdminRecordDaoIfac adminrecordDao = ADMINDAOFactory.getAdminRecordDaoInstance();
 	
 	private User user;

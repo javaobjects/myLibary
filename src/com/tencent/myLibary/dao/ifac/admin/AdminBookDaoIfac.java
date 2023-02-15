@@ -1,5 +1,9 @@
 package com.tencent.myLibary.dao.ifac.admin;
 
+import java.util.List;
+
+import com.tencent.myLibary.entity.Book;
+
 /**
  * <p>Title: AdminBookDaoIfac</p>
  * <p>
@@ -10,4 +14,9 @@ package com.tencent.myLibary.dao.ifac.admin;
  */
 public interface AdminBookDaoIfac {
 
+	/** 查询指定图书 */
+	public abstract List<Book> queryAppointBookByBookName(String bookName);
+	
+	/** 添加图书 */
+	public abstract Boolean addBookBybookName(String bookName);
 }

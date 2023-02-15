@@ -103,6 +103,7 @@ public class AdminQueryBookView extends JInternalFrame {
 			btn_add = new JButton("添    加");
 			btn_add.setVisible(false);//默认隐藏
 			btn_del = new JButton("删    除");
+			btn_del.setVisible(false);
 			btn_upda = new JButton("修    改");
 			btn_upda.setVisible(false);
 			btn_exit = new JButton("退     出");
