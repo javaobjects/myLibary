@@ -157,10 +157,10 @@ public class UserRecordDaoImpl implements UserRecordDaoIfac {
 	@Override
 	public List<Record> queryAllRecord(User user)
 	{
-		List<Record> records=new ArrayList<>();
-		Connection conn=null;
-		PreparedStatement stmt=null;
-		ResultSet rs=null;
+		List<Record> records = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		try {
 			conn=DBUtils_mysql.getConnection();
 			stmt=conn.prepareStatement(QUERY_ALL_RECORD_BY_SELF);

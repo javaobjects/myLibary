@@ -355,7 +355,7 @@ public class UserQueryRecordView extends JInternalFrame{
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			//1.首先获取当前行的数据：record
-			Record record=records.get(rowIndex);//rowIndex从0开始，相当于集合中的元素索引
+			Record record = records.get(rowIndex);// rowIndex从0开始，相当于集合中的元素索引
 			if(columnIndex==0)
 			{
 				return record.getRecordId();

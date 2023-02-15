@@ -23,16 +23,17 @@ import javax.swing.JTextField;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import com.tencent.myLibary.dao.factory.admin.ADMINDAOFactory;
 import com.tencent.myLibary.dao.factory.user.USERDAOFactory;
+import com.tencent.myLibary.dao.ifac.admin.AdminRecordDaoIfac;
 import com.tencent.myLibary.dao.ifac.user.UserRecordDaoIfac;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
 public class AdminQueryRecordView extends JInternalFrame {
-//private UserRecordDaoIfac recordDao=USERDAOFactory.getRecordDaoInstance();
+	private AdminRecordDaoIfac adminrecordDao = ADMINDAOFactory.getAdminRecordDaoInstance();
 	
 	private User user;
-	
 	/** 窗体中的最外层的面板 */
 	private JPanel panel_common;
 	/** 左面板 */
@@ -158,7 +159,7 @@ public class AdminQueryRecordView extends JInternalFrame {
 				record_id=(int) table.getValueAt(rowIndex, 0);
 				book_id=(int) table.getValueAt(rowIndex,1);
 				user_id = (int) table.getValueAt(rowIndex, 6);
-				System.out.println("record_id:"+record_id+",book_id:"+book_id + ",user_id" + user_id);
+//				System.out.println("record_id:"+record_id+",book_id:"+book_id + ",user_id" + user_id);
 			}
 		});
 		
@@ -196,6 +197,7 @@ public class AdminQueryRecordView extends JInternalFrame {
 				}
 			}
 		});
+		
 		//查询按钮监听事件
 		btn_query.addActionListener(new ActionListener() {
 
@@ -242,25 +244,26 @@ public class AdminQueryRecordView extends JInternalFrame {
 				
 				
 				
-				switch (type) {
-				case 0://所有借书记录
-//					records = recordDao.queryAllRecord(user);
-					break;
-				case 1://未还借书记录
-//					records = recordDao.queryAllNotReturnRecord(user);
-					break;
-				case 2://已还借书记录
-//					records = recordDao.queryAllReturnRecord(user);
-					break;
-				default:
-					break;
-				}
-				System.out.println("records:"+records.toString());
-				
-				RecordModel model = new RecordModel(records);
-				table.setModel(model);
+//				switch (type) {
+//				case 0://所有借书记录
+////					records = recordDao.queryAllRecord(user);
+//					break;
+//				case 1://未还借书记录
+////					records = recordDao.queryAllNotReturnRecord(user);
+//					break;
+//				case 2://已还借书记录
+////					records = recordDao.queryAllReturnRecord(user);
+//					break;
+//				default:
+//					break;
+//				}
+//				System.out.println("records:"+records.toString());
+//				
+//				RecordModel model = new RecordModel(records);
+//				table.setModel(model);
 			}
 		});
+		
 		btn_return.addActionListener(new ActionListener() {
 
 			@Override

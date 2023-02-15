@@ -32,8 +32,7 @@ import com.tencent.myLibary.util.StringUtils_self;
 public class AdminQueryUserView extends JInternalFrame {
 
 	//窗体中功能的实现依赖底层的dao，所以属性依赖
-	private AdminUserDaoIfac adminUserDao = ADMINDAOFactory.getAdminUserDaoIfac();
-	
+	private AdminUserDaoIfac adminUserDao = ADMINDAOFactory.getAdminUserDaoInstance();
 	
 	private User user;
 	
@@ -57,14 +56,6 @@ public class AdminQueryUserView extends JInternalFrame {
 	private JButton btn_query;
 	/** 退出按钮 */
 	private JButton btn_exit;
-	
-	/** 定义全局变量*/
-	/** record_id 待还书的记录编号 */
-	private int record_id;
-	/** book_id 待还书的书的编号*/
-	private int book_id;
-	/** user_id 用户id */
-	private int user_id;
 	
 	/** 构造方法 */
 	public AdminQueryUserView(User user) {
@@ -325,8 +316,8 @@ public class AdminQueryUserView extends JInternalFrame {
 		 */
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			//1.首先获取当前行的数据：record
-			User user = users.get(rowIndex);// rowIndex从0开始，相当于集合中的元素索引
+			//1.首先获取当前行的数据：
+			user = users.get(rowIndex);// rowIndex从0开始，相当于集合中的元素索引
 			if(columnIndex==0)
 			{
 				return user.getUserId();
