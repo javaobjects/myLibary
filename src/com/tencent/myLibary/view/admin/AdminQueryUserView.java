@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +27,7 @@ import com.tencent.myLibary.dao.factory.admin.ADMINDAOFactory;
 import com.tencent.myLibary.dao.ifac.admin.AdminUserDaoIfac;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
+import com.tencent.myLibary.util.StringUtils_self;
 
 public class AdminQueryUserView extends JInternalFrame {
 
@@ -184,7 +186,21 @@ public class AdminQueryUserView extends JInternalFrame {
 				int typeValue = cb_query_type.getSelectedIndex();
 				if(typeValue == 1) {//指定用户
 					//若用户不存在给出提示 若用户存在显示结果集
-					
+					String txAppointUserName = tx_appoint_userName.getText();
+					// 先进行非空判断
+					if(StringUtils_self.isNull(txAppointUserName) || txAppointUserName.equals("请输入用户名")) {
+						JOptionPane.showMessageDialog(null, "用户名不能为空");
+						return;
+					}
+					List<User> users =  adminUserDao.queryAppointUserByUserName(txAppointUserName);
+					if(users.size() == 0) {
+						// 弹出提示 无此用户
+						JOptionPane.showMessageDialog(null, "没有用户名为： " + txAppointUserName + " 的用户");
+					}else {
+						//想要把数据显示在面板上的表格控件中，那么一行代码就搞定了。
+						AdminUserTableModel dataModel=new AdminUserTableModel(users);
+						table.setModel(dataModel);
+					}
 				}else {//所有用户
 					// 直接查询用户表 将用户所有信息都展示出来
 					List<User> users =  adminUserDao.queryAllUsers();

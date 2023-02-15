@@ -19,4 +19,6 @@ public interface AdminUserDaoIfac {
 	 * @version 1.0
 	 */
 	public abstract List<User> queryAllUsers();
+	
+	public abstract List<User> queryAppointUserByUserName(String userName);
 }
