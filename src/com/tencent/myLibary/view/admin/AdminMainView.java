@@ -14,8 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.tencent.myLibary.entity.User;
-import com.tencent.myLibary.view.user.UserQueryBookView;
-import com.tencent.myLibary.view.user.UserQueryRecordView;
 
 public class AdminMainView extends JFrame {
 	/** 大容器 */
@@ -34,6 +32,9 @@ public class AdminMainView extends JFrame {
 	private JButton btn_quy_book;
 	/** 查询借阅记录功能按钮 */
 	private JButton btn_quy_record;
+	/** 用户查询 */
+	private JButton btn_quy_user;
+	
 	/** 退出窗口按钮 */
 	private JButton btn_exit;
 	
@@ -50,7 +51,8 @@ public class AdminMainView extends JFrame {
 				panel_common = new JPanel(new BorderLayout());// 东西南北中的布局管理器
 				panel_welcome = new JPanel();
 				panel_left = new JDesktopPane();
-				panel_right = new JPanel(new GridLayout(7, 1, 0, 30));
+//				panel_right = new JPanel(new GridLayout(7, 1, 0, 30));
+				panel_right = new JPanel(new GridLayout(10, 1, 30, 10));
 
 				label_welcome = new JLabel(
 						"欢    迎    "+ this.user.getUserName()+"  使   用   图   书   借   阅   管   理   系   统");
@@ -61,6 +63,8 @@ public class AdminMainView extends JFrame {
 
 				btn_quy_book = new JButton("图书查询");
 				btn_quy_record = new JButton("借阅记录查询");
+				btn_quy_user = new JButton("用户查询");
+				
 				btn_exit = new JButton("退出窗口");
 
 				// 拼装组件
@@ -72,6 +76,8 @@ public class AdminMainView extends JFrame {
 				panel_right.add(new JLabel());
 				panel_right.add(btn_quy_book);
 				panel_right.add(btn_quy_record);
+				panel_right.add(btn_quy_user);
+				
 				panel_right.add(btn_exit);
 				panel_right.add(new JLabel());
 				panel_right.add(new JLabel());
@@ -108,6 +114,19 @@ public class AdminMainView extends JFrame {
 				qrv.toFront();
 			}
 		});
+		//查询用户功能
+		btn_quy_user.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("click btn_quy_user");
+				AdminQueryUserView quv = new AdminQueryUserView(getUser());
+				panel_left.add(quv);
+				quv.toFront();
+			}
+		});
+		
+		
 		//退出窗口按钮
 		btn_exit.addActionListener(new ActionListener() {
 			@Override

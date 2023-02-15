@@ -1,14 +1,16 @@
 package com.tencent.myLibary.view.admin;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
@@ -17,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
@@ -41,6 +44,10 @@ public class AdminQueryBookView extends JInternalFrame {
 		private JTable table;
 		/** 查询类型标签 */
 		private JLabel lb_query_type;
+		
+		/** 添加图书 输入框*/
+		private JTextField tx_add_bookName;
+		
 		/** 查询类型下拉框 */
 		private JComboBox<String> cb_query_type;
 		/** 查询按钮 */
@@ -65,7 +72,7 @@ public class AdminQueryBookView extends JInternalFrame {
 			this.user = user;
 			init();
 			registerListener();
-			this.setTitle("用户查询图书窗体");
+			this.setTitle("查询图书窗体");
 			this.setSize(670, 540);
 			// 设置窗体可以关闭
 			this.setClosable(true);
@@ -78,38 +85,44 @@ public class AdminQueryBookView extends JInternalFrame {
 		}
 		/** 初始化组件装配组件的方法 */
 		private void init() {
-//			lb_query_type = new JLabel("查询类型：");
 			lb_query_type = new JLabel();
 			lb_query_type.setSize(10, 49);
+			
+			
+			//此处还应该添加一个输入框
+			tx_add_bookName = new JTextField();
+			tx_add_bookName.setText("请输入图书名");
+			tx_add_bookName.setForeground(new Color(204,204,204));
+			tx_add_bookName.setVisible(false);
+			
 			cb_query_type = new JComboBox<String>(new String[] { "所有图书", "热门图书",
-					"可借图书", "不可借图书" });
+					"可借图书", "不可借图书","指定图书","添加图书" });
 			btn_query = new JButton("查    询");
 			btn_lend = new JButton("借    书");
 			
 			btn_add = new JButton("添    加");
+			btn_add.setVisible(false);//默认隐藏
 			btn_del = new JButton("删    除");
 			btn_upda = new JButton("修    改");
-			
+			btn_upda.setVisible(false);
 			btn_exit = new JButton("退     出");
 
 			table = new JTable();
 			panel_left = new JScrollPane(table);
 
-			panel_right = new JPanel(new GridLayout(10, 1, 0, 10));
+			//设置行数与列数 以及水平竖直间距
+			panel_right = new JPanel(new GridLayout(11, 1, 0, 10));
 //			panel_right.setBorder(BorderFactory.createTitledBorder(
 //					BorderFactory.createRaisedBevelBorder(), "查询条件"));
 			panel_right.add(lb_query_type);
+			panel_right.add(tx_add_bookName);
 			panel_right.add(cb_query_type);
 			panel_right.add(btn_query);
 			panel_right.add(btn_lend);
 			
-			
 			panel_right.add(btn_add);
 			panel_right.add(btn_del);
 			panel_right.add(btn_upda);
-			
-			
-			
 			
 			panel_right.add(new JLabel());
 			panel_right.add(new JLabel());
@@ -149,8 +162,50 @@ public class AdminQueryBookView extends JInternalFrame {
 					System.out.println(book_id);
 				}
 			});
-			btn_query.addActionListener(new ActionListener() {
+			
+			tx_add_bookName.addFocusListener(new FocusListener() {
+				@Override
+				public void focusGained(FocusEvent e) {
+					// 当点击输入框时，里面的内容为提示信息时，清空内容，将其字体颜色设置为正常黑色。
+					if (tx_add_bookName.getText().equals("请输入图书名")) {
+						tx_add_bookName.setText("");
+						tx_add_bookName.setForeground(Color.BLACK);
+					}
+				}
 
+				@Override
+				public void focusLost(FocusEvent e) {
+					// 当失去焦点时，判断是否为空，若为空时，直接显示提示信息，设置颜色
+					if (tx_add_bookName.getText().length() < 1) {
+						tx_add_bookName.setText("请输入图书名");
+						tx_add_bookName.setForeground(new Color(204, 204, 204));
+					}
+				}
+			});
+			
+			
+			cb_query_type.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					int cb_q_type = cb_query_type.getSelectedIndex();
+					if(cb_q_type == 4 || cb_q_type == 5) {
+						//添加图书输入框 显示
+						tx_add_bookName.setVisible(true);
+						if(cb_q_type == 4) {
+							//将添加按钮隐藏
+							btn_add.setVisible(false);
+						}else {
+							//将添加按钮显示
+							btn_add.setVisible(true);
+						}
+					}else {
+						//否则隐藏
+						tx_add_bookName.setVisible(false);
+					}
+				}
+			});
+			
+			btn_query.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// 1.获取查询类型
@@ -158,23 +213,31 @@ public class AdminQueryBookView extends JInternalFrame {
 					System.out.println(result);
 					//2.根据查询类型，去数据库查询，返回图书集合
 					List<Book> books=null;
-					switch (result) {
-					case 0:
-						books=bookDao.queryAllBooks();
-						break;
-					case 1:
-						books=bookDao.queryHotBooks();
-						break;
-					case 2:
-						books=bookDao.queryCanLendBooks();
-						break;
-					case 3:
-						books=bookDao.queryCanNotLendBooks();
-						break;
-
-					default:
-						break;
+					
+					if(result == 4) {
+						//添加图书被点击时 显示输入框 执行对应的sql语句
+						
+					}else {
+						//否则隐藏输入框
+						switch (result) {
+						case 0:
+							books=bookDao.queryAllBooks();
+							break;
+						case 1:
+							books=bookDao.queryHotBooks();
+							break;
+						case 2:
+							books=bookDao.queryCanLendBooks();
+							break;
+						case 3:
+							books=bookDao.queryCanNotLendBooks();
+							break;
+						default:
+							break;
+						}
 					}
+					
+
 					
 					System.out.println(books.toString());
 					//想要把数据显示在面板上的表格控件中，那么一行代码就搞定了。
@@ -198,18 +261,15 @@ public class AdminQueryBookView extends JInternalFrame {
 					 * 3.根据返回结果提示用户借书成功或者失败
 					 *   JOptionPane技术
 					 */
-					System.out.println("book_id:"+book_id);
-					if(book_id==0)
-					{
+					System.out.println("book_id:" + book_id);
+					if (book_id == 0) {
 						JOptionPane.showMessageDialog(null, "请先选定图书");
 						return;
 					}
-					boolean result=bookDao.lendBook(book_id,user.getUserId());
-					if(result)
-					{
+					boolean result = bookDao.lendBook(book_id, user.getUserId());
+					if (result) {
 						JOptionPane.showMessageDialog(null, "借书成功");
-					}else
-					{
+					} else {
 						JOptionPane.showMessageDialog(null, "借书失败");
 					}
 				}
@@ -230,8 +290,7 @@ public class AdminQueryBookView extends JInternalFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("btn_del");
-					if(book_id==0)
-					{
+					if (book_id == 0) {
 						JOptionPane.showMessageDialog(null, "请先选定图书");
 						return;
 					}

@@ -400,6 +400,7 @@ select * from myLibary_record;
 1. [Java Swing 只关闭当前窗体](https://zhuanlan.zhihu.com/p/150829207)
 1. [Java代码中如何判断一个字符串中是否包含特殊字符呢？](https://www.cnblogs.com/javalove2022/p/16689963.html)
 1. [如何给combobox设定一个默认值？](https://blog.csdn.net/weixin_34124651/article/details/85488261)
+1. [JTextField显示提示信息](https://blog.csdn.net/qq_43319748/article/details/108636961)
 
 
 

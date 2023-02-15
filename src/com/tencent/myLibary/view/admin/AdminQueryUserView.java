@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,14 +22,11 @@ import javax.swing.JTextField;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-import com.tencent.myLibary.dao.factory.DAOFactory;
-import com.tencent.myLibary.dao.ifac.RecordDaoIfac;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
 
-public class AdminQueryRecordView extends JInternalFrame {
-private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
-	
+public class AdminQueryUserView extends JInternalFrame {
+
 	private User user;
 	
 	/** 窗体中的最外层的面板 */
@@ -48,14 +44,9 @@ private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
 	private JTextField tx_appoint_userName;
 	/** 查询类型下拉框 */
 	private JComboBox<String> cb_query_type;
-	/** 查询借书记录 */
-	private JComboBox<String> cb_query_lend;
-	
 	
 	/** 查询按钮 */
 	private JButton btn_query;
-	/** 还书按钮 */
-	private JButton btn_return;
 	/** 退出按钮 */
 	private JButton btn_exit;
 	
@@ -68,11 +59,11 @@ private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
 	private int user_id;
 	
 	/** 构造方法 */
-	public AdminQueryRecordView(User user) {
+	public AdminQueryUserView(User user) {
 		this.user = user;
 		init();
 		registerListener();
-		this.setTitle("查询借阅记录窗体");
+		this.setTitle("查询用户窗体");
 		this.setSize(670, 540);
 		// 设置窗体可以关闭
 		this.setClosable(true);
@@ -81,15 +72,12 @@ private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
 		// 窗体能否最小化
 		this.setIconifiable(true);
 		this.setVisible(true);
-
 	}
+
 	
 	private void init() {
-//		lb_query_type = new JLabel("查询类型：");
 		lb_query_type = new JLabel();
 		lb_query_type.setSize(10, 49);
-//		cb_query_type = new JComboBox<String>(new String[] { "所有借书记录",
-//				"未还借书记录", "已还借书记录" });
 		
 		tx_appoint_userName = new JTextField();
 		tx_appoint_userName.setText("请输入用户名");
@@ -97,12 +85,8 @@ private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
 		tx_appoint_userName.setVisible(false);
 		cb_query_type = new JComboBox<String>(new String[] { "所有用户",
 				"当前用户", "指定用户"});
-		cb_query_lend = new JComboBox<String>(new String[] { "借书记录",
-				"未还记录", "已还记录"});
-		
 		
 		btn_query = new JButton("查    询");
-		btn_return = new JButton("还    书");
 		btn_exit = new JButton("退     出");
 
 		table = new JTable();
@@ -110,17 +94,15 @@ private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
 
 		//设置行数与列数 以及水平竖直间距
 		panel_right = new JPanel(new GridLayout(9, 1, 0, 10));
-//		panel_right.setBorder(BorderFactory.createTitledBorder(
-//				BorderFactory.createRaisedBevelBorder(), "查询条件"));
 		panel_right.add(lb_query_type);
 		
 		panel_right.add(tx_appoint_userName);
 		panel_right.add(cb_query_type);
-		panel_right.add(cb_query_lend);
 		
 		panel_right.add(btn_query);
-		panel_right.add(btn_return);
 		
+		panel_right.add(new JLabel());
+		panel_right.add(new JLabel());
 		panel_right.add(new JLabel());
 		panel_right.add(new JLabel());
 		panel_right.add(btn_exit);
@@ -201,90 +183,6 @@ private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * 查询功能实现； 1.获取查询类型 2.调用底层dao的查询方法查询记录集合 3.将集合数据显示到table控件中
-				 * 3.1需要先定义数据模型
-				 */
-				//把刚才选的借阅记录编号清空
-				record_id=0;
-				book_id = 0;
-				user_id = 0;
-				String appoint_userName = tx_appoint_userName.getText();
-				int type = cb_query_type.getSelectedIndex();// 值从0开始
-				int lend_type = cb_query_lend.getSelectedIndex();
-				List<Record> records = null;
-				System.out.println(type);		
-				
-				//如果是指定用户 则获取 appoint_userName 否则不获取
-				if(type == 2) {
-					//需要传三个值 
-				/**
-				 * 指定用户根据 用户名 查 	借书记录 未还记录 已还记录
-				 */
-					
-					
-					
-					
-				}else {
-					//否则只需要传两个值
-				/**
-				 * 所用用户 直接查借阅表
-				 * 当前用户 根据用户id 查 借书记录 未还记录 已还记录	
-				 */
-					
-				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				switch (type) {
-				case 0://所有借书记录
-//					records = recordDao.queryAllRecord(user);
-					break;
-				case 1://未还借书记录
-//					records = recordDao.queryAllNotReturnRecord(user);
-					break;
-				case 2://已还借书记录
-//					records = recordDao.queryAllReturnRecord(user);
-					break;
-				default:
-					break;
-				}
-				System.out.println("records:"+records.toString());
-				
-				RecordModel model = new RecordModel(records);
-				table.setModel(model);
-			}
-		});
-		btn_return.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("2222");
-				//1.获取用户选定的图书id，记录id 通过给table控件注册侦听器获取
-				//2.对id进行非空校验
-				if(record_id==0)
-				{
-					JOptionPane.showMessageDialog(null, "请先选择要还的书");
-					return;
-				}
-				
-				//3.调用底层dao完成还书功能并提示信息
-				boolean result = recordDao.returnBook(record_id,book_id,user_id);
-				if(result)
-				{
-					JOptionPane.showMessageDialog(null, "还书成功");
-					return;
-				}else
-				{
-					JOptionPane.showMessageDialog(null, "还书失败");
-					return;
-				}
 
 			}
 		});
@@ -293,30 +191,10 @@ private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AdminQueryRecordView.this.dispose();
+				AdminQueryUserView.this.dispose();
 
 			}
 		});
-	}
-	
-
-	/**
-	 * <p>Title: hideColumn</p>
-	 * <p>
-	 *    Description:
-	 * </p>
-	 * <p>Copyright: Copyright (c) 2017</p>
-	 * <p>Company: www.baidudu.com</p>
-	 * @param table
-	 * @param column
-	 * @author xianxian
-	 * @date 2023年2月12日下午7:32:49
-	 * @version 1.0
-	 */
-	public void hideColumn(JTable table,int column) {
-		table.getTableHeader().getColumnModel().getColumn(column).setMaxWidth(0);
-		table.getTableHeader().getColumnModel().getColumn(column).setMinWidth(0);
-		table.getTableHeader().getColumnModel().getColumn(column).setPreferredWidth(0);
 	}
 	
 	/**
@@ -404,9 +282,6 @@ private RecordDaoIfac recordDao=DAOFactory.getRecordDaoInstance();
 		@Override
 		public Class<?> getColumnClass(int columnIndex) {
 			//调用隐藏列方法
-//			if(columnIndex == 5 || columnIndex == 6) {
-//				hideColumn(table, columnIndex);
-//			}
 			return String.class;//每一列的数据类型
 		}
 
