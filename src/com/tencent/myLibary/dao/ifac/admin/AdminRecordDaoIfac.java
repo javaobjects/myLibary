@@ -21,15 +21,15 @@ public interface AdminRecordDaoIfac {
 	/**3. 查询 所有用户 已还记录 */
 	public abstract List<Record> queryAllUsersAlreadyReturnRecord();
 	/**4. 查询 当前用户 借阅记录 */
-	public abstract List<Record> queryCurrentUsersRecord(String userId);
+	public abstract List<Record> queryCurrentUsersRecord(Integer userId);
 	/**5. 查询 当前用户 未还记录 */
-	public abstract List<Record> queryCurrentUsersNotReturnRecord(String userId);
+	public abstract List<Record> queryCurrentUsersNotReturnRecord(Integer userId);
 	/**6. 查询 当前用户 已还记录 */
-	public abstract List<Record> queryCurrentUsersAlreadyReturnRecord(String userId);
+	public abstract List<Record> queryCurrentUsersAlreadyReturnRecord(Integer userId);
 	/**7. 查询 指定用户 借阅记录 */
-	public abstract List<Record> queryAppointUsersRecord(String userId);
+	public abstract List<Record> queryAppointUsersRecord(Integer userId);
 	/**8. 查询 指定用户 未还记录 */
-	public abstract List<Record> queryAppointUsersNotReturnRecord(String userId);
+	public abstract List<Record> queryAppointUsersNotReturnRecord(Integer userId);
 	/**9. 查询 指定用户 已还记录 */
-	public abstract List<Record> queryAppointUsersAlreadyReturnRecord(String userId);
+	public abstract List<Record> queryAppointUsersAlreadyReturnRecord(Integer userId);
 }

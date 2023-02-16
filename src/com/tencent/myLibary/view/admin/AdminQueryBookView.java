@@ -23,15 +23,18 @@ import javax.swing.JTextField;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import com.tencent.myLibary.dao.factory.admin.ADMINDAOFactory;
 import com.tencent.myLibary.dao.factory.user.USERDAOFactory;
+import com.tencent.myLibary.dao.ifac.admin.AdminBookDaoIfac;
 import com.tencent.myLibary.dao.ifac.user.UserBookDaoIfac;
 import com.tencent.myLibary.entity.Book;
 import com.tencent.myLibary.entity.User;
+import com.tencent.myLibary.util.StringUtils_self;
 
 public class AdminQueryBookView extends JInternalFrame {
 	//窗体中功能的实现依赖底层的dao，所以属性依赖
-//		private UserBookDaoIfac bookDao = USERDAOFactory.getBookDaoInstance();
-		
+		private UserBookDaoIfac bookDao = USERDAOFactory.getUserBookDaoInstance();
+		private AdminBookDaoIfac adminBookDao = ADMINDAOFactory.getAdminBookDaoInstance();
 		private User user;
 
 		/** 窗体中的最外层的面板 */
@@ -195,13 +198,17 @@ public class AdminQueryBookView extends JInternalFrame {
 						if(cb_q_type == 4) {
 							//将添加按钮隐藏
 							btn_add.setVisible(false);
+							btn_query.setVisible(true);
 						}else {
 							//将添加按钮显示
 							btn_add.setVisible(true);
+							//查询按钮隐藏
+							btn_query.setVisible(false);
 						}
 					}else {
 						//否则隐藏
 						tx_add_bookName.setVisible(false);
+						btn_query.setVisible(true);
 					}
 				}
 			});
@@ -210,37 +217,41 @@ public class AdminQueryBookView extends JInternalFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// 1.获取查询类型
-					int result = cb_query_type.getSelectedIndex();
-					System.out.println(result);
-					//2.根据查询类型，去数据库查询，返回图书集合
-					List<Book> books=null;
+					int cb_q_type = cb_query_type.getSelectedIndex();
+					// 2.根据查询类型，去数据库查询，返回图书集合
+					List<Book> books = null;
 					
-					if(result == 4) {
-						//添加图书被点击时 显示输入框 执行对应的sql语句
-						
+					if(cb_q_type == 4 || cb_q_type == 5) {
+						//添加图书 或查询指定图书时 被点击时 显示输入框 执行对应的sql语句
+						String appointBookName = tx_add_bookName.getText();
+						if(appointBookName.equals("请输入图书名") || StringUtils_self.isNull(appointBookName)) {
+							JOptionPane.showMessageDialog(null, "图书名不可为空");
+							return;
+						}else {
+							if(cb_q_type == 4) {//指定图书查询
+								books = adminBookDao.queryAppointBookByBookName(appointBookName);
+							}
+						}
 					}else {
 						//否则隐藏输入框
-//						switch (result) {
-//						case 0:
-//							books=bookDao.queryAllBooks();
-//							break;
-//						case 1:
-//							books=bookDao.queryHotBooks();
-//							break;
-//						case 2:
-//							books=bookDao.queryCanLendBooks();
-//							break;
-//						case 3:
-//							books=bookDao.queryCanNotLendBooks();
-//							break;
-//						default:
-//							break;
-//						}
+						switch (cb_q_type) {
+						case 0:
+							books=bookDao.queryAllBooks();
+							break;
+						case 1:
+							books=bookDao.queryHotBooks();
+							break;
+						case 2:
+							books=bookDao.queryCanLendBooks();
+							break;
+						case 3:
+							books=bookDao.queryCanNotLendBooks();
+							break;
+						default:
+							break;
+						}
 					}
-					
-
-					
-					System.out.println(books.toString());
+//					System.out.println(books.toString());
 					//想要把数据显示在面板上的表格控件中，那么一行代码就搞定了。
 					BookTableModel dataModel=new BookTableModel(books);
 					table.setModel(dataModel);
@@ -267,12 +278,12 @@ public class AdminQueryBookView extends JInternalFrame {
 						JOptionPane.showMessageDialog(null, "请先选定图书");
 						return;
 					}
-//					boolean result = bookDao.lendBook(book_id, user.getUserId());
-//					if (result) {
-//						JOptionPane.showMessageDialog(null, "借书成功");
-//					} else {
-//						JOptionPane.showMessageDialog(null, "借书失败");
-//					}
+					boolean result = bookDao.lendBook(book_id, user.getUserId());
+					if (result) {
+						JOptionPane.showMessageDialog(null, "借书成功");
+					} else {
+						JOptionPane.showMessageDialog(null, "借书失败");
+					}
 				}
 			});
 			
@@ -281,9 +292,21 @@ public class AdminQueryBookView extends JInternalFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("btn_add");
-					
-					//添加自己思考一下应该如何去完成
-					
+					String appointBookName = tx_add_bookName.getText();
+					int cb_q_type = cb_query_type.getSelectedIndex();
+					if(appointBookName.equals("请输入图书名") || StringUtils_self.isNull(appointBookName)) {
+						JOptionPane.showMessageDialog(null, "图书名不可为空");
+						return;
+					}else {
+						if(cb_q_type == 5) {//指定图书查询
+							Boolean addResult = adminBookDao.addBookBybookName(appointBookName);
+							if(addResult) {
+								JOptionPane.showMessageDialog(null, "添加图书成功!");
+							}else {
+								JOptionPane.showMessageDialog(null, "添加图书失败，请稍后再试!");
+							}
+						}
+					}
 				}
 			});
 			

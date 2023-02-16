@@ -50,32 +50,32 @@ public class AdminRecordDaoImpl implements AdminRecordDaoIfac {
 	}
 
 	@Override
-	public List<Record> queryCurrentUsersRecord(String userId) {
+	public List<Record> queryCurrentUsersRecord(Integer userId) {
 		return null;
 	}
 
 	@Override
-	public List<Record> queryCurrentUsersNotReturnRecord(String userId) {
+	public List<Record> queryCurrentUsersNotReturnRecord(Integer userId) {
 		return null;
 	}
 
 	@Override
-	public List<Record> queryCurrentUsersAlreadyReturnRecord(String userId) {
+	public List<Record> queryCurrentUsersAlreadyReturnRecord(Integer userId) {
 		return null;
 	}
 
 	@Override
-	public List<Record> queryAppointUsersRecord(String userId) {
+	public List<Record> queryAppointUsersRecord(Integer userId) {
 		return null;
 	}
 
 	@Override
-	public List<Record> queryAppointUsersNotReturnRecord(String userId) {
+	public List<Record> queryAppointUsersNotReturnRecord(Integer userId) {
 		return null;
 	}
 
 	@Override
-	public List<Record> queryAppointUsersAlreadyReturnRecord(String userId) {
+	public List<Record> queryAppointUsersAlreadyReturnRecord(Integer userId) {
 		return null;
 	}
 

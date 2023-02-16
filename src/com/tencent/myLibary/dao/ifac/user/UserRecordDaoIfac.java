@@ -52,7 +52,7 @@ public interface UserRecordDaoIfac {
 	 * @param user
 	 * @return
 	 */
-	List<Record> queryAllRecord(User user);
+	public abstract List<Record> queryAllRecord(User user);
 
 	/**
 	 * 

@@ -26,14 +26,17 @@ import javax.swing.table.TableModel;
 import com.tencent.myLibary.dao.factory.admin.ADMINDAOFactory;
 import com.tencent.myLibary.dao.factory.user.USERDAOFactory;
 import com.tencent.myLibary.dao.ifac.admin.AdminRecordDaoIfac;
+import com.tencent.myLibary.dao.ifac.admin.AdminUserDaoIfac;
 import com.tencent.myLibary.dao.ifac.user.UserRecordDaoIfac;
 import com.tencent.myLibary.entity.Record;
 import com.tencent.myLibary.entity.User;
+import com.tencent.myLibary.util.StringUtils_self;
 
 public class AdminQueryRecordView extends JInternalFrame {
 	
 	private AdminRecordDaoIfac adminrecordDao = ADMINDAOFactory.getAdminRecordDaoInstance();
-	
+	private AdminUserDaoIfac adminUserDao = ADMINDAOFactory.getAdminUserDaoInstance();
+	private UserRecordDaoIfac recordDao=USERDAOFactory.getUserRecordDaoInstance();
 	private User user;
 	/** 窗体中的最外层的面板 */
 	private JPanel panel_common;
@@ -87,11 +90,8 @@ public class AdminQueryRecordView extends JInternalFrame {
 	}
 	
 	private void init() {
-//		lb_query_type = new JLabel("查询类型：");
 		lb_query_type = new JLabel();
 		lb_query_type.setSize(10, 49);
-//		cb_query_type = new JComboBox<String>(new String[] { "所有借书记录",
-//				"未还借书记录", "已还借书记录" });
 		
 		tx_appoint_userName = new JTextField();
 		tx_appoint_userName.setText("请输入用户名");
@@ -204,19 +204,14 @@ public class AdminQueryRecordView extends JInternalFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * 查询功能实现； 1.获取查询类型 2.调用底层dao的查询方法查询记录集合 3.将集合数据显示到table控件中
-				 * 3.1需要先定义数据模型
-				 */
 				//把刚才选的借阅记录编号清空
 				record_id=0;
 				book_id = 0;
 				user_id = 0;
 				String appoint_userName = tx_appoint_userName.getText();
-				int type = cb_query_type.getSelectedIndex();// 值从0开始
-				int lend_type = cb_query_lend.getSelectedIndex();
+				int type = cb_query_type.getSelectedIndex();// 值从0开始  所有用户 当前用户 指定用户
+				int lend_type = cb_query_lend.getSelectedIndex();//借书记录 未还记录 已还记录
 				List<Record> records = null;
-				System.out.println(type);		
 				
 				//如果是指定用户 则获取 appoint_userName 否则不获取
 				if(type == 2) {
@@ -224,44 +219,74 @@ public class AdminQueryRecordView extends JInternalFrame {
 				/**
 				 * 指定用户根据 用户名 查 	借书记录 未还记录 已还记录
 				 */
-					
-					
-					
-					
+					if(StringUtils_self.isNull(appoint_userName) || appoint_userName.equals("请输入用户名")) {
+						JOptionPane.showMessageDialog(null, "用户名不能为空");
+						return;
+					}else {
+						// 再查询 指定用户 是否存在
+						List<User> users =  adminUserDao.queryAppointUserByUserName(appoint_userName);
+						if(users.size() == 0) {
+							// 弹出提示 无此用户
+							JOptionPane.showMessageDialog(null, "没有用户名为： " + appoint_userName + " 的用户");
+						}else {
+							// 该用户存在 则 进行 多表 查询 对应的记录
+							Integer userId = users.get(0).getUserId();
+							switch (lend_type) {
+							case 0://借书记录
+								records = adminrecordDao.queryAppointUsersRecord(userId);
+								break;
+							case 1://未还记录
+								records = adminrecordDao.queryAppointUsersNotReturnRecord(userId);
+								break;
+							case 2://已还记录
+								records = adminrecordDao.queryAppointUsersAlreadyReturnRecord(userId);
+								break;
+							default:
+								break;
+							}
+						}
+						
+					}
 				}else {
 					//否则只需要传两个值
 				/**
 				 * 所用用户 直接查借阅表
 				 * 当前用户 根据用户id 查 借书记录 未还记录 已还记录	
 				 */
-					
+					if(type == 0) {//所用用户
+						switch (lend_type) {
+						case 0://借书记录
+							records = adminrecordDao.queryAllUsersRecord();
+							break;
+						case 1://未还记录
+							records = adminrecordDao.queryAllUsersNotReturnRecord();
+							break;
+						case 2://已还记录
+							records = adminrecordDao.queryAllUsersAlreadyReturnRecord();
+							break;
+						default:
+							break;
+						}
+
+					}else {//当前用户
+						switch (lend_type) {
+						case 0://借书记录
+							records = adminrecordDao.queryCurrentUsersRecord(user.getUserId());
+							break;
+						case 1://未还记录
+							records = adminrecordDao.queryCurrentUsersNotReturnRecord(user.getUserId());
+							break;
+						case 2://已还记录
+							records = adminrecordDao.queryCurrentUsersAlreadyReturnRecord(user.getUserId());
+							break;
+						default:
+							break;
+						}
+					}
 				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-//				switch (type) {
-//				case 0://所有借书记录
-////					records = recordDao.queryAllRecord(user);
-//					break;
-//				case 1://未还借书记录
-////					records = recordDao.queryAllNotReturnRecord(user);
-//					break;
-//				case 2://已还借书记录
-////					records = recordDao.queryAllReturnRecord(user);
-//					break;
-//				default:
-//					break;
-//				}
-//				System.out.println("records:"+records.toString());
-//				
-//				RecordModel model = new RecordModel(records);
-//				table.setModel(model);
+				// 为页面表格赋值
+				RecordModel model = new RecordModel(records);
+				table.setModel(model);
 			}
 		});
 		
@@ -279,17 +304,16 @@ public class AdminQueryRecordView extends JInternalFrame {
 				}
 				
 				//3.调用底层dao完成还书功能并提示信息
-//				boolean result = recordDao.returnBook(record_id,book_id,user_id);
-//				if(result)
-//				{
-//					JOptionPane.showMessageDialog(null, "还书成功");
-//					return;
-//				}else
-//				{
-//					JOptionPane.showMessageDialog(null, "还书失败");
-//					return;
-//				}
-
+				boolean result = recordDao.returnBook(record_id,book_id,user_id);
+				if(result)
+				{
+					JOptionPane.showMessageDialog(null, "还书成功");
+					return;
+				}else
+				{
+					JOptionPane.showMessageDialog(null, "还书失败");
+					return;
+				}
 			}
 		});
 		
@@ -408,9 +432,6 @@ public class AdminQueryRecordView extends JInternalFrame {
 		@Override
 		public Class<?> getColumnClass(int columnIndex) {
 			//调用隐藏列方法
-//			if(columnIndex == 5 || columnIndex == 6) {
-//				hideColumn(table, columnIndex);
-//			}
 			return String.class;//每一列的数据类型
 		}
 

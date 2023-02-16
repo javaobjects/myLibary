@@ -52,7 +52,8 @@ public class AdminMainView extends JFrame {
 				panel_welcome = new JPanel();
 				panel_left = new JDesktopPane();
 //				panel_right = new JPanel(new GridLayout(7, 1, 0, 30));
-				panel_right = new JPanel(new GridLayout(10, 1, 30, 10));
+				//设置行数与列数 以及水平竖直间距
+				panel_right = new JPanel(new GridLayout(10, 1, 0, 10));
 
 				label_welcome = new JLabel(
 						"欢    迎    "+ this.user.getUserName()+"  使   用   图   书   借   阅   管   理   系   统");
@@ -77,10 +78,13 @@ public class AdminMainView extends JFrame {
 				panel_right.add(btn_quy_book);
 				panel_right.add(btn_quy_record);
 				panel_right.add(btn_quy_user);
+				panel_right.add(new JLabel());
 				
+				panel_right.add(new JLabel());
+				panel_right.add(new JLabel());
+				panel_right.add(new JLabel());
 				panel_right.add(btn_exit);
-				panel_right.add(new JLabel());
-				panel_right.add(new JLabel());
+			
 
 				panel_common.add(panel_welcome, BorderLayout.NORTH);
 				panel_common.add(panel_left, BorderLayout.CENTER);// 注意这里不能是west,否则图片出不来
