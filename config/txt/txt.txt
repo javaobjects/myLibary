@@ -1,0 +1,28 @@
+### 项目coding bug总结：
+
+1. 数据库列名与代码中列名不一致 报标识符无效
+
+![](https://upload-images.jianshu.io/upload_images/5227364-12d82ff45bfffbef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+2. switch 里少写一种条件 无法得到数据
+
+![](https://upload-images.jianshu.io/upload_images/5227364-53d4f26ba55d14c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+3. insert into myLibary_record(record_id,book_id,user_id,lend_time) values(seq_myLibary_record_id.nextval,?,?,sysdate)语句少最后一个“）”号
+
+![](https://upload-images.jianshu.io/upload_images/5227364-5d2e464b4e9e97d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+4. select seq_record_id.nextval from dual; 值被占用。。
+解决方法 在pl/sql工具中多执行几次直到大于当前表的索引值
+
+![](https://upload-images.jianshu.io/upload_images/5227364-2f263389b8e4cd55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+5. JInternalFrame窗体无法关闭 原因：this.setDefaultCloseOperation()里参数DISPOSE_ON_CLOSE/EXIT_ON_CLOSE混淆 正确值应该是 DISPOSE_ON_CLOSE
+
+![](https://upload-images.jianshu.io/upload_images/5227364-1bfde1ded786ca91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+6. sql语句后面多写分号 例："insert into myLibary_user(user_id,user_name,user_password,user_type)"
+			+ " values((select max(user_id) from myLibary_user)+1,?,?,?);" 正确写法应该是:"insert into myLibary_user(user_id,user_name,user_password,user_type)"
+			+ " values((select max(user_id) from myLibary_user)+1,?,?,?)"
+
+![](https://upload-images.jianshu.io/upload_images/5227364-b97e60aa43f069d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)

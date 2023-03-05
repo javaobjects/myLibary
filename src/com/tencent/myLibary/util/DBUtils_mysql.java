@@ -54,10 +54,10 @@ public class DBUtils_mysql {
 	 */
 	public static Connection getConnection()
 	{
-		Connection conn=null;
+		Connection conn = null;
 		try {
 			Class.forName(driverName);
-			conn=DriverManager.getConnection(url, username, password);
+			conn = DriverManager.getConnection(url, username, password);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

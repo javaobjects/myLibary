@@ -84,27 +84,30 @@ public class UserLoginView extends JFrame{
 				/*
 				 * 点击登录按钮的目的：登录，来到主窗体
 				 */
-				//1.获取用户名和密码，还有用户类型
+				// 1.获取用户名和密码，还有用户类型
 				String username = txt_username.getText();
 				String password = txt_password.getText();
+				Integer selectType = getSelectType(cb_type);
+
 				
-				//2.对数据进行非空判断
-				if(StringUtils_self.isNull(username) || StringUtils_self.isNull(password)) {
+				
+				
+				// 2.对数据进行非空判断
+				if (StringUtils_self.isNull(username) || StringUtils_self.isNull(password)) {
 					JOptionPane.showMessageDialog(null, "用户名或者密码为空，请重新输入");
 					return;
 				}
-				
-				//3.判断用户是否存在,下面的代码是把两行代码合成一行，这样执行效率高，拿的工资高
-				User user=userDao.queryUserByNameAndPassword(username, password,getSelectType(cb_type));
-				if(user==null)
-				{
+
+				// 3.判断用户是否存在,下面的代码是把两行代码合成一行，这样执行效率高，拿的工资高
+				User user = userDao.queryUserByNameAndPassword(username, password, selectType);
+				if (user == null) {
 					JOptionPane.showMessageDialog(null, "用户名或者密码错误，请重新输入");
 					return;
 				}
-				//4.判断用户类型：如果是普通用户则弹出用户主窗体，如果是管理员，则弹出管理员主窗体
+				// 4.判断用户类型：如果是普通用户则弹出用户主窗体，如果是管理员，则弹出管理员主窗体
 				if (user.getUserType() == 1) {
-					 new AdminMainView(user);
-					 UserLoginView.this.dispose();// 释放窗体占用的内存资源
+					new AdminMainView(user);
+					UserLoginView.this.dispose();// 释放窗体占用的内存资源
 				} else {
 					new UserMainView(user);
 					UserLoginView.this.dispose();// 释放窗体占用的内存资源

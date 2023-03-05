@@ -6,7 +6,7 @@
 
 ### 配置环境：jdk 1.8
 
-### 开发工具：eclipse
+### 开发工具：Eclipse
 
 ### 模块划分
 
@@ -144,261 +144,64 @@ JDBC工具：DBUtils
 | lend_time	| date | not null	| 借出时间|
 | return_time | date || 归还时间 |
 
-#### sql语句
+### 业务功能简介
 
-```
-﻿create table myLibary_book
-(
-  book_id number(6) primary key,
-  book_name varchar2(40) not null,
-  lend_count number(3) not null,
-  status number(1) not null check(status in (0,1))---0表示借出，1表示在馆
-);
+1. 用户登录
 
-create sequence seq_myLibary_book_id;---这个序列为book的id赋值，默认从1开始
+![](config/Images/1.png)
 
-select seq_myLibary_book_id.nextval from dual;
-select seq_myLibary_book_id.currval from dual; 
--- drop sequence seq_myLibary_book_id;
-
-insert into myLibary_book
-values(seq_myLibary_book_id.currval,'Java基础',3,0);--1
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'JS高级',2,1);--2
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'PHP入门',5,1);--3
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'Oracle基础',1,0);--4
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'vue入门',3,1);--5
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'计算机基础',5,0);--6
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'网络基础',6,1);--7
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'xshell',2,1);--8
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'git入门',6,1);--9
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'webpack配置',9,1);--10
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'CSS探密',7,1);--11
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'HTML5入门',4,0);--12
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'react入门',5,1);--13
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'Angular入门',4,0);--14
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'nodeJs入门',6,1);--15
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'mySql精讲',10,0);--16
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'Mongodb精讲',9,1);--17
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'ES6精讲',14,0);--18
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'spring入门',22,1);--19
-insert into myLibary_book
-values(seq_myLibary_book_id.nextval,'mybaits入门',15,0);--20
-
-
---drop table myLibary_book;
-
-select * from myLibary_book;
-
-create table myLibary_user
-(
-  user_id number(6) primary key,
-  user_name varchar2(40) not null unique,
-  user_password varchar2(40) not null,
-  user_type number(1) not null check(user_type in (1,2))
-);
-
-create sequence seq_myLibary_user_id;
-
-select seq_myLibary_user_id.nextval from dual;
-select seq_myLibary_user_id.currval from dual;
-
-insert into myLibary_user
-values(seq_myLibary_user_id.currval,'aaa',123456,1);--1
-insert into myLibary_user
-values(seq_myLibary_user_id.nextval,'bbb',123456,2);--2
-insert into myLibary_user
-values(seq_myLibary_user_id.nextval,'ccc',123456,1);--3
-insert into myLibary_user
-values(seq_myLibary_user_id.nextval,'ddd',123456,2);--4
-insert into myLibary_user
-values(seq_myLibary_user_id.nextval,'eee',123456,1);--5
-insert into myLibary_user 
-values(seq_myLibary_user_id.nextval,'fff',123456,2);--6
-
-select * from myLibary_user;
-
-
-create table myLibary_record
-(
-  record_id number(6) primary key,
-  user_id number(6) not null,
-  book_id number(6) not null,
-  lend_time date not null,
-  return_time date
-);
-
--- drop table myLibary_record;
-
-create sequence seq_myLibary_record_id;
-
-alter table myLibary_record
-  add constraint FK_MYLIBARY_USER_ID foreign key (user_id)
-  references myLibary_user(user_id);
-
-alter table myLibary_record
-  add constraint FK_MYLIBARY_BOOK_ID foreign key (book_id)
-  references myLibary_book(book_id);
-
-select seq_myLibary_record_id.nextval from dual;
-select seq_myLibary_record_id.currval from dual;
+![](config/Images/2.png)
 
 
 
-insert into myLibary_record
-values(seq_myLibary_record_id.currval,1,1,to_date('2019-04-02','yyyy/mm/dd'),
-to_date('2019-05-01','yyyy/mm/dd'));--1
-
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,1,2,to_date('2019-04-02','yyyy/mm/dd'),null);--2
-
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,1,3,to_date('2019-04-02','yyyy/mm/dd'),
-to_date('2019-05-01','yyyy/mm/dd'));--3
-
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,1,4,to_date('2019-04-02','yyyy/mm/dd'),null);--4
 
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,1,5,to_date('2019-04-02','yyyy/mm/dd'),
-to_date('2019-05-01','yyyy/mm/dd'));--5
+2. 用户注册
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,1,6,to_date('2019-04-02','yyyy/mm/dd'),
-to_date('2019-05-01','yyyy/mm/dd'));--6
+![](config/Images/3.png)
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,1,7,to_date('2019-04-02','yyyy/mm/dd'),
-to_date('2019-05-01','yyyy/mm/dd'));--7
+3. 所有图书查询功能
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,1,8,to_date('2019-04-02','yyyy/mm/dd'),
-to_date('2019-05-01','yyyy/mm/dd'));--8
+![](config/Images/4.png)
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,2,9,to_date('2019-01-01','yyyy/mm/dd'),
-to_date('2019-01-05','yyyy/mm/dd'));--9
+4. 热门图书查询
 
+![](config/Images/5.png)
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,2,10,to_date('2019-01-01','yyyy/mm/dd'),
-to_date('2019-01-05','yyyy/mm/dd'));--10
+5. 可借图书查询
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,2,11,to_date('2019-01-01','yyyy/mm/dd'),
-to_date('2019-01-05','yyyy/mm/dd'));--11
+![](config/Images/6.png)
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,2,12,to_date('2019-01-01','yyyy/mm/dd'),
-to_date('2019-01-05','yyyy/mm/dd'));--12
+6. 不可借图书查询
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,2,13,to_date('2019-01-01','yyyy/mm/dd'),
-to_date('2019-01-05','yyyy/mm/dd'));--13
+![](config/Images/7.png)
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,2,14,to_date('2019-01-01','yyyy/mm/dd'),
-to_date('2019-01-05','yyyy/mm/dd'));--14
+7. 指定图书查询
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,2,15,to_date('2019-01-01','yyyy/mm/dd'),
-to_date('2019-01-05','yyyy/mm/dd'));--15
+![](config/Images/8.png)
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,2,16,to_date('2019-01-01','yyyy/mm/dd'),
-to_date('2019-01-05','yyyy/mm/dd'));--16
+8. 添加图书
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,3,17,to_date('2019-03-03','yyyy/mm/dd'),
-to_date('2019-03-05','yyyy/mm/dd'));--17
+![](config/Images/9.png)
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,3,18,to_date('2019-03-03','yyyy/mm/dd'),
-to_date('2019-03-05','yyyy/mm/dd'));--18
+9. 借阅记录查询 当前用户指定用户所有用户
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,3,19,to_date('2019-03-03','yyyy/mm/dd'),
-to_date('2019-03-05','yyyy/mm/dd'));--19
+![](config/Images/10.png)
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,3,20,to_date('2019-03-03','yyyy/mm/dd'),
-to_date('2019-03-05','yyyy/mm/dd'));--20
+10. 指定用户查询所有用户查询
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,3,1,to_date('2019-03-03','yyyy/mm/dd'),
-to_date('2019-03-05','yyyy/mm/dd'));--21
+![](config/Images/11.png)
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,3,2,to_date('2019-03-03','yyyy/mm/dd'),
-to_date('2019-03-05','yyyy/mm/dd'));--22
+### 项目说明
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,3,3,to_date('2019-03-03','yyyy/mm/dd'),
-to_date('2019-03-05','yyyy/mm/dd'));--23
++ 此项目唯一的目的是在于巩固基础知识
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,4,7,to_date('2019-07-07','yyyy/mm/dd'),
-to_date('2019-07-24','yyyy/mm/dd'));--24
+### 项目运行
 
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,5,10,to_date('2019-07-07','yyyy/mm/dd'),
-to_date('2019-07-24','yyyy/mm/dd'));--25
-
-insert into myLibary_record
-values(seq_myLibary_record_id.nextval,6,12,to_date('2019-07-07','yyyy/mm/dd'),
-to_date('2019-07-24','yyyy/mm/dd'));--25
-
-select * from Mylibary_User;
-select * from Mylibary_Book;
-select * from myLibary_record;
-```
-
-### 项目coding bug总结：
-
-1. 数据库列名与代码中列名不一致 报标识符无效
-
-![](https://upload-images.jianshu.io/upload_images/5227364-12d82ff45bfffbef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-2. switch 里少写一种条件 无法得到数据
-
-![](https://upload-images.jianshu.io/upload_images/5227364-53d4f26ba55d14c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-3. insert into myLibary_record(record_id,book_id,user_id,lend_time) values(seq_myLibary_record_id.nextval,?,?,sysdate)语句少最后一个“）”号
-
-![](https://upload-images.jianshu.io/upload_images/5227364-5d2e464b4e9e97d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-4. select seq_record_id.nextval from dual; 值被占用。。
-解决方法 在pl/sql工具中多执行几次直到大于当前表的索引值
-
-![](https://upload-images.jianshu.io/upload_images/5227364-2f263389b8e4cd55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-5. JInternalFrame窗体无法关闭 原因：this.setDefaultCloseOperation()里参数DISPOSE_ON_CLOSE/EXIT_ON_CLOSE混淆 正确值应该是 DISPOSE_ON_CLOSE
-
-![](https://upload-images.jianshu.io/upload_images/5227364-1bfde1ded786ca91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-6. sql语句后面多写分号 例："insert into myLibary_user(user_id,user_name,user_password,user_type)"
-			+ " values((select max(user_id) from myLibary_user)+1,?,?,?);" 正确写法应该是:"insert into myLibary_user(user_id,user_name,user_password,user_type)"
-			+ " values((select max(user_id) from myLibary_user)+1,?,?,?)"
-
-![](https://upload-images.jianshu.io/upload_images/5227364-b97e60aa43f069d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+1. 保证已安装jdk1.8的环境
+2. Eclipse与jdk要配置好
+3. navicat导入mylibary_all.sql运行生成对应的数据表前提是你安装好对应的mysql以及navicat
+4. 利用Eclipse打开测试类运行此项目
 
 
 ### 参考博客
@@ -419,6 +222,7 @@ select * from myLibary_record;
 1. [Java代码中如何判断一个字符串中是否包含特殊字符呢？](https://www.cnblogs.com/javalove2022/p/16689963.html)
 1. [如何给combobox设定一个默认值？](https://blog.csdn.net/weixin_34124651/article/details/85488261)
 1. [JTextField显示提示信息](https://blog.csdn.net/qq_43319748/article/details/108636961)
+1. [**Eclipse 快捷键返回值Alt+shift+L和Ctrl+1**](https://blog.51cto.com/u_14879850/5867019)
 
 
 

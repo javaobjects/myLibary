@@ -36,7 +36,7 @@ public class AdminQueryRecordView extends JInternalFrame {
 	
 	private AdminRecordDaoIfac adminrecordDao = ADMINDAOFactory.getAdminRecordDaoInstance();
 	private AdminUserDaoIfac adminUserDao = ADMINDAOFactory.getAdminUserDaoInstance();
-	private UserRecordDaoIfac recordDao=USERDAOFactory.getUserRecordDaoInstance();
+	private UserRecordDaoIfac recordDao = USERDAOFactory.getUserRecordDaoInstance();
 	private User user;
 	/** 窗体中的最外层的面板 */
 	private JPanel panel_common;

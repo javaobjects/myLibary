@@ -18,8 +18,8 @@ import com.tencent.myLibary.util.DBUtils_mysql;
  */
 public class UserUserDaoImpl implements UserUserDaoIfac {
 	/**根据用户名和密码查询用户的sql */
-	private static final String QUERY_USER_BY_NAME_AND_PASSWORD = "select * from myLibary_user "
-			+ "where user_name=? and user_password=? and user_type=?";
+	private static final String QUERY_USER_BY_NAME_AND_PASSWORD = "SELECT * FROM myLibary_user "
+			+ "WHERE user_name =? AND user_password =? AND user_type =?";
 	/**根据用户名查询用户是否存在的sql*/
 	private static final String QUERY_USER_BY_NAME = "SELECT * FROM mylibary_user WHERE USER_NAME = ?";
 	/**注册新用户 sql语句**/
@@ -115,24 +115,23 @@ public class UserUserDaoImpl implements UserUserDaoIfac {
 	@Override
 	public User queryUserByNameAndPassword(String username,String password,Integer userType)
 	{
-		User user=null;
-		Connection conn=null;
-		PreparedStatement stmt=null;
-		ResultSet rs=null;
-		
+		User user = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
 		try {
-			conn=DBUtils_mysql.getConnection();
-			stmt=conn.prepareStatement(QUERY_USER_BY_NAME_AND_PASSWORD);
-			//给占位符赋值
-			stmt.setString(1,username);
+			conn = DBUtils_mysql.getConnection();
+			stmt = conn.prepareStatement(QUERY_USER_BY_NAME_AND_PASSWORD);
+			// 给占位符赋值
+			stmt.setString(1, username);
 			stmt.setString(2, password);
 			stmt.setInt(3, userType);
-			
-			rs=stmt.executeQuery();
-			
-			if(rs.next())
-			{
-				user=new User();
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				user = new User();
 				user.setUserId(rs.getInt("user_id"));
 				user.setUserName(rs.getString("user_name"));
 				user.setUserPassword(rs.getString("user_password"));
@@ -140,8 +139,7 @@ public class UserUserDaoImpl implements UserUserDaoIfac {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally
-		{
+		} finally {
 			DBUtils_mysql.release(conn, stmt, rs);
 		}
 		return user;
