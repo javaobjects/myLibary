@@ -45,7 +45,7 @@
 17. 查询所有用户
 18. 查询指定用户
 ```
-![系统结构图](config/images/systemStructure.png)
+![系统结构图](config/Images/systemStructure.png)
 
 ### 总体架构：
 
@@ -147,6 +147,7 @@ JDBC工具：DBUtils
 ### 业务功能简介
 
 1. 用户登录
+
 ![](config/Images/1.png)
 
 ![](config/Images/2.png)
