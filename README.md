@@ -147,14 +147,9 @@ JDBC工具：DBUtils
 ### 业务功能简介
 
 1. 用户登录
-
 ![](config/Images/1.png)
 
 ![](config/Images/2.png)
-
-
-
-
 
 2. 用户注册
 
