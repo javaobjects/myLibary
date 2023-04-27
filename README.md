@@ -1,16 +1,90 @@
+<p align="center">
+    <a href='https://docs.oracle.com/en/java/javase/8'><img alt="Java 8" src="./Img/Java8.png"></a>
+    <a href='https://docs.spring.io/spring-boot/docs/2.6.2-SNAPSHOT/reference/html'><img alt="Spring Boot 2" src="https://img.shields.io/badge/Spring%20Boot%202-%23000000.svg?logo=springboot"></a>
+    <a href='https://staging-cn.vuejs.org'><img alt="Vue 3" src="https://img.shields.io/badge/Vue%202%20-%232b3847.svg?logo=vue.js"></a><br/>
+    <a href='#'><img alt="Github stars" src="https://img.shields.io/github/stars/201206030/novel?logo=github"></a>
+    <a href='#'><img alt="Github forks" src="https://img.shields.io/github/forks/201206030/novel?logo=github"></a>
+    <a href='#'><img alt="Gitee stars" src="https://gitee.com/novel_dev_team/novel/badge/star.svg?theme=gitee"></a>
+    <a href='#'><img alt="Gitee forks" src="https://gitee.com/novel_dev_team/novel/badge/fork.svg?theme=gitee"></a>
+</p>
+
 # 图书管理系统
 
-此项目是一个[cms(内容管理系统)](https://baike.baidu.com/item/CMS/315935?fr=aladdin)JAVASE项目;
++ 此项目是一个[cms(内容管理系统)](https://baike.baidu.com/item/CMS/315935?fr=aladdin)JAVASE项目,前端为GUI，可用于练手Java基础的增删除改查，是学习Java的必备技术项目。
 
-### 使用语言：java
+#### 开发环境
 
-### 配置环境：jdk 1.8
++ Windows
+#### 配置环境
 
-### 开发工具：Eclipse
+| 程序           | 版本        | 说明                       |
+|--------------|-----------|--------------------------|
+| Jdk          | 1.8.0 161 | Java 开发工具包               |
+| Mysql        | 5.5.27    | 关系型数据库                   |
+| 或者 Oracle    | 11.2.0.1.0    | 关系型数据库                   |
 
-### 模块划分
+#### 开发工具
 
-#### 用户前台模块部分：
+| 工具                       | 版本            | 说明                      |
+|--------------------------|---------------|-------------------------|
+| Eclipse IDE              | 4.11.0(2022.12)| 前后端开发IDE                |
+| Git                      | 2.24.1        | 代码托管平台                  |
+| Navicat                  | 12       | 数据库连接工具                 |
+| PL/SQL                  | 11.2.0.1.0       | 数据库连接工具                 |
+
+####  编码规范
+
+- 规范方式：严格遵守阿里编码规约。
+- 命名统一：简介最大程度上达到了见名知意。
+- 分包明确：层级分明可快速定位到代码位置。
+- 注释完整：描述性高大量减少了开发人员的代码阅读工作量。
+- 工具规范：使用统一jar包避免出现内容冲突。
+- 代码整洁：可读性、维护性高。
+
+#### 包的作用
+
+| 包              | 作用                          |
+| :-------------- | ----------------------------- |
+| config.images   | 存放图片                      |
+| config.dbconfig | 存放数据库配置文件            |
+| lib             | 存放程序驱动                  |
+| entity          | 实体类                        |
+| util            | 公共类                        |
+| view            | 视力类                        |
+| factory         | 工厂类，专门生产各类dao的实例 |
+| ifac            | 接口类                        |
+| impl            | 接口实现类                    |
+| test            | 测试类                        |
+
+#### 项目运行
+
+1. 保证已安装jdk1.8的环境
+2. Eclipse与jdk要配置好
+3. navicat导入mylibary_all.sql运行生成对应的数据表前提是你安装好对应的mysql以及navicat
+4. 利用Eclipse打开测试类运行此项目
+
+#### 技术选型：
+```
+数据库：Oralce11G
+JDBC工具：DBUtils
+层与层之间解耦合：工厂设计模式
+数据展示控件：JTable
+访问数据库的查询方法封装使用技术：泛型，反射机制
+```
+
+#### 总体架构：
+
+MVC设计模式：
+1. **M(Model) 模型:** 应⽤程序的核⼼功能，管理这个模块中⽤的数据和值（bean,dao） 数据访问层：Dao
+2. **V(View )视图:** 视图提供模型的展示，管理模型如何显示给⽤户，它是应⽤程序的外观；（jsp/html）
+3. **C(Controller)控制器:** 对⽤户的输⼊做出反应，管理⽤户和视图的交互，是连接模型和视图的枢纽。（servlet/service）
+> 在此项目中用的工厂模式 其实 ifac 包就相当于service
+4. entity文件夹 实体类属于公共层 不属于mvc任何层,也可存放于domain文件夹
+4. 本项目中view层调用dao层，dao层调用数据库，其中 dao层中 ifac为接口 impl为接口的实现 通过factory解耦合 并实现连接
+
+#### 模块划分
+
+##### 用户前台模块部分：
 ```
 1. 注册信息
 2. 用户登陆
@@ -24,7 +98,7 @@
 10. 借书
 11. 还书
 ```
-#### 管理员后台模块部分：
+##### 管理员后台模块部分：
 ```
 1. 用户登陆
 2. 查看所有图书信息
@@ -47,49 +121,7 @@
 ```
 ![系统结构图](config/Images/systemStructure.png)
 
-### 总体架构：
-
-MVC设计模式：
-1. **M(Model) 模型:** 应⽤程序的核⼼功能，管理这个模块中⽤的数据和值（bean,dao） 数据访问层：Dao
-2. **V(View )视图:** 视图提供模型的展示，管理模型如何显示给⽤户，它是应⽤程序的外观；（jsp/html）
-3. **C(Controller)控制器:** 对⽤户的输⼊做出反应，管理⽤户和视图的交互，是连接模型和视图的枢纽。（servlet/service）
-> 在此项目中用的工厂模式 其实 ifac 包就相当于service
-4. entity文件夹 实体类属于公共层 不属于mvc任何层,也可存放于domain文件夹
-4. 本项目中view层调用dao层，dao层调用数据库，其中 dao层中 ifac为接口 impl为接口的实现 通过factory解耦合 并实现连接
-
-
-| 包              | 作用                          |
-| :-------------- | ----------------------------- |
-| config.images   | 存放图片                      |
-| config.dbconfig | 存放数据库配置文件            |
-| lib             | 存放程序驱动                  |
-| entity          | 实体类                        |
-| util            | 公共类                        |
-| view            | 视力类                        |
-| factory         | 工厂类，专门生产各类dao的实例 |
-| ifac            | 接口类                        |
-| impl            | 接口实现类                    |
-| test            | 测试类                        |
-
-### 技术选型：
-```
-数据库：Oralce11G
-JDBC工具：DBUtils
-层与层之间解耦合：工厂设计模式
-数据展示控件：JTable
-访问数据库的查询方法封装使用技术：泛型，反射机制
-```
-
-###  编码规范
-
-- 规范方式：严格遵守阿里编码规约。
-- 命名统一：简介最大程度上达到了见名知意。
-- 分包明确：层级分明可快速定位到代码位置。
-- 注释完整：描述性高大量减少了开发人员的代码阅读工作量。
-- 工具规范：使用统一jar包避免出现内容冲突。
-- 代码整洁：可读性、维护性高。
-
-### 主要功能
+#### 主要功能
 
 1. 普通用户注册，主要功能为图书查询和借阅记录查询两大模块。
 
@@ -120,9 +152,9 @@ JDBC工具：DBUtils
 3. 用户登录时忘记密码功能
 
 
-### 数据库设计
+#### 数据库设计
 
-#### myLibary_book表
+##### myLibary_book表
 
 | 列名       | 数据类型 | 可否为空 | 说明                           |
 | :--------- | -------- | -------- | ------------------------------ |
@@ -133,7 +165,7 @@ JDBC工具：DBUtils
 
 
 
-#### myLibary_user表
+##### myLibary_user表
 |  列名	 |  数据类型  |  可否为空  |  说明  |
 | :----- | -------- | --------- | ------ |
 |user_id |	int|	not null|	用户编号，自增长|
@@ -141,7 +173,7 @@ JDBC工具：DBUtils
 |user_password|	varchar	|not null|	用户密码|
 |user_type	|int| 1not null |	用户类型，1，普通用户，2，管理员|
 
-### myLibary_record表
+#### myLibary_record表
 
 > 存放所有的借阅记录的表
 
@@ -153,7 +185,7 @@ JDBC工具：DBUtils
 | lend_time	| date | not null	| 借出时间|
 | return_time | date || 归还时间 |
 
-### 业务功能简介
+#### 业务功能简介
 
 1. 用户登录
 
@@ -197,17 +229,7 @@ JDBC工具：DBUtils
 
 ![](config/Images/11.png)
 
-
-
-### 项目运行
-
-1. 保证已安装jdk1.8的环境
-2. Eclipse与jdk要配置好
-3. navicat导入mylibary_all.sql运行生成对应的数据表前提是你安装好对应的mysql以及navicat
-4. 利用Eclipse打开测试类运行此项目
-
-
-### 参考博客
+#### 参考博客
 
 1. [JavaWeb中的MVC模式（有案例）](https://blog.csdn.net/weixin_45819587/article/details/120564732)
 1. [Java语言使用JDBC连接Mysql数据库的详细步骤，以及详细解释（一）](https://blog.csdn.net/weixin_44912627/article/details/109464979)
