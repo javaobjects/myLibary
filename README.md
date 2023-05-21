@@ -50,7 +50,7 @@
 | lib             | 存放程序驱动                  |
 | entity          | 实体类                        |
 | util            | 公共类                        |
-| view            | 视力类                        |
+| view            | 视图类                        |
 | factory         | 工厂类，专门生产各类dao的实例 |
 | ifac            | 接口类                        |
 | impl            | 接口实现类                    |
